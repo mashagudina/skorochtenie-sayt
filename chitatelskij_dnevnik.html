@@ -1,120 +1,326 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Авторский читательский дневник · Тренер Мария</title>
 <style>
-  :root{
-    --ink:#2b2b2b; --dim:#6d7480; --accent:#4d7c8f; --accent2:#8a6a4a;
-    --line:#d8d2c8; --soft:#eef3f4; --cream:#fffdf8;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{
-    background:#fff;color:var(--ink);
-    font-family:"Segoe UI","Segoe Print",Arial,sans-serif;
-    font-size:16px;line-height:1.55;
-  }
-  .controls{
-    max-width:760px;margin:0 auto;padding:18px 16px;text-align:center;
-    border-bottom:1px solid var(--line);background:var(--cream);
-  }
-  .btn{
-    border:none;border-radius:12px;padding:13px 24px;font-size:16px;font-weight:600;
-    cursor:pointer;font-family:inherit;min-height:46px;
-  }
-  .btn.print{background:var(--accent);color:#fff}
-  .controls p{color:var(--dim);font-size:14px;margin:8px 0 0}
+/* ==================================================================
+   ВОЛШЕБНАЯ ШКОЛА · Читательский дневник
+   Экран — ночной замок, страницы пергаментные.
+   Печать — чёрное на белом, ровно 7 страниц A4, без обрезки.
+   ================================================================== */
 
-  .sheet{max-width:210mm;margin:0 auto;}
+/* ---------- 1. ТОКЕНЫ ---------- */
+:root{
+  --bg:#0e1330; --card:#1a2050; --card-2:#222a63; --deep:#0b0f26;
+  --ink:#f4e9d0; --muted:#b8c0e0; --dim:#b8c0e0;
+  --main:#f0b429; --main-d:#ffd166;
+  --gold:#f0b429; --gold-lt:#ffd166; --wine:#a83246; --wine-d:#6d1f2e;
+  --line:#39427f; --focus:#ffd166;
+  --sand:#f4e8cd; --sand-2:#efe1c4; --sand-3:#e2d0aa;
+  --pen:#8b7a5c; --star:#d99b1a;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --r:18px;
+}
+html[data-theme="light"]{
+  --bg:#f6eedb; --card:#fffdf6; --card-2:#fdf4e0; --deep:#fffdf6;
+  --ink:#2b2415; --muted:#6d6150; --dim:#6d6150;
+  --main:#b8791a; --main-d:#8a5a10;
+  --gold:#b8791a; --gold-lt:#e8b23d; --wine:#7b1e2b; --wine-d:#5c1620;
+  --line:#d9c9a8; --focus:#7b1e2b;
+  --sand:#fffdf6; --sand-2:#fdf6e6; --sand-3:#efe0bf;
+  --pen:#8b7a5c; --star:#b8791a;
+  --shadow:0 8px 24px rgba(90,60,10,.16);
+}
+
+/* ---------- 2. БАЗА ---------- */
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  color:var(--ink);
+  font-family:"Segoe UI",-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-size:16px;line-height:1.55;
+  min-height:100vh;overflow-x:hidden;-webkit-tap-highlight-color:transparent;
+  background:
+    radial-gradient(1000px 600px at 80% -10%, rgba(255,209,102,.18), transparent 62%),
+    radial-gradient(760px 520px at 4% 106%, rgba(129,116,224,.20), transparent 60%),
+    var(--bg);
+  background-attachment:fixed;
+}
+html[data-theme="light"] body{
+  background:
+    radial-gradient(1000px 560px at 82% -12%, rgba(232,178,61,.30), transparent 60%),
+    radial-gradient(760px 520px at 2% 104%, rgba(123,30,43,.13), transparent 60%),
+    var(--bg);
+}
+
+/* звёзды и свечи */
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    radial-gradient(1.7px 1.7px at 12% 16%,#fff9,transparent),
+    radial-gradient(1.5px 1.5px at 27% 62%,#fff8,transparent),
+    radial-gradient(1.8px 1.8px at 44% 9%,#fff9,transparent),
+    radial-gradient(1.3px 1.3px at 58% 41%,#fff7,transparent),
+    radial-gradient(1.6px 1.6px at 71% 24%,#fff9,transparent),
+    radial-gradient(1.2px 1.2px at 86% 57%,#fff7,transparent),
+    radial-gradient(1.3px 1.3px at 35% 88%,#fff7,transparent);
+  animation:twinkle 5.5s ease-in-out infinite alternate;
+}
+html[data-theme="light"] body::before{opacity:.28}
+@keyframes twinkle{from{opacity:.5}to{opacity:1}}
+.candles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.candle{position:absolute;width:9px;height:38px;border-radius:5px 5px 3px 3px;
+  background:linear-gradient(180deg,#fdf3dc,#c9b78c);opacity:.45;
+  animation:floatY 10s ease-in-out infinite}
+.candle::before{content:"";position:absolute;left:50%;bottom:100%;margin-bottom:2px;
+  width:8px;height:14px;border-radius:50% 50% 46% 46%;
+  background:radial-gradient(circle at 50% 72%, #fff6d2, var(--gold-lt));
+  box-shadow:0 0 22px 8px rgba(255,209,102,.5);animation:flicker 1.7s ease-in-out infinite alternate}
+.candle::after{content:"";position:absolute;left:50%;bottom:100%;transform:translateX(-50%);
+  width:170px;height:170px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,209,102,.16), transparent 68%)}
+.c1{left:4%;top:26%;animation-duration:11s}
+.c2{right:7%;top:13%;animation-duration:13s;animation-delay:-4s}
+.c3{left:92%;top:70%;animation-duration:15s;animation-delay:-8s;transform:scale(.78)}
+@keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
+@keyframes flicker{from{transform:translateX(-50%) scaleY(1);opacity:.8}to{transform:translateX(-50%) scaleY(1.2) scaleX(1.06);opacity:1}}
+
+/* ---------- 3. ПАНЕЛЬ УПРАВЛЕНИЯ ---------- */
+.controls{
+  position:relative;z-index:1;max-width:210mm;margin:0 auto;padding:20px 16px;
+  text-align:center;background:linear-gradient(135deg,var(--wine-d),var(--wine));
+  border-radius:0 0 20px 20px;border-bottom:2px solid var(--gold);
+  box-shadow:0 8px 30px rgba(0,0,0,.5);
+}
+.controls h1{margin:0 0 4px;font-size:22px;color:#fff3d6;letter-spacing:.02em;
+  text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.controls p{color:#f2d9a8;font-size:14px;margin:10px 0 0;opacity:.96}
+.controls .tgl{position:absolute;right:12px;top:12px;background:transparent;
+  border:1px solid rgba(255,243,214,.5);color:#fff3d6;border-radius:20px;
+  padding:6px 13px;font-size:13px;cursor:pointer;font-family:inherit;min-height:32px}
+.controls .tgl:hover{background:rgba(255,243,214,.14)}
+.btn{
+  border:none;border-radius:14px;padding:14px 26px;font-size:17px;font-weight:800;
+  cursor:pointer;font-family:inherit;min-height:54px;touch-action:manipulation;
+  transition:transform .12s,filter .2s,box-shadow .2s;
+  animation:breathe 3.8s ease-in-out infinite;
+}
+.btn.print{
+  background:linear-gradient(180deg,var(--gold-lt),var(--gold));color:#2a1f05;
+  box-shadow:0 4px 18px rgba(240,180,41,.34);margin-top:14px;
+}
+.btn.print:hover{filter:brightness(1.07);transform:translateY(-2px)}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible{outline:3px solid #fff3d6;outline-offset:3px}
+@keyframes breathe{
+  0%,100%{box-shadow:0 4px 18px rgba(240,180,41,.28)}
+  50%{box-shadow:0 6px 30px rgba(240,180,41,.55)}
+}
+
+/* ---------- 4. ЛИСТЫ ---------- */
+.sheet{position:relative;z-index:1;max-width:210mm;margin:24px auto 40px;padding:0 12px}
+.page{
+  width:100%;max-width:210mm;min-height:0;
+  background:var(--sand);color:#2b2415;
+  padding:22px 20px;margin:0 auto 26px;position:relative;
+  border-radius:14px;border:1px solid var(--sand-3);
+  box-shadow:0 14px 40px rgba(0,0,0,.5);
+  font-size:16px;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.page:hover{transform:translateY(-3px);box-shadow:0 18px 50px rgba(0,0,0,.55)}
+/* золотая кромка листа */
+.page::before{
+  content:"";position:absolute;inset:7px;border:1.5px solid var(--gold);
+  border-radius:9px;pointer-events:none;opacity:.55;
+}
+.cover{
+  text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:520px;
+  background:
+    radial-gradient(700px 320px at 50% 0%, rgba(255,209,102,.26), transparent 70%),
+    linear-gradient(160deg,#4a1424,#7b1e2b 45%,#2b1018);
+  color:#fff3d6;border-color:var(--gold);
+  overflow:hidden;
+}
+.cover::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:
+    radial-gradient(1.6px 1.6px at 18% 22%,#fff9,transparent),
+    radial-gradient(1.4px 1.4px at 76% 14%,#fff8,transparent),
+    radial-gradient(1.7px 1.7px at 88% 62%,#fff9,transparent),
+    radial-gradient(1.3px 1.3px at 32% 74%,#fff7,transparent),
+    radial-gradient(1.5px 1.5px at 58% 34%,#fff8,transparent);
+}
+.cover > *{position:relative;z-index:1}
+.cover .kicker{
+  color:var(--gold-lt);letter-spacing:.25em;font-size:13px;font-weight:700;
+  text-transform:uppercase;margin-bottom:10px;
+}
+.cover h1{
+  font-size:44px;line-height:1.15;margin:0 0 6px;font-weight:800;letter-spacing:-.01em;
+  color:#fff8e6;text-shadow:0 3px 20px rgba(0,0,0,.6);
+}
+.cover .subtitle{font-size:19px;color:#f2d9a8;margin:0 0 24px}
+.cover .deco{font-size:52px;margin:10px 0;filter:drop-shadow(0 4px 14px rgba(255,209,102,.5))}
+.cover .name-line{margin:0 auto;max-width:130mm;border-bottom:1.5px solid rgba(255,243,214,.6);height:44px}
+.cover .shortline{max-width:90mm;border-color:rgba(255,243,214,.35);height:34px}
+.cover .field-label{font-size:13px;color:#f2d9a8;margin-top:4px}
+.cover .facts{margin-top:36px;font-size:15px;color:#f7e8c8;line-height:2}
+
+h2{font-size:25px;font-weight:800;margin:0 0 6px;color:#7b1e2b;letter-spacing:-.01em}
+.page-title{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;
+  padding-bottom:8px;border-bottom:2px solid var(--sand-3)}
+.page-title h2{margin:0}
+.page-title .n{color:var(--star);font-weight:800;font-size:15px;white-space:nowrap}
+.note{color:#6d6150;font-size:14px}
+
+/* ---------- 5. ИНСТРУКЦИЯ ---------- */
+.how-to{list-style:none;padding:0;margin:16px 0 0;counter-reset:step}
+.how-to li{
+  display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;
+  font-size:16px;color:#2b2415;
+}
+.how-to .num{
+  flex:0 0 28px;height:28px;border-radius:50%;
+  background:linear-gradient(135deg,var(--gold-lt),var(--gold));color:#2a1f05;
+  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;
+  box-shadow:0 3px 10px rgba(240,180,41,.35);
+}
+.how-to b{color:#7b1e2b}
+
+blockquote{
+  margin:20px 0 0;padding:16px 18px;background:var(--sand-2);
+  border-left:5px solid var(--gold);border-radius:8px;font-size:16px;color:#2b2415;
+}
+blockquote.warm{border-left-color:#7b1e2b;background:#f7ecdc}
+
+/* ---------- 6. КНИЖНАЯ ПОЛКА ---------- */
+.book-entry{
+  border:1.5px solid var(--sand-3);border-radius:14px;padding:18px 20px;margin-bottom:16px;
+  background:#fffef9;position:relative;
+}
+.book-entry::after{
+  content:"❧";position:absolute;right:12px;bottom:6px;font-size:20px;color:var(--sand-3);
+}
+.entry-head{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+.entry-head .field{flex:1;min-width:200px}
+.field .lbl{font-size:12px;color:#6d6150;font-weight:700;display:block}
+.field .line{border-bottom:1.2px solid #c9c2b4;height:30px}
+.entry-rows{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+.row2{grid-column:1 / -1}
+.row2 .box{border:1.2px solid #c9c2b4;border-radius:8px;height:66px;margin-top:6px;background:#fff}
+.row3 .box{height:96px}
+.stars{margin-top:10px}
+.star{color:var(--star);letter-spacing:4px;font-size:22px}
+.stars .note{font-size:12px;margin-left:6px}
+
+/* ---------- 7. КАЛЕНДАРЬ И ТАБЛИЦА ---------- */
+.calendar{margin-top:14px}
+.month{
+  display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;
+  border:1.2px solid var(--sand-3);border-radius:10px;padding:10px 14px;margin-bottom:10px;
+  background:#fffef9;
+}
+.month .m{font-weight:800;font-size:15px;color:#7b1e2b}
+.month .t{font-size:14px;color:#6d6150;min-height:20px;border-bottom:1px solid #d8d2c8}
+
+.speed table{width:100%;border-collapse:collapse;margin-top:12px;background:#fff}
+.speed th,.speed td{border:1px solid #c9c2b4;padding:10px 12px;text-align:center;font-size:15px;color:#2b2415}
+.speed th{background:var(--sand-2);color:#7b1e2b;font-weight:800}
+.speed td{height:40px}
+
+.quote-box{
+  border-left:5px solid #7b1e2b;background:#f7ecdc;border-radius:8px;
+  padding:18px;margin-bottom:14px;min-height:96px;
+}
+.quote-box .q{font-size:17px;font-style:italic;line-height:1.6;margin:0 0 8px;color:#2b2415}
+.quote-box .a{font-size:14px;color:#6d6150}
+
+.last-page{text-align:center}
+.last-page .big{font-size:40px;margin:20px 0 6px;filter:drop-shadow(0 4px 12px rgba(240,180,41,.4))}
+.last-page h2{color:#7b1e2b}
+.name-line{margin:0 auto;border-bottom:1.5px solid #c9c2b4}
+.field-label{font-size:13px;color:#6d6150;margin-top:4px}
+
+/* ---------- 8. АДАПТИВ ---------- */
+@media screen and (max-width:560px){
+  .page{padding:18px 16px;margin-bottom:20px}
+  .cover h1{font-size:33px}
+  .cover{min-height:440px}
+  h2{font-size:21px}
+  .entry-rows{grid-template-columns:1fr}
+  .entry-head .field{min-width:150px}
+  .month{grid-template-columns:86px 1fr;padding:9px 11px}
+  .speed th,.speed td{padding:7px 4px;font-size:13px}
+  .controls h1{font-size:19px;padding-right:0}
+  .controls .tgl{position:static;display:block;margin:10px auto 0}
+  .candle.c3{display:none}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition:none !important;animation:none !important}
+  .page:hover{transform:none}
+}
+
+/* ==================================================================
+   9. ПЕЧАТЬ A4 · чёрное на белом, ровно 7 страниц
+   ================================================================== */
+@page{size:A4 portrait;margin:12mm}
+
+@media print{
+  :root,:root[data-theme="dark"],html[data-theme="light"]{
+    --bg:#fff;--ink:#000;--muted:#000;--dim:#000;--main:#000;--main-d:#000;
+    --gold:#000;--gold-lt:#000;--wine:#000;--wine-d:#000;--line:#000;--focus:#000;
+    --sand:#fff;--sand-2:#fff;--sand-3:#000;--star:#000;
+  }
+  html,body{background:#fff !important;background-image:none !important;color:#000 !important}
+  body::before,.candles,.controls,.tgl{display:none !important}
+  *{animation:none !important;transition:none !important;box-shadow:none !important}
+  .sheet{max-width:none;margin:0;padding:0}
   .page{
-    width:210mm;min-height:297mm;padding:14mm 16mm;
-    margin:0 auto;position:relative;
-    page-break-after:always;
+    width:210mm;min-height:297mm;max-width:none;
+    margin:0;padding:14mm 16mm;
+    background:#fff !important;border-radius:0;
+    border:0;page-break-after:always;break-after:page;
   }
-  .page:last-child{page-break-after:auto}
+  .page::before{content:none !important}
+  .page:last-child{page-break-after:auto;break-after:auto}
+  .page *{color:#000 !important;background:transparent !important;box-shadow:none !important}
 
-  .cover{text-align:center;display:flex;flex-direction:column;justify-content:center;}
-  .cover .kicker{color:var(--accent2);letter-spacing:.25em;font-size:13px;font-weight:600;text-transform:uppercase;margin-bottom:10px}
-  .cover h1{font-size:44px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
-  .cover .subtitle{font-size:19px;color:var(--dim);margin:0 0 28px}
-  .cover .deco{font-size:52px;margin:14px 0}
-  .cover .name-line{
-    margin:0 auto;max-width:130mm;border-bottom:1.5px solid var(--line);height:44px;
-  }
-  .cover .shortline{max-width:90mm;border-color:#e0dbd2;height:34px}
-  .cover .field-label{font-size:13px;color:var(--dim);margin-top:4px}
-  .cover .facts{margin-top:40px;font-size:15px;color:var(--dim);line-height:1.9}
+  /* обложка: без заливки, только рамка */
+  .cover{background:#fff !important}
+  .cover::after{content:none !important}
+  .cover h1{font-size:38px}
+  .cover .name-line{border-bottom:1.5pt solid #000}
+  .cover .shortline{border-bottom:1.5pt solid #000}
+  .cover .kicker{letter-spacing:.2em}
 
-  h2{font-size:24px;font-weight:700;margin:0 0 6px}
-  .page-title{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
-  .page-title h2{margin:0}
-  .page-title .n{color:var(--accent2);font-weight:700;font-size:15px}
-  .note{color:var(--dim);font-size:14px}
-  .how-to{list-style:none;padding:0;margin:16px 0 0}
-  .how-to li{
-    display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;
-    font-size:16px;
-  }
-  .how-to .num{
-    flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
-    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
-  }
+  /* линии для письма — обязательно чёрные */
+  .field .line{border-bottom:1.2pt solid #000 !important}
+  .row2 .box{border:1.2pt solid #000 !important}
+  .month .t{border-bottom:1pt solid #000 !important}
+  .book-entry{border:1.5pt solid #000 !important;background:#fff !important}
+  .book-entry::after{content:none !important}
+  .month,.speed table{background:#fff !important}
+  .speed th,.speed td{border:0.5pt solid #000 !important}
+  .speed th{background:#fff !important;font-weight:800}
+  .page-title{border-bottom:1pt solid #000}
+  blockquote{border-left:2pt solid #000;background:#fff !important}
+  h2{font-weight:800}
+  .how-to .num{background:#fff !important;border:1pt solid #000 !important}
 
-  blockquote{
-    margin:22px 0 0;padding:16px 18px;background:var(--soft);
-    border-left:4px solid var(--accent);border-radius:8px;font-size:16px;
-  }
-  blockquote.warm{border-left-color:var(--accent2);background:#faf5ef}
+  p,li,td,h1,h2,blockquote,.book-entry,.month,.quote-box{break-inside:avoid;page-break-inside:avoid}
+  h1,h2{break-after:avoid;page-break-after:avoid}
+  body{orphans:3;widows:3}
+}
 
-  .book-entry{
-    border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;
-  }
-  .entry-head{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
-  .entry-head .field{flex:1;min-width:200px}
-  .field .lbl{font-size:12px;color:var(--dim);font-weight:600}
-  .field .line{border-bottom:1.2px solid #c9c2b4;height:30px}
-  .entry-rows{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
-  .row2{grid-column:1 / -1}
-  .row2 .box{border:1.2px solid #c9c2b4;border-radius:8px;height:66px;margin-top:6px}
-  .row3 .box{height:96px}
-  .stars{margin-top:10px}
-  .star{color:var(--accent2);letter-spacing:4px;font-size:22px}
-  .stars .note{font-size:12px;color:var(--dim);margin-left:6px}
-
-  .calendar{margin-top:14px}
-  .month{
-    display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;
-    border:1.2px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;
-  }
-  .month .m{font-weight:700;font-size:15px;color:var(--accent)}
-  .month .t{font-size:14px;color:var(--dim);min-height:20px;border-bottom:1px solid #d8d2c8}
-
-  .speed table{width:100%;border-collapse:collapse;margin-top:12px}
-  .speed th,.speed td{
-    border:1px solid var(--line);padding:10px 12px;text-align:center;font-size:15px;
-  }
-  .speed th{background:var(--soft);color:var(--accent);font-weight:700}
-  .speed td{height:40px}
-
-  .quote-box{border-left:4px solid var(--accent2);background:#faf5ef;border-radius:8px;padding:18px;margin-bottom:14px}
-  .quote-box .q{font-size:17px;font-style:italic;line-height:1.6;margin:0 0 8px}
-  .quote-box .a{font-size:14px;color:var(--dim)}
-
-  .last-page{text-align:center}
-  .last-page .big{font-size:40px;margin:20px 0 6px}
-
-  @media print{
-    .controls{display:none}
-    html,body{background:#fff}
-    .sheet{max-width:none}
-  }
 </style>
 </head>
 <body>
 
 <div class="controls">
+  <h1>📖 Читательский дневник</h1>
   <button class="btn print" onclick="window.print()">🖨️ Печать дневника (A4)</button>
   <p>Файл открывается с компьютера или телефона. Для печати нажми кнопку выше — выбери «Сохранить как PDF» или распечатай на A4.</p>
 </div>
@@ -312,5 +518,37 @@
   </div>
 
 </div>
+
+<div class="candles" aria-hidden="true">
+  <span class="candle c1"></span><span class="candle c2"></span><span class="candle c3"></span>
+</div>
+
+<script>
+(function(){
+  var KEY = "tr-theme";
+  var root = document.documentElement;
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch(e){}
+  if (saved === "light" || saved === "dark") root.setAttribute("data-theme", saved);
+
+  var box = document.querySelector(".controls");
+  if (!box) return;
+  var btn = document.createElement("button");
+  btn.type = "button";
+  btn.className = "tgl";
+  btn.style.cssText = "position:absolute;right:12px;top:12px;background:transparent;"
+    + "border:1px solid rgba(255,243,214,.5);color:#fff3d6;border-radius:20px;"
+    + "padding:6px 13px;font-size:13px;cursor:pointer;font-family:inherit;min-height:32px";
+  function label(){ btn.textContent = root.getAttribute("data-theme") === "light" ? "☕ Тёмная тема" : "☁ Светлая тема"; }
+  label();
+  btn.addEventListener("click", function(){
+    var next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem(KEY, next); } catch(e){}
+    label();
+  });
+  box.appendChild(btn);
+})();
+</script>
 </body>
 </html>
