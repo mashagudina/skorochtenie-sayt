@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Авторский читательский дневник · Тренер Мария</title>
+<style>
+  :root{
+    --ink:#2b2b2b; --dim:#6d7480; --accent:#4d7c8f; --accent2:#8a6a4a;
+    --line:#d8d2c8; --soft:#eef3f4; --cream:#fffdf8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:#fff;color:var(--ink);
+    font-family:"Segoe UI","Segoe Print",Arial,sans-serif;
+    font-size:16px;line-height:1.55;
+  }
+  .controls{
+    max-width:760px;margin:0 auto;padding:18px 16px;text-align:center;
+    border-bottom:1px solid var(--line);background:var(--cream);
+  }
+  .btn{
+    border:none;border-radius:12px;padding:13px 24px;font-size:16px;font-weight:600;
+    cursor:pointer;font-family:inherit;min-height:46px;
+  }
+  .btn.print{background:var(--accent);color:#fff}
+  .controls p{color:var(--dim);font-size:14px;margin:8px 0 0}
+
+  .sheet{max-width:210mm;margin:0 auto;}
+  .page{
+    width:210mm;min-height:297mm;padding:14mm 16mm;
+    margin:0 auto;position:relative;
+    page-break-after:always;
+  }
+  .page:last-child{page-break-after:auto}
+
+  .cover{text-align:center;display:flex;flex-direction:column;justify-content:center;}
+  .cover .kicker{color:var(--accent2);letter-spacing:.25em;font-size:13px;font-weight:600;text-transform:uppercase;margin-bottom:10px}
+  .cover h1{font-size:44px;line-height:1.15;margin:0 0 6px;font-weight:700;letter-spacing:-.01em}
+  .cover .subtitle{font-size:19px;color:var(--dim);margin:0 0 28px}
+  .cover .deco{font-size:52px;margin:14px 0}
+  .cover .name-line{
+    margin:0 auto;max-width:130mm;border-bottom:1.5px solid var(--line);height:44px;
+  }
+  .cover .shortline{max-width:90mm;border-color:#e0dbd2;height:34px}
+  .cover .field-label{font-size:13px;color:var(--dim);margin-top:4px}
+  .cover .facts{margin-top:40px;font-size:15px;color:var(--dim);line-height:1.9}
+
+  h2{font-size:24px;font-weight:700;margin:0 0 6px}
+  .page-title{display:flex;align-items:baseline;gap:10px;margin-bottom:14px}
+  .page-title h2{margin:0}
+  .page-title .n{color:var(--accent2);font-weight:700;font-size:15px}
+  .note{color:var(--dim);font-size:14px}
+  .how-to{list-style:none;padding:0;margin:16px 0 0}
+  .how-to li{
+    display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;
+    font-size:16px;
+  }
+  .how-to .num{
+    flex:0 0 26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;
+  }
+
+  blockquote{
+    margin:22px 0 0;padding:16px 18px;background:var(--soft);
+    border-left:4px solid var(--accent);border-radius:8px;font-size:16px;
+  }
+  blockquote.warm{border-left-color:var(--accent2);background:#faf5ef}
+
+  .book-entry{
+    border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:16px;
+  }
+  .entry-head{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px}
+  .entry-head .field{flex:1;min-width:200px}
+  .field .lbl{font-size:12px;color:var(--dim);font-weight:600}
+  .field .line{border-bottom:1.2px solid #c9c2b4;height:30px}
+  .entry-rows{display:grid;grid-template-columns:1fr 1fr;gap:0 20px}
+  .row2{grid-column:1 / -1}
+  .row2 .box{border:1.2px solid #c9c2b4;border-radius:8px;height:66px;margin-top:6px}
+  .row3 .box{height:96px}
+  .stars{margin-top:10px}
+  .star{color:var(--accent2);letter-spacing:4px;font-size:22px}
+  .stars .note{font-size:12px;color:var(--dim);margin-left:6px}
+
+  .calendar{margin-top:14px}
+  .month{
+    display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:center;
+    border:1.2px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:10px;
+  }
+  .month .m{font-weight:700;font-size:15px;color:var(--accent)}
+  .month .t{font-size:14px;color:var(--dim);min-height:20px;border-bottom:1px solid #d8d2c8}
+
+  .speed table{width:100%;border-collapse:collapse;margin-top:12px}
+  .speed th,.speed td{
+    border:1px solid var(--line);padding:10px 12px;text-align:center;font-size:15px;
+  }
+  .speed th{background:var(--soft);color:var(--accent);font-weight:700}
+  .speed td{height:40px}
+
+  .quote-box{border-left:4px solid var(--accent2);background:#faf5ef;border-radius:8px;padding:18px;margin-bottom:14px}
+  .quote-box .q{font-size:17px;font-style:italic;line-height:1.6;margin:0 0 8px}
+  .quote-box .a{font-size:14px;color:var(--dim)}
+
+  .last-page{text-align:center}
+  .last-page .big{font-size:40px;margin:20px 0 6px}
+
+  @media print{
+    .controls{display:none}
+    html,body{background:#fff}
+    .sheet{max-width:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button class="btn print" onclick="window.print()">🖨️ Печать дневника (A4)</button>
+  <p>Файл открывается с компьютера или телефона. Для печати нажми кнопку выше — выбери «Сохранить как PDF» или распечатай на A4.</p>
+</div>
+
+<div class="sheet">
+
+  <div class="page cover">
+    <div class="kicker">Авторский проект · Тренер Мария</div>
+    <h1>Читательский<br>дневник</h1>
+    <p class="subtitle">Читаю. Понимаю. Запоминаю.</p>
+    <div class="deco">📚</div>
+    <div class="name-line"></div>
+    <div class="field-label">Этот дневник принадлежит</div>
+    <div class="shortline" style="margin:18px auto 0"></div>
+    <p class="facts">
+      Книг прочитано за год: ______<br>
+      Моя любимая книга: ________________<br>
+      Мой рекорд скорости: ______ слов в минуту
+    </p>
+  </div>
+
+  <div class="page">
+    <div class="page-title"><span class="n">— 1 —</span><h2>Как пользоваться дневником</h2></div>
+    <ol class="how-to">
+      <li><span class="num">1</span><span><b>Читай по чуть-чуть, но каждый день.</b> 10–15 минут — достаточно, чтобы было интересно и не надоедало.</span></li>
+      <li><span class="num">2</span><span><b>Записывай книгу после того, как закончил читать.</b> Пиши своими словами — так ты её точно запомнишь.</span></li>
+      <li><span class="num">3</span><span><b>Оценивай честно.</b> Если книга не зашла — это нормально. В дневнике видно, что тебе нравится, а что нет.</span></li>
+      <li><span class="num">4</span><span><b>Замеряй скорость раз в месяц.</b> Не для гонки, а чтобы видеть свой рост. Числа — это твой собственный ориентир.</span></li>
+      <li><span class="num">5</span><span><b>Возвращайся к дневнику.</b> Через полгода интересно перечитать, что ты думал и чувствовал.</span></li>
+    </ol>
+    <blockquote>«Кто много читает и много ходит, тот много видит и много знает».<br><span style="color:var(--dim);font-size:14px">— народная мудрость</span></blockquote>
+    <blockquote class="warm">Как быстро читать: не следи за буквами, следи за смыслом. Беглым взглядом лови главное — и сразу пересказывай прочитанное маме, папе, кошке или самому себе.</blockquote>
+  </div>
+
+  <div class="page">
+    <div class="page-title"><span class="n">— 2 —</span><h2>Моя книжная полка</h2></div>
+    <p class="note">Записывай книги в порядке прочтения. Можно добавить картинку любимого героя или наклейку.</p>
+
+    <div class="book-entry">
+      <div class="entry-head">
+        <div class="field"><span class="lbl">Автор</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Название</span><div class="line"></div></div>
+      </div>
+      <div class="entry-rows">
+        <div class="field"><span class="lbl">Когда прочитал(а)</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Сколько страниц</span><div class="line"></div></div>
+        <div class="field row2"><span class="lbl">О чём эта книга (2–3 предложения)</span><div class="box row3"></div></div>
+        <div class="field row2"><span class="lbl">Самое запоминающееся место</span><div class="box"></div></div>
+        <div class="field row2"><span class="lbl">Хочу прочитать в этом же стиле / кому посоветую</span><div class="box"></div></div>
+      </div>
+      <div class="stars"><span class="star">☆☆☆☆☆</span><span class="note">обведи звёздочки — моя оценка</span></div>
+    </div>
+
+    <div class="book-entry">
+      <div class="entry-head">
+        <div class="field"><span class="lbl">Автор</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Название</span><div class="line"></div></div>
+      </div>
+      <div class="entry-rows">
+        <div class="field"><span class="lbl">Когда прочитал(а)</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Сколько страниц</span><div class="line"></div></div>
+        <div class="field row2"><span class="lbl">О чём эта книга (2–3 предложения)</span><div class="box row3"></div></div>
+        <div class="field row2"><span class="lbl">Самое запоминающееся место</span><div class="box"></div></div>
+        <div class="field row2"><span class="lbl">Хочу прочитать в этом же стиле / кому посоветую</span><div class="box"></div></div>
+      </div>
+      <div class="stars"><span class="star">☆☆☆☆☆</span><span class="note">обведи звёздочки — моя оценка</span></div>
+    </div>
+
+    <div class="book-entry">
+      <div class="entry-head">
+        <div class="field"><span class="lbl">Автор</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Название</span><div class="line"></div></div>
+      </div>
+      <div class="entry-rows">
+        <div class="field"><span class="lbl">Когда прочитал(а)</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Сколько страниц</span><div class="line"></div></div>
+        <div class="field row2"><span class="lbl">О чём эта книга (2–3 предложения)</span><div class="box row3"></div></div>
+        <div class="field row2"><span class="lbl">Самое запоминающееся место</span><div class="box"></div></div>
+        <div class="field row2"><span class="lbl">Хочу прочитать в этом же стиле / кому посоветую</span><div class="box"></div></div>
+      </div>
+      <div class="stars"><span class="star">☆☆☆☆☆</span><span class="note">обведи звёздочки — моя оценка</span></div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="page-title"><span class="n">— 3 —</span><h2>Моя книжная полка</h2></div>
+
+    <div class="book-entry">
+      <div class="entry-head">
+        <div class="field"><span class="lbl">Автор</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Название</span><div class="line"></div></div>
+      </div>
+      <div class="entry-rows">
+        <div class="field"><span class="lbl">Когда прочитал(а)</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Сколько страниц</span><div class="line"></div></div>
+        <div class="field row2"><span class="lbl">О чём эта книга (2–3 предложения)</span><div class="box row3"></div></div>
+        <div class="field row2"><span class="lbl">Самое запоминающееся место</span><div class="box"></div></div>
+        <div class="field row2"><span class="lbl">Хочу прочитать в этом же стиле / кому посоветую</span><div class="box"></div></div>
+      </div>
+      <div class="stars"><span class="star">☆☆☆☆☆</span><span class="note">обведи звёздочки — моя оценка</span></div>
+    </div>
+
+    <div class="book-entry">
+      <div class="entry-head">
+        <div class="field"><span class="lbl">Автор</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Название</span><div class="line"></div></div>
+      </div>
+      <div class="entry-rows">
+        <div class="field"><span class="lbl">Когда прочитал(а)</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Сколько страниц</span><div class="line"></div></div>
+        <div class="field row2"><span class="lbl">О чём эта книга (2–3 предложения)</span><div class="box row3"></div></div>
+        <div class="field row2"><span class="lbl">Самое запоминающееся место</span><div class="box"></div></div>
+        <div class="field row2"><span class="lbl">Хочу прочитать в этом же стиле / кому посоветую</span><div class="box"></div></div>
+      </div>
+      <div class="stars"><span class="star">☆☆☆☆☆</span><span class="note">обведи звёздочки — моя оценка</span></div>
+    </div>
+
+    <div class="book-entry">
+      <div class="entry-head">
+        <div class="field"><span class="lbl">Автор</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Название</span><div class="line"></div></div>
+      </div>
+      <div class="entry-rows">
+        <div class="field"><span class="lbl">Когда прочитал(а)</span><div class="line"></div></div>
+        <div class="field"><span class="lbl">Сколько страниц</span><div class="line"></div></div>
+        <div class="field row2"><span class="lbl">О чём эта книга (2–3 предложения)</span><div class="box row3"></div></div>
+        <div class="field row2"><span class="lbl">Самое запоминающееся место</span><div class="box"></div></div>
+        <div class="field row2"><span class="lbl">Хочу прочитать в этом же стиле / кому посоветую</span><div class="box"></div></div>
+      </div>
+      <div class="stars"><span class="star">☆☆☆☆☆</span><span class="note">обведи звёздочки — моя оценка</span></div>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="page-title"><span class="n">— 4 —</span><h2>Книжный план на год</h2></div>
+    <p class="note">Запланируй, что хочется прочитать. Отмечай галочкой ✔, когда готово.</p>
+    <div class="calendar">
+      <div class="month"><span class="m">Сентябрь</span><span class="t"></span></div>
+      <div class="month"><span class="m">Октябрь</span><span class="t"></span></div>
+      <div class="month"><span class="m">Ноябрь</span><span class="t"></span></div>
+      <div class="month"><span class="m">Декабрь</span><span class="t"></span></div>
+      <div class="month"><span class="m">Январь</span><span class="t"></span></div>
+      <div class="month"><span class="m">Февраль</span><span class="t"></span></div>
+      <div class="month"><span class="m">Март</span><span class="t"></span></div>
+      <div class="month"><span class="m">Апрель</span><span class="t"></span></div>
+      <div class="month"><span class="m">Май</span><span class="t"></span></div>
+    </div>
+    <blockquote class="warm">План на месяц — это 2–3 книги, а не список на год. Лучше меньше, но прочитано и понято.</blockquote>
+  </div>
+
+  <div class="page speed">
+    <div class="page-title"><span class="n">— 5 —</span><h2>Мой темп чтения</h2></div>
+    <p class="note">Замеряй раз в месяц — на занятии или дома с таймером. Не сравнивай с другими, сравнивай с собой месяц назад.</p>
+    <table>
+      <tr>
+        <th>Месяц</th>
+        <th>Скорость, слов/мин</th>
+        <th>Понимание, из 100%</th>
+        <th>Мой вывод</th>
+      </tr>
+      <tr><td>Сентябрь</td><td></td><td></td><td></td></tr>
+      <tr><td>Октябрь</td><td></td><td></td><td></td></tr>
+      <tr><td>Ноябрь</td><td></td><td></td><td></td></tr>
+      <tr><td>Декабрь</td><td></td><td></td><td></td></tr>
+      <tr><td>Январь</td><td></td><td></td><td></td></tr>
+      <tr><td>Февраль</td><td></td><td></td><td></td></tr>
+      <tr><td>Март</td><td></td><td></td><td></td></tr>
+      <tr><td>Апрель</td><td></td><td></td><td></td></tr>
+      <tr><td>Май</td><td></td><td></td><td></td></tr>
+    </table>
+    <blockquote>Что тренируем: скорость чтения при полном понимании. Сначала важно понять, а темп подтянется следом.</blockquote>
+  </div>
+
+  <div class="page">
+    <div class="page-title"><span class="n">— 6 —</span><h2>Мои любимые фразы и мысли</h2></div>
+    <p class="note">Записывай цитаты и свои впечатления — сделай хорошие книги частью своей жизни.</p>
+    <div class="quote-box"><p class="q"></p><div class="a">Книга: ____________</div></div>
+    <div class="quote-box"><p class="q"></p><div class="a">Книга: ____________</div></div>
+    <div class="quote-box"><p class="q"></p><div class="a">Книга: ____________</div></div>
+    <div class="quote-box"><p class="q"></p><div class="a">Книга: ____________</div></div>
+    <div class="quote-box"><p class="q"></p><div class="a">Книга: ____________</div></div>
+  </div>
+
+  <div class="page last-page" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">
+    <div class="big">🏆</div>
+    <h2>Мои достижения за год</h2>
+    <p style="color:var(--dim);max-width:130mm;margin:10px 0 22px">Отметь, чего ты добился. Это твоя личная история роста.</p>
+    <div class="name-line" style="margin:0 auto;max-width:120mm;border-bottom:1.5px solid var(--line);height:30px"></div>
+    <div class="field-label">Самая интересная книга года</div>
+    <div class="name-line" style="margin:18px auto 0;max-width:100mm;height:30px"></div>
+    <div class="field-label">Главное, что я стал(а) делать лучше</div>
+    <div class="name-line" style="margin:18px auto 0;max-width:110mm;height:30px"></div>
+    <div class="field-label">Моя цель на следующий год</div>
+    <p style="margin-top:36px;color:var(--dim);font-size:14px">Чтение — это навык. А навык можно развивать. Тренер Мария · Гудина Мария Юрьевна</p>
+  </div>
+
+</div>
+</body>
+</html>

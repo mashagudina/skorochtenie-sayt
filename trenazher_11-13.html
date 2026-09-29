@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Скорочтение 11–13 · Тренажёр</title>
+<style>
+  :root{
+    --bg:#f5f9fc; --card:#ffffff; --ink:#3d3a3a; --main:#6d8fb5; --soft:#aac7dd;
+    --accent:#8a6a4a; --ok:#7bb59a; --bad:#d98b8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:16px}
+  header{background:var(--soft);color:#fff;padding:14px 18px;text-align:center}
+  header h1{margin:0;font-size:24px}
+  header p{margin:4px 0 0;font-size:14px;opacity:.9}
+  main{max-width:780px;margin:18px auto;padding:0 14px}
+  .card{background:var(--card);border:1px solid #e2edf5;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 2px 8px rgba(122,156,198,.12)}
+  h2{margin:0 0 12px;font-size:19px;color:var(--main)}
+  p{margin:6px 0}
+  .btn{border:none;border-radius:20px;padding:10px 20px;font-size:16px;cursor:pointer;background:var(--main);color:#fff}
+  .btn.ghost{background:#fff;border:2px solid var(--soft);color:var(--main)}
+  .btn:active{transform:scale(.97)}
+  .grid{display:grid;gap:6px;margin:14px 0;user-select:none;max-width:420px}
+  .cell{background:#eef4fa;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:600;cursor:pointer;font-size:20px;aspect-ratio:1;transition:background .15s}
+  .cell.sel{background:var(--ok);color:#fff}
+  .cell.err{background:var(--bad);color:#fff}
+  .timer{font-size:22px;font-weight:700;color:var(--accent)}
+  .columns{column-count:2;column-gap:1.6em;background:#fdfaf4;border:1px solid #f0e2cc;border-radius:12px;padding:16px;font-size:18px;line-height:1.65}
+  .metron{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .bpm{font-size:26px;font-weight:700;color:var(--main)}
+  .reading{background:#fdfaf4;border:1px solid #f0e2cc;border-radius:12px;padding:16px;font-size:19px;line-height:1.65}
+  .stat{color:var(--accent);font-weight:600;font-size:15px}
+  .hidden{display:none}
+  .footer{text-align:center;color:#a5b8c9;font-size:13px;margin:20px 0}
+  .stop{width:0}
+</style>
+</head>
+<body>
+<header>
+  <h1>⚡ Тренажёр скорочтения</h1>
+  <p>11–13 лет · Шульте 5×5 · Вертикальное чтение · Метроном · Замер</p>
+</header>
+<main>
+
+  <div class="card">
+    <h2>👁 Таблица Шульте 5×5</h2>
+    <p>Найди числа от 1 до 25 взглядом, не двигая головой. Глаза — вперёд!</p>
+    <div id="shulte" class="grid" style="grid-template-columns:repeat(5,1fr)"></div>
+    <p><span class="timer" id="shulteTime">0.0</span> сек · найдено <span id="shulteCount">0</span>/25</p>
+    <button class="btn" id="shulteNew">Новая таблица</button>
+  </div>
+
+  <div class="card">
+    <h2>📰 Вертикальное чтение</h2>
+    <p>Читай колонки вниз, не возвращаясь взглядом вверх. Смысл ловим сразу.</p>
+    <div class="columns" id="verticalText"></div>
+    <button class="btn ghost" id="verticalNew">Другой текст</button>
+  </div>
+
+  <div class="card">
+    <h2>🎵 Метроном-ритм</h2>
+    <p>Читай под ритм. Начинай медленно, потом ускоряй. Внутренний голос не успевает — и хорошо!</p>
+    <div class="metron">
+      <button class="btn" id="metroStart">▶ Старт</button>
+      <button class="btn ghost" id="metroStop">⏹ Стоп</button>
+      <span class="bpm" id="bpmValue">100</span> BPM
+      <input id="bpmRange" type="range" min="60" max="180" value="100">
+    </div>
+    <p id="metroTick" style="font-size:15px;color:#a5b8c9">Нажми старт — услышишь ритм.</p>
+  </div>
+
+  <div class="card">
+    <h2>⏱ Замер скорости чтения</h2>
+    <p>Нажми «Старт», прочитай текст молча с полным пониманием, нажми «Стоп». Введи минуты (например 0.9).</p>
+    <div class="reading" id="readText"></div>
+    <p class="stat">Слов в тексте: <b id="wordCount"></b></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="readStart">▶ Старт</button>
+      <button class="btn ghost" id="readStop">⏹ Стоп</button>
+      <button class="btn ghost" id="readNew">Новый текст</button>
+    </div>
+    <p><input id="minutes" type="number" step="0.05" min="0.1" placeholder="Минут" style="max-width:140px;padding:8px;border-radius:10px;border:1px solid #d8e2ec"></p>
+    <p id="wpm" style="font-size:20px;font-weight:700;color:var(--main)"></p>
+  </div>
+
+  <div class="footer">Сделано для Марии · Читаю быстро — понимаю всё!</div>
+</main>
+
+<script>
+// Шульте 5x5
+const grid = document.getElementById('shulte');
+const tTime = document.getElementById('shulteTime');
+const tCount = document.getElementById('shulteCount');
+let nums, next=1, start=null, timer=null;
+function newShulte(){
+  nums = [...Array(25).keys()].map(i=>i+1).sort(()=>Math.random()-0.5);
+  next=1; tCount.textContent='0'; tTime.textContent='0.0'; start=null;
+  grid.innerHTML = nums.map(n=>`<div class="cell" data-n="${n}">${n}</div>`).join('');
+}
+grid.onclick = e=>{
+  const c=e.target.closest('.cell'); if(!c) return;
+  const n=+c.dataset.n;
+  if(n===next){
+    c.classList.add('sel'); c.style.pointerEvents='none'; next++; tCount.textContent=next-1;
+    if(next===1){ start=performance.now(); clearInterval(timer);
+      timer=setInterval(()=>{ if(start) tTime.textContent=((performance.now()-start)/1000).toFixed(1); },100); }
+    if(next>25){ clearInterval(timer); tTime.textContent=((performance.now()-start)/1000).toFixed(1); start=null; }
+  } else {
+    c.classList.remove('err'); void c.offsetWidth; c.classList.add('err');
+    setTimeout(()=>c.classList.remove('err'),300);
+  }
+};
+document.getElementById('shulteNew').onclick=newShulte;
+newShulte();
+
+// Вертикальное чтение
+const VERT_TEXTS = [
+ "Скорочтение — это не про быстрые глаза. Это про быстрый ум. Настоящий скорочт еще не читает каждое слово. Он видит мысль. Глаза скользят по колонкам сверху вниз. Мозг сам собирает смысл из главных слов. Тренируй вертикальный взгляд каждый день. Тогда текст перестанет убегать. Ты начнёшь читать быстрее, чем раньше казалось возможным. Попробуй сегодня.",
+ "Любопытство — лучший друг читателя. Когда тебе интересно, мозг работает в два раза быстрее. Он сам ищет ответы, сам строит догадки. Поэтому скорочтение начинается с книг, которые нравятся. Выбирай рассказы о приключениях. Читай о животных, космосе, тайнах. Интерес делает чтение лёгким, а легкость даёт скорость. Помни: быстрый читатель — это увлечённый читатель.",
+ "Техника метронома проста. Задай ритм — и читай под него. Сначала сто ударов в минуту. Потом сто двадцать. Глаза движутся в такт. Внутренний голос замолкает. Мозг учится понимать сразу. Три минуты такой тренировки в день дают результат уже через месяц. Главное — регулярность, а не сила. Маленькие шаги каждый день побеждают большие прыжки раз в месяц."
+];
+const vert = document.getElementById('verticalText');
+function newVert(){ vert.textContent = VERT_TEXTS[Math.floor(Math.random()*VERT_TEXTS.length)]; }
+document.getElementById('verticalNew').onclick=newVert;
+newVert();
+
+// Метроном
+let metro = null;
+const audioCtxCtor = window.AudioContext||window.webkitAudioContext;
+const bpmRange=document.getElementById('bpmRange');
+const bpmValue=document.getElementById('bpmValue');
+bpmRange.oninput=()=>bpmValue.textContent=bpmRange.value;
+function metroStart(){
+  if(metro){ metro.interval && clearInterval(metro.interval); }
+  const ctx = metro&&metro.ctx ? metro.ctx : new audioCtxCtor();
+  const beep = ()=>{
+    const o=ctx.createOscillator(), g=ctx.createGain();
+    o.frequency.value=880; o.type='sine';
+    g.gain.value=0.06;
+    o.connect(g); g.connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime+0.05);
+  };
+  beep();
+  metro = { ctx, interval: setInterval(beep, 60000/parseInt(bpmRange.value,10)) };
+}
+document.getElementById('metroStart').onclick=metroStart;
+document.getElementById('metroStop').onclick=()=>{ if(metro){ clearInterval(metro.interval); metro.interval=null; } };
+
+// Замер скорости
+const READ_TEXTS = [
+ "Зачем нужно скорочтение? Представь, что каждый день ты читаешь учебник, домашнее задание и любимую книгу. Если читать медленно, на это уходит много времени. Скорочтение помогает тратить меньше времени и больше понимать. При этом главное — не скорость сама по себе, а понимание. Быстро читать — значит быстро думать. Когда ты читаешь быстро, твой мозг учится сразу выделять главное. Через пару месяцев тренировок ты заметишь, что повторяешь материал быстрее одноклассников.",
+ "Шестой класс — самое время освоить скорочтение. Тексты в учебниках становятся длиннее, заданий больше. Ученик, который быстро читает, успевает всё. Он повторяет параграф за десять минут вместо получаса. У него остаётся время на отдых и хобби. Это не магия: просто тренировка взгляда и мышления. Каждый день десять минут — и через месяц скорость вырастет в полтора раза. Попробуй вести дневник, куда будешь записывать свою скорость. Это очень мотивирует.",
+ "Что такое вертикальное чтение? Это когда ты ведёшь взгляд сверху вниз, а не по строчкам. Сначала непривычно, но мозг быстро учится. Вертикальное чтение помогает увидеть текст целиком, как картину. Ты замечаешь структуру: где начало, где главная мысль, где вывод. Такое чтение отлично подходит для пересказа и конспектов. Оно экономит время и улучшает понимание. Не бойся пробовать новое. Любая техника сначала кажется сложной, а потом становится привычкой."
+];
+const readEl=document.getElementById('readText');
+let rt=null;
+function newRead(){
+  readEl.textContent=READ_TEXTS[Math.floor(Math.random()*READ_TEXTS.length)];
+  document.getElementById('wordCount').textContent=readEl.textContent.split(/\s+/).length;
+  document.getElementById('wpm').textContent='';
+}
+document.getElementById('readStart').onclick=()=>{ rt=Date.now(); };
+document.getElementById('readStop').onclick=()=>{
+  if(!rt) return;
+  const min = parseFloat(document.getElementById('minutes').value) || ((Date.now()-rt)/60000);
+  const wpm = Math.round(parseInt(document.getElementById('wordCount').textContent,10)/min);
+  const grade = wpm>=150?(wpm>=220?'Превосходно! 🏆':'Отлично! ⭐'):'Ещё тренируемся 💪';
+  document.getElementById('wpm').textContent=`${wpm} слов/мин · ${grade}`;
+  rt=null;
+};
+document.getElementById('readNew').onclick=newRead;
+newRead();
+</script>
+</body>
+</html>

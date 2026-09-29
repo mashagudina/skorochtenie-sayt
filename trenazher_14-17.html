@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Скорочтение 14–17 · Тренажёр</title>
+<style>
+  :root{
+    --bg:#f5f9fc; --card:#ffffff; --ink:#3d3a3a; --main:#5d82a8; --soft:#9fc0d8;
+    --accent:#8a6a4a; --ok:#7bb59a; --bad:#d98b8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:16px}
+  header{background:var(--soft);color:#fff;padding:14px 18px;text-align:center}
+  header h1{margin:0;font-size:24px}
+  header p{margin:4px 0 0;font-size:14px;opacity:.9}
+  main{max-width:820px;margin:18px auto;padding:0 14px}
+  .card{background:var(--card);border:1px solid #e2edf5;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 2px 8px rgba(122,156,198,.12)}
+  h2{margin:0 0 12px;font-size:19px;color:var(--main)}
+  p{margin:6px 0}
+  .btn{border:none;border-radius:20px;padding:10px 20px;font-size:16px;cursor:pointer;background:var(--main);color:#fff}
+  .btn.ghost{background:#fff;border:2px solid var(--soft);color:var(--main)}
+  .btn:active{transform:scale(.97)}
+  .grid{display:grid;gap:5px;margin:14px 0;user-select:none;max-width:440px}
+  .cell{background:#eef4fa;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:600;cursor:pointer;font-size:18px;aspect-ratio:1;transition:background .15s}
+  .cell.sel{background:var(--ok);color:#fff}
+  .cell.err{background:var(--bad);color:#fff}
+  .timer{font-size:22px;font-weight:700;color:var(--accent)}
+  .reading{background:#fdfaf4;border:1px solid #f0e2cc;border-radius:12px;padding:16px;font-size:18px;line-height:1.65}
+  .scan-box{border:1px dashed var(--soft);border-radius:12px;padding:14px;margin:8px 0;text-align:center}
+  .stat{color:var(--accent);font-weight:600}
+  .footer{text-align:center;color:#a5b8c9;font-size:13px;margin:20px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 Тренажёр скорочтения</h1>
+  <p>14–17 лет · Шульте 6×6 · Z-чтение · Сканирование · Замер</p>
+</header>
+<main>
+
+  <div class="card">
+    <h2>👁 Таблица Шульте 6×6</h2>
+    <p>Найди числа от 1 до 36 взглядом. Максимальная концентрация, голова неподвижна.</p>
+    <div id="shulte" class="grid" style="grid-template-columns:repeat(6,1fr)"></div>
+    <p><span class="timer" id="shulteTime">0.0</span> сек · найдено <span id="shulteCount">0</span>/36</p>
+    <button class="btn" id="shulteNew">Новая таблица</button>
+  </div>
+
+  <div class="card">
+    <h2>🪢 Z-чтение</h2>
+    <p>Веди взгляд «змейкой»: первая строка целиком, следующие — коротким взглядом наискосок. Лови структуру текста.</p>
+    <div class="reading" id="zText"></div>
+    <button class="btn ghost" id="zNew">Другой текст</button>
+  </div>
+
+  <div class="card">
+    <h2>🔎 Сканирование</h2>
+    <p>Прочитай вопрос и найди ответ в тексте за 20 секунд, не читая всё подряд.</p>
+    <div class="scan-box" id="qBox" style="font-size:17px"><b id="qText"></b></div>
+    <div class="reading" id="scanText"></div>
+    <button class="btn" id="scanAnswer">Показать ответ</button>
+    <button class="btn ghost" id="scanNew">Новый вопрос</button>
+    <p id="scanResult" style="font-size:17px"></p>
+  </div>
+
+  <div class="card">
+    <h2>⏱ Замер скорости чтения</h2>
+    <p>Читай молча с полным пониманием. Введи минуты (например 1.2).</p>
+    <div class="reading" id="readText"></div>
+    <p class="stat">Слов: <b id="wordCount"></b></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="readStart">▶ Старт</button>
+      <button class="btn ghost" id="readStop">⏹ Стоп</button>
+      <button class="btn ghost" id="readNew">Новый текст</button>
+    </div>
+    <p><input id="minutes" type="number" step="0.05" min="0.1" placeholder="Минут" style="max-width:140px;padding:8px;border-radius:10px;border:1px solid #d8e2ec"></p>
+    <p id="wpm" style="font-size:20px;font-weight:700;color:var(--main)"></p>
+  </div>
+
+  <div class="footer">Сделано для Марии · Скорость — это мышление</div>
+</main>
+
+<script>
+// Шульте 6x6
+const grid=document.getElementById('shulte'),tTime=document.getElementById('shulteTime'),tCount=document.getElementById('shulteCount');
+let nums,next=1,start=null,timer=null;
+function newShulte(){
+  nums=[...Array(36).keys()].map(i=>i+1).sort(()=>Math.random()-0.5);
+  next=1;tCount.textContent='0';tTime.textContent='0.0';start=null;
+  grid.innerHTML=nums.map(n=>`<div class="cell" data-n="${n}">${n}</div>`).join('');
+}
+grid.onclick=e=>{
+  const c=e.target.closest('.cell');if(!c)return;
+  const n=+c.dataset.n;
+  if(n===next){c.classList.add('sel');c.style.pointerEvents='none';next++;tCount.textContent=next-1;
+    if(next===1){start=performance.now();clearInterval(timer);timer=setInterval(()=>{if(start)tTime.textContent=((performance.now()-start)/1000).toFixed(1);},100);}
+    if(next>36){clearInterval(timer);tTime.textContent=((performance.now()-start)/1000).toFixed(1);start=null;}
+  } else {c.classList.remove('err');void c.offsetWidth;c.classList.add('err');setTimeout(()=>c.classList.remove('err'),300);}
+};
+document.getElementById('shulteNew').onclick=newShulte;newShulte();
+
+// Z-чтение
+const Z_TEXTS=[
+ "Скорочтение — это навык, который меняет отношение к информации. Больше не нужно перечитывать абзац трижды: взгляд сам цепляет главное. Техника Z работает так: первую строку ты прочитываешь полностью, она задаёт тему. Дальше взгляд скользит наискосок вниз и вправо, потом вниз и влево, словно змейка. Мозг достраивает пробелы из контекста. Важно верить, что понимание не пропадёт, даже если ты не «проговорил» каждое слово.",
+ "Подростки читают в среднем 200 слов в минуту. Это мало: текст на страницу уходит за четыре минуты. Со скорочтением ту же страницу можно прочитать за полторы. Техника не отменяет вдумчивость: сложные абзацы можно перечитать, а простые просмотреть. Умение выбирать скорость — высший пилотаж. Быстро для общего смысла, медленно для глубины. Так читают профессиональные литераторы. Так можешь научиться читать и ты.",
+ "Информации вокруг становится всё больше. Раньше человек читал одну газету в день. Сейчас лента новостей обновляется каждую минуту. Чтобы не утонуть в потоке, нужен навык. Это не про то, чтобы проглотить всё. Это про умение отбирать важное. Просматривай заголовки, сканируй статьи, углубляйся только в нужное. Быстрый читатель не тот, кто читает много. Быстрый читатель тот, кто быстро понимает, что ему важно."
+];
+const z=document.getElementById('zText');
+function newZ(){z.textContent=Z_TEXTS[Math.floor(Math.random()*Z_TEXTS.length)];}
+document.getElementById('zNew').onclick=newZ;newZ();
+
+// Сканирование
+const SCANS=[
+ {q:"В каком году родился А.С. Пушкин?", a:"1799", t:"Великий русский поэт Александр Сергеевич Пушкин родился в Москве в 1799 году в дворянской семье. Маленький Саша рано научился читать и полюбил русскую сказку. С детства он слышал песни и предания, которые рассказывала ему няня Арина Родионовна. Позже эти впечатления стали источником его лучших произведений. Пушкин писал стихи, прозу, сказки и драмы. Его называют солнцем русской поэзии. Умер поэт в 1837 году после дуэли."},
+ {q:"Сколько планет в Солнечной системе?", a:"8", t:"Солнечная система — это семья планет, вращающихся вокруг Солнца. К планетам земной группы относятся Меркурий, Венера, Земля и Марс. Далее идут газовые гиганты: Юпитер, Сатурн, Уран и Нептун. Таким образом, в Солнечной системе восемь планет. Плутон когда-то считали девятой планетой, но позже его отнесли к карликовым планетам. Самая большая планета — Юпитер, он больше Земли в одиннадцать раз."},
+ {q:"Кто написал картину «Богатыри»?", a:"Виктор Васнецов", t:"Русский художник Виктор Михайлович Васнецов прославился картинами на сказочные сюжеты. Одно из самых известных его полотен — «Богатыри», над которым он работал около двадцати лет. На картине изображены три защитника земли русской: Илья Муромец, Добрыня Никитич и Алёша Попович. Васнецов писал и других персонажей былин и сказок: Алёнку, Кощея Бессмертного, Ивана-царевича. Его мастерская в Москве была полна эскизов к будущим полотнам."},
+ {q:"Сколько килограммов в одной тонне?", a:"1000", t:"Тонна — это единица измерения массы. В одной тонне содержится тысяча килограммов. Эту единицу часто используют при измерении тяжёлых грузов: машин, зерна, металла. Например, лёгковой автомобиль весит около полутора тонн. Слон весит примерно пять тонн. Чтобы представить тонну, вообрази сто вёдер воды: каждое весит десять килограммов, а сто вёдер — ровно одну тонну."},
+];
+let scanIdx=0;
+const qEl=document.getElementById('qText'),scanTxt=document.getElementById('scanText'),scanRes=document.getElementById('scanResult');
+function newScan(){scanIdx=Math.floor(Math.random()*SCANS.length);
+  qEl.textContent=SCANS[scanIdx].q;scanTxt.textContent=SCANS[scanIdx].t;scanRes.textContent='';}
+document.getElementById('scanNew').onclick=newScan;
+document.getElementById('scanAnswer').onclick=()=>{scanRes.textContent='✅ Ответ: '+SCANS[scanIdx].a;};
+newScan();
+
+// Замер
+const READ_TEXTS=[
+ "Скорочтение часто воспринимают как магический навык гениев. На самом деле это система тренируемых техник. Первая техника — расширение поля зрения: глаз перестаёт «спотыкаться» на каждом слове и схватывает группы слов. Вторая — подавление субвокализации, то есть внутреннего проговаривания. Третья — стратегическое чтение: умение выбрать скорость под задачу. Четвёртая — работа с памятью и вниманием. Освоив четыре блока, человек действительно начинает читать быстрее и понимать глубже. Самое приятное, что тренировка занимает всего пятнадцать минут в день.",
+ "Невнимательность — главный враг быстроты. Если голова забита посторонними мыслями, никакие техники не помогут. Поэтому начни с концентрации: перед чтением сделай три глубоких вдоха и сформулируй вопрос, на который ищешь ответ. Тогда мозг будет выхватывать из текста нужное, как луч фонаря. Текст — это не ровная дорожка букв, а карта с ориентирами. Заголовки, первые предложения абзацев, выводы — вот твои вехи. Читай по вехам — и скорость вырастет сама.",
+ "Подготовка к экзаменам — идеальная площадка для скорочтения. Длинные параграфы, множество дат и определений, нехватка времени. Быстрый ученик успевает повторить больше, а значит, чувствует себя увереннее. Система проста: сначала бегло просмотри главу, отметь главное. Потом прочитай углублённо сложные места. В конце перескажи своими словами. Этот трёхшаговый алгоритм сокращает время подготовки в два раза. Регулярно применяй его на домашних заданиях, и к экзаменам навык станет автоматическим."
+];
+const readEl=document.getElementById('readText');let rt=null;
+function newRead(){readEl.textContent=READ_TEXTS[Math.floor(Math.random()*READ_TEXTS.length)];
+  document.getElementById('wordCount').textContent=readEl.textContent.split(/\s+/).length;document.getElementById('wpm').textContent='';}
+document.getElementById('readStart').onclick=()=>{rt=Date.now();};
+document.getElementById('readStop').onclick=()=>{if(!rt)return;
+  const min=parseFloat(document.getElementById('minutes').value)||((Date.now()-rt)/60000);
+  const wpm=Math.round(parseInt(document.getElementById('wordCount').textContent,10)/min);
+  const grade=wpm>=250?(wpm>=350?'Чемпионский темп! 🏆':'Отлично! ⭐'):'Тренируемся дальше 💪';
+  document.getElementById('wpm').textContent=`${wpm} слов/мин · ${grade}`;rt=null;};
+document.getElementById('readNew').onclick=newRead;newRead();
+</script>
+</body>
+</html>

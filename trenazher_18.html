@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Скорочтение 18+ · Тренажёр</title>
+<style>
+  :root{
+    --bg:#f5f9fc; --card:#ffffff; --ink:#3d3a3a; --main:#47698c; --soft:#8fb3d0;
+    --accent:#8a6a4a; --ok:#7bb59a; --bad:#d98b8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:16px}
+  header{background:var(--soft);color:#fff;padding:14px 18px;text-align:center}
+  header h1{margin:0;font-size:24px}
+  header p{margin:4px 0 0;font-size:14px;opacity:.9}
+  main{max-width:860px;margin:18px auto;padding:0 14px}
+  .card{background:var(--card);border:1px solid #e2edf5;border-radius:14px;padding:18px;margin-bottom:18px;box-shadow:0 2px 8px rgba(122,156,198,.12)}
+  h2{margin:0 0 12px;font-size:19px;color:var(--main)}
+  p{margin:6px 0}
+  .btn{border:none;border-radius:20px;padding:10px 20px;font-size:16px;cursor:pointer;background:var(--main);color:#fff}
+  .btn.ghost{background:#fff;border:2px solid var(--soft);color:var(--main)}
+  .btn:active{transform:scale(.97)}
+  .grid{display:grid;gap:4px;margin:14px 0;user-select:none;max-width:470px}
+  .cell{background:#eef4fa;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600;cursor:pointer;font-size:16px;aspect-ratio:1;transition:background .15s}
+  .cell.sel{background:var(--ok);color:#fff}
+  .cell.err{background:var(--bad);color:#fff}
+  .timer{font-size:22px;font-weight:700;color:var(--accent)}
+  .reading{background:#fdfaf4;border:1px solid #f0e2cc;border-radius:12px;padding:16px;font-size:17px;line-height:1.65}
+  .columns{column-count:3;column-gap:1.4em;background:#fdfaf4;border:1px solid #f0e2cc;border-radius:12px;padding:16px;font-size:17px;line-height:1.6}
+  .stat{color:var(--accent);font-weight:600}
+  .footer{text-align:center;color:#a5b8c9;font-size:13px;margin:20px 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎯 Тренажёр скорочтения</h1>
+  <p>18+ · Шульте 7×7 · Диагональ · Сканирование · Профессиональный замер</p>
+</header>
+<main>
+
+  <div class="card">
+    <h2>👁 Таблица Шульте 7×7</h2>
+    <p>Предельная концентрация. Найди числа 1–49 взглядом, не двигая головой.</p>
+    <div id="shulte" class="grid" style="grid-template-columns:repeat(7,1fr)"></div>
+    <p><span class="timer" id="shulteTime">0.0</span> сек · найдено <span id="shulteCount">0</span>/49</p>
+    <button class="btn" id="shulteNew">Новая таблица</button>
+  </div>
+
+  <div class="card">
+    <h2>📚 Диагональное чтение</h2>
+    <p>Веди взгляд по диагонали сверху вниз, цепляя ключевые слова. Цель — общая картина текста.</p>
+    <div class="columns" id="diagText"></div>
+    <button class="btn ghost" id="diagNew">Другой текст</button>
+  </div>
+
+  <div class="card">
+    <h2>⏱ Профессиональный замер</h2>
+    <p>Читай молча с полным пониманием. Введи минуты (например 1.4). Ориентиры: 300+ слов/мин — отлично.</p>
+    <div class="reading" id="readText"></div>
+    <p class="stat">Слов: <b id="wordCount"></b></p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" id="readStart">▶ Старт</button>
+      <button class="btn ghost" id="readStop">⏹ Стоп</button>
+      <button class="btn ghost" id="readNew">Новый текст</button>
+    </div>
+    <p><input id="minutes" type="number" step="0.05" min="0.1" placeholder="Минут" style="max-width:140px;padding:8px;border-radius:10px;border:1px solid #d8e2ec"></p>
+    <p id="wpm" style="font-size:20px;font-weight:700;color:var(--main)"></p>
+  </div>
+
+  <div class="card">
+    <h2>📈 Нормативы для взрослых</h2>
+    <table style="width:100%;border-collapse:collapse;font-size:15px">
+      <tr style="background:#eef4fa"><th style="padding:6px;text-align:left">Уровень</th><th style="padding:6px;text-align:left">Слов в минуту</th><th style="padding:6px;text-align:left">Комментарий</th></tr>
+      <tr><td style="padding:6px">Средний взрослый</td><td style="padding:6px">180–250</td><td style="padding:6px">База, с которой стартуем</td></tr>
+      <tr><td style="padding:6px">Скорочтение 1 ступень</td><td style="padding:6px">300–400</td><td style="padding:6px">После 2–3 месяцев занятий</td></tr>
+      <tr><td style="padding:6px">Скорочтение 2 ступень</td><td style="padding:6px">400–600</td><td style="padding:6px">При регулярной практике</td></tr>
+      <tr><td style="padding:6px">Профессиональный уровень</td><td style="padding:6px">600+</td><td style="padding:6px">При глубокой работе с техникой</td></tr>
+    </table>
+  </div>
+
+  <div class="footer">Сделано для Марии · Читаю как профессионал</div>
+</main>
+
+<script>
+// Шульте 7x7
+const grid=document.getElementById('shulte'),tTime=document.getElementById('shulteTime'),tCount=document.getElementById('shulteCount');
+let nums,next=1,start=null,timer=null;
+function newShulte(){
+  nums=[...Array(49).keys()].map(i=>i+1).sort(()=>Math.random()-0.5);
+  next=1;tCount.textContent='0';tTime.textContent='0.0';start=null;
+  grid.innerHTML=nums.map(n=>`<div class="cell" data-n="${n}">${n}</div>`).join('');
+}
+grid.onclick=e=>{
+  const c=e.target.closest('.cell');if(!c)return;
+  const n=+c.dataset.n;
+  if(n===next){c.classList.add('sel');c.style.pointerEvents='none';next++;tCount.textContent=next-1;
+    if(next===1){start=performance.now();clearInterval(timer);timer=setInterval(()=>{if(start)tTime.textContent=((performance.now()-start)/1000).toFixed(1);},100);}
+    if(next>49){clearInterval(timer);tTime.textContent=((performance.now()-start)/1000).toFixed(1);start=null;}
+  } else {c.classList.remove('err');void c.offsetWidth;c.classList.add('err');setTimeout(()=>c.classList.remove('err'),300);}
+};
+document.getElementById('shulteNew').onclick=newShulte;newShulte();
+
+// Диагональное чтение
+const DIAG_TEXTS=[
+ "Скорочтение для взрослого человека — это не гонка, а инструмент экономии времени. В сутках по-прежнему двадцать четыре часа, а литературы, документов и писем становится больше. Навык быстрого чтения возвращает контроль над информационным потоком. Он помогает за полчаса изучить то, на что раньше уходил час. Важно помнить: скорость всегда подчинена цели. Новость можно пробежать за минуту, а научную статью стоит прочитать вдумчивее. Умный читатель гибко выбирает темп. Освоив техники, ты сам решаешь, где разогнаться, а где притормозить.",
+ "Взрослые читатели чаще всего тормозят из-за привычки проговаривать текст внутри себя. Этот «внутренний голос» диктует темп, как радио, которое нельзя выключить. Техника подавления субвокализации строится на одном правиле: веди взгляд быстрее, чем успевает голос. Сначала мозгу трудно, но через несколько дней он привыкает понимать без «озвучки». Поле зрения тоже расширяется: глаза начинают захватывать по три-пять слов за одну фиксацию. Так рождается настоящее скорочтение — спокойное, уверенное, без напряжения.",
+ "Работа с профессиональными документами требует особого подхода. Договор, отчёт или научная статья выстроены по структуре. Опытный скоростной читатель ищет эту структуру. Сначала взгляд скользит по заголовкам и первым предложениям абзацев. Потом помечаются цифры, даты и термины. Сложные фрагменты перечитываются. В итоге за несколько минут складывается ясная картина содержания. Этот трёхшаговый цикл — обзор, поиск, углубление — основа профессионального чтения. Его можно применять к любым текстам: от инструкций до научных монографий."
+];
+const diag=document.getElementById('diagText');
+function newDiag(){diag.textContent=DIAG_TEXTS[Math.floor(Math.random()*DIAG_TEXTS.length)];}
+document.getElementById('diagNew').onclick=newDiag;newDiag();
+
+// Профзамер
+const READ_TEXTS=[
+ "Скорочтение — это комплексная способность быстро воспринимать письменную информацию с сохранением её понимания. В отличие от простого чтения, скорочтение предполагает управление движением глаз, расширение поля зрения и подавление внутренней речи. Исследования показывают, что взрослый человек способен увеличить скорость чтения в два-три раза при сохранении понимания на уровне восьмидесяти пяти процентов и выше. Систематические тренировки по пятнадцать минут в день дают устойчивый результат уже через два месяца. При этом закреплённый навык сохраняется на годы.",
+ "Информационная перегрузка — характерная проблема современного специалиста. Объём документации растёт быстрее, чем скорость её осмысления. Скорочтение становится жизненно необходимым навыком: оно экономит часы рабочего времени каждую неделю. Методика строится на четырёх опорах: техника движения глаз, смысловое прогнозирование, управление вниманием и эффективное запоминание. Каждая опора тренируется отдельно, а затем интегрируется в единое целое. Практикуясь ежедневно, специалист превращает чтение в автоматический процесс, не требующий лишнего напряжения.",
+ "Диагональное чтение позволяет быстро получить общее представление о материале. Взгляд движется сверху вниз по диагонали, захватывая начало строк и ключевые слова. Этого достаточно, чтобы понять тему, структуру и основные мысли текста. Для профессиональных задач диагональное чтение сочетают с точечным: сложные фрагменты прочитываются целиком. Такая комбинация называется селективным чтением. Опытный читатель чередует режимы в зависимости от целей: беглый просмотр для фильтрации, углублённое чтение для анализа, поисковое для нахождения фактов. Гибкость — главный признак мастерства."
+];
+const readEl=document.getElementById('readText');let rt=null;
+function newRead(){readEl.textContent=READ_TEXTS[Math.floor(Math.random()*READ_TEXTS.length)];
+  document.getElementById('wordCount').textContent=readEl.textContent.split(/\s+/).length;document.getElementById('wpm').textContent='';}
+document.getElementById('readStart').onclick=()=>{rt=Date.now();};
+document.getElementById('readStop').onclick=()=>{if(!rt)return;
+  const min=parseFloat(document.getElementById('minutes').value)||((Date.now()-rt)/60000);
+  const wpm=Math.round(parseInt(document.getElementById('wordCount').textContent,10)/min);
+  const grade=wpm>=300?(wpm>=500?'Профессиональный уровень! 🏆':'Отличный результат! ⭐'):'Продолжаем тренировки 💪';
+  document.getElementById('wpm').textContent=`${wpm} слов/мин · ${grade}`;rt=null;};
+document.getElementById('readNew').onclick=newRead;newRead();
+</script>
+</body>
+</html>

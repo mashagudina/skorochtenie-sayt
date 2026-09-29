@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Русский язык · Орфография · 4 класс · Тренажёр</title>
+<style>
+  :root{
+    --bg:#f5f9fc; --card:#ffffff; --ink:#3d3a3a;
+    --main:#d09a6b; --soft:#f0dfc8; --accent:#8a6a4a;
+    --ok:#7bb59a; --bad:#d98b8b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:17px}
+  header{background:var(--main);color:#fff;padding:16px 18px;text-align:center}
+  header h1{margin:0;font-size:24px}
+  header p{margin:4px 0 0;font-size:14px;opacity:.95}
+  main{max-width:680px;margin:18px auto;padding:0 14px}
+  .card{background:var(--card);border:1px solid var(--soft);border-radius:14px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(170,120,80,.10)}
+  h2{margin:0 0 14px;font-size:21px;color:var(--ink);line-height:1.4}
+
+  .progress{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+  .bar{flex:1;height:10px;border-radius:8px;background:var(--soft);overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--main);border-radius:8px;transition:width .3s}
+  .ptext{font-size:14px;color:var(--main);font-weight:600;white-space:nowrap}
+  .dots{display:flex;gap:5px}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--soft)}
+  .dot.on{background:var(--main)}
+
+  .word{font-size:52px;font-weight:700;text-align:center;letter-spacing:3px;margin:10px 0 18px;color:var(--ink)}
+  .word .gap{display:inline-block;min-width:.7em;border-bottom:4px solid var(--main);color:var(--main)}
+  .word .gap.ok{color:var(--ok);border-color:var(--ok)}
+  .word .gap.bad{color:var(--bad);border-color:var(--bad)}
+
+  .answers{display:grid;gap:10px;margin-top:14px}
+  .answers.choices{grid-template-columns:1fr 1fr}
+  .opt{display:flex;align-items:center;gap:10px;width:100%;padding:13px 14px;border:2px solid var(--soft);border-radius:12px;background:#fff;cursor:pointer;font-size:18px;font-family:inherit;color:var(--ink);text-align:left;transition:border-color .15s, background .15s}
+  .opt:hover:not(:disabled){border-color:var(--main)}
+  .opt:focus-visible{outline:3px solid var(--main);outline-offset:2px}
+  .opt .key{flex:0 0 30px;height:30px;border-radius:8px;background:var(--soft);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .opt.ok{border-color:var(--ok);background:var(--ok);color:#fff}
+  .opt.ok .key{background:#fff;color:var(--ok)}
+  .opt.bad{border-color:var(--bad);background:#fff}
+  .opt.bad .key{background:var(--bad);color:#fff}
+  .opt.dim{opacity:.45}
+  .opt:disabled{cursor:default}
+  .opt .mark{margin-left:auto;font-size:18px;font-weight:700}
+
+  .feedback{min-height:104px;margin-top:14px}
+  .verdict{font-size:19px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .verdict.ok{color:var(--ok)}
+  .verdict.bad{color:var(--bad)}
+  .explain{margin-top:8px;padding-left:12px;border-left:4px solid var(--accent);font-size:17px;line-height:1.5;color:var(--ink)}
+
+  .next{margin-top:14px;width:100%;padding:14px;border:none;border-radius:12px;background:var(--main);color:#fff;font-size:18px;font-weight:600;cursor:pointer;font-family:inherit;transition:transform .1s}
+  .next:active{transform:scale(.98)}
+  .next:focus-visible{outline:3px solid var(--soft);outline-offset:2px}
+
+  .scoreBox{text-align:center;padding:6px 0 14px}
+  .bigscore{font-size:64px;font-weight:800;color:var(--main)}
+  .stars{font-size:30px;letter-spacing:4px}
+  .advice{font-size:18px;margin-top:8px}
+  .mistake{margin-top:12px;padding:12px;border:1px solid var(--soft);border-left:4px solid var(--bad);border-radius:10px;background:#fdfaf7}
+  .mistake .t{font-weight:700;color:var(--ink)}
+  .mistake .r{color:var(--accent)}
+
+  .parents{margin-top:18px;background:#fbf6ee;border:1px solid #f0e2cc;border-radius:12px;padding:14px 16px;font-size:15px;line-height:1.5}
+  .parents b{color:var(--accent)}
+  .footer{text-align:center;color:#a5b8c9;font-size:13px;margin:16px 0 8px}
+  .hidden{display:none}
+  @media (max-width:480px){
+    .answers.choices{grid-template-columns:1fr}
+    .word{font-size:42px}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none!important}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🚀 Орфография · 4 класс</h1>
+  <p>Падежные окончания · спряжение глаголов · -тся/-ться · окончания прилагательных</p>
+</header>
+<main>
+  <section class="card" id="quizCard">
+    <div class="progress">
+      <div class="bar"><i id="barFill"></i></div>
+      <div class="ptext" id="progressText">1 · 10</div>
+    </div>
+    <div class="dots" id="dots"></div>
+    <h2 id="questionText">Загрузка...</h2>
+    <div id="answers" class="answers"></div>
+    <div class="feedback" id="feedback" aria-live="polite">
+      <div class="verdict" id="verdict"></div>
+      <div class="explain" id="explain"></div>
+    </div>
+    <button class="next hidden" id="next" type="button">Следующий вопрос</button>
+  </section>
+
+  <section class="card hidden" id="resultCard">
+    <div class="scoreBox">
+      <div class="stars" id="stars"></div>
+      <div class="bigscore" id="bigscore"></div>
+      <div class="advice" id="adviceText"></div>
+    </div>
+    <h2>Разбор ошибок</h2>
+    <div id="mistakes"></div>
+    <button class="next" id="restart" type="button">🔄 Пройти ещё раз</button>
+  </section>
+
+  <div class="parents">
+    <b>Для родителей.</b> Тренируем орфограммы 4 класса: безударные падежные окончания имён
+    существительных и прилагательных, личные окончания глаголов (спряжение) и выбор -тся/-ться.
+    Спрашивайте у ребёнка вопрос падежа и начальную форму глагола.
+  </div>
+  <div class="footer">Сделано для Марии · Склонение и спряжение — с опорой на вопросы</div>
+</main>
+
+<script>
+const questions = [
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание (предложный падеж):',
+    word: 'на берёз_',
+    options: ['е', 'и', 'э', 'я'],
+    correct: 0,
+    explain: 'На берёзе. Существительное берёза — 1 склонение. В предложном падеже пишем Е.'
+  },
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание (предложный падеж):',
+    word: 'в тетрад_',
+    options: ['е', 'и', 'ё', 'ы'],
+    correct: 1,
+    explain: 'В тетради. Тетрадь — 3 склонение. В предложном падеже пишем И.'
+  },
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание (предложный падеж):',
+    word: 'на пол_',
+    options: ['е', 'и', 'ё', 'а'],
+    correct: 0,
+    explain: 'На поле. Поле — 2 склонение. В предложном падеже пишем Е.'
+  },
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание глагола:',
+    word: 'он пиш_т',
+    options: ['е', 'и', 'ё', 'а'],
+    correct: 0,
+    explain: 'Он пишет. Глагол писать — I спряжение (начальная форма на -АТЬ). В 3-м лице пишем ЕТ.'
+  },
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание глагола:',
+    word: 'он смотр_т',
+    options: ['е', 'и', 'ё', 'ы'],
+    correct: 1,
+    explain: 'Он смотрит. Смотреть — глагол-исключение на -ЕТЬ, II спряжение. Пишем ИТ.'
+  },
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание глагола:',
+    word: 'ты чита_шь',
+    options: ['е', 'и', 'ё', 'а'],
+    correct: 0,
+    explain: 'Ты читаешь. Читать — I спряжение. Во 2-м лице пишем окончание ЕШЬ.'
+  },
+  {
+    type: 'correct',
+    text: 'Как правильно закончить предложение?',
+    options: ['Мальчик часто купается', 'Мальчик часто купаться', 'Мальчик часто купаяца', 'Мальчик часто купаетса'],
+    correct: 0,
+    explain: 'Купается. Вопрос «что делает?» — в вопросе нет Ь, значит и в слове нет Ь: -тся.'
+  },
+  {
+    type: 'correct',
+    text: 'Как правильно закончить предложение?',
+    options: ['Летом надо купаться', 'Летом надо купается', 'Летом надо купаится', 'Летом надо купаетса'],
+    correct: 0,
+    explain: 'Надо (что делать?) купаться. В вопросе есть Ь — в слове тоже пишем Ь: -ться.'
+  },
+  {
+    type: 'letters',
+    text: 'Вставь пропущенное окончание прилагательного:',
+    word: 'за высок_м',
+    options: ['и', 'е', 'ы', 'я'],
+    correct: 0,
+    explain: 'За высоким. Творительный падеж: за каким? высоким. Окончание -ИМ.'
+  },
+  {
+    type: 'find',
+    text: 'Найди словосочетание с ошибкой:',
+    options: ['на берёзе', 'в тетраде', 'на поле', 'о маме'],
+    correct: 1,
+    explain: 'В тетраде — ошибка! Правильно: в тетрадИ, ведь тетрадь — 3 склонение.'
+  }
+];
+
+let index = 0;
+let score = 0;
+let answered = false;
+const flags = [];
+
+const $ = id => document.getElementById(id);
+const quizCard = $('quizCard');
+const resultCard = $('resultCard');
+const questionText = $('questionText');
+const answers = $('answers');
+const feedback = $('feedback');
+const verdict = $('verdict');
+const explain = $('explain');
+const next = $('next');
+const barFill = $('barFill');
+const progressText = $('progressText');
+const dots = $('dots');
+
+const KEYS = ['А', 'Б', 'В', 'Г'];
+
+function shuffle(a){
+  const x = a.slice();
+  for(let i=x.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [x[i],x[j]]=[x[j],x[i]]; }
+  return x;
+}
+
+function renderDots(){
+  dots.innerHTML = questions.map((_,i)=>
+    `<span class="dot ${i<index?'on':''}" title="Вопрос ${i+1}"></span>`).join('');
+  barFill.style.width = (index/questions.length*100)+'%';
+  progressText.textContent = `${Math.min(index+1,questions.length)} · ${questions.length}`;
+}
+
+function makeOpt(q, i){
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'opt';
+  b.innerHTML = `<span class="key">${KEYS[i]}</span><span>${q.options[i]}</span>`;
+  b.addEventListener('click', () => checkAnswer(q, i, b));
+  return b;
+}
+
+function renderQuestion(){
+  answered = false;
+  const q = questions[index];
+  renderDots();
+  questionText.textContent = q.text;
+  feedback.className = 'feedback';
+  verdict.textContent = '';
+  verdict.className = 'verdict';
+  explain.textContent = '';
+  next.classList.add('hidden');
+  next.textContent = index === questions.length-1 ? 'Показать результат' : 'Следующий вопрос';
+
+  if(q.type === 'letters'){
+    const parts = q.word.split('_');
+    const wordEl = document.createElement('div');
+    wordEl.className = 'word';
+    wordEl.id = 'word';
+    wordEl.innerHTML = parts.join('<span class="gap" id="gap">?</span>');
+    const wrap = document.createElement('div');
+    wrap.style.marginTop = '14px';
+    answers.className = 'answers choices';
+    answers.innerHTML = '';
+    answers.appendChild(wordEl);
+    const row = document.createElement('div');
+    row.style.display = 'grid';
+    row.style.gridTemplateColumns = `repeat(${Math.min(q.options.length,4)},1fr)`;
+    row.style.gap = '10px';
+    q.options.forEach((_, i) => row.appendChild(makeOpt(q, i)));
+    wrap.appendChild(row);
+    answers.appendChild(wrap);
+  } else {
+    answers.className = 'answers choices';
+    answers.innerHTML = '';
+    q.options.forEach((_, i) => answers.appendChild(makeOpt(q, i)));
+  }
+}
+
+function markButtons(q, chosen){
+  const opts = Array.from(answers.querySelectorAll('.opt'));
+  opts.forEach((b, i) => {
+    b.disabled = true;
+    if(i === q.correct) b.classList.add('ok');
+    else if(i === chosen) b.classList.add('bad');
+    else b.classList.add('dim');
+  });
+  const mark = i => {
+    const b = opts[i];
+    if(!b) return;
+    const m = document.createElement('span');
+    m.className = 'mark';
+    m.textContent = (i === q.correct) ? '✓' : (i === chosen ? '✗' : '');
+    b.appendChild(m);
+  };
+  opts.forEach((_, i) => mark(i));
+}
+
+function checkAnswer(q, i, btn){
+  if(answered) return;
+  answered = true;
+  const ok = i === q.correct;
+  if(ok) score++;
+  flags[index] = ok;
+
+  if(q.type === 'letters'){
+    const gap = document.getElementById('gap');
+    if(gap){
+      gap.textContent = q.options[i];
+      gap.classList.add(ok ? 'ok' : 'bad');
+    }
+  }
+  markButtons(q, i);
+
+  verdict.textContent = ok ? 'Верно! ✓' : 'Пока не совсем. ✗';
+  verdict.className = 'verdict ' + (ok ? 'ok' : 'bad');
+  explain.textContent = q.explain;
+  next.classList.remove('hidden');
+  next.focus();
+}
+
+function showResult(){
+  quizCard.classList.add('hidden');
+  resultCard.classList.remove('hidden');
+  const total = questions.length;
+  const pct = score/total;
+  const starsCount = Math.round(pct*5);
+  $('stars').textContent = '★'.repeat(starsCount) + '☆'.repeat(5-starsCount);
+  $('bigscore').textContent = `${score} из ${total}`;
+  const advice = score===total
+    ? 'Отлично, всё верно! Ты отлично знаешь правила. 🌟'
+    : pct>=0.7
+      ? 'Молодец! Почти всё получилось, повтори ошибки ниже. 👏'
+      : pct>=0.5
+        ? 'Хорошая работа! Вместе повтори правила и пройди ещё раз. 💪'
+        : 'Ничего страшного! Прочитай правила и обязательно получится. 🌱';
+  $('adviceText').textContent = advice;
+
+  const mbox = $('mistakes');
+  mbox.innerHTML = '';
+  questions.forEach((q, i) => {
+    if(flags[i]) return;
+    const div = document.createElement('div');
+    div.className = 'mistake';
+    const wordOrText = q.type === 'letters' ? q.word.replace('_', '…') : q.options[q.correct];
+    div.innerHTML = `<span class="t">Вопрос ${i+1}. ${q.text}</span><br>${wordOrText}<br><span class="r">${q.explain}</span>`;
+    mbox.appendChild(div);
+  });
+  if(!mbox.innerHTML) mbox.innerHTML = 'Ошибок нет — молодец!';
+}
+
+function restart(){
+  index = 0;
+  score = 0;
+  flags.length = 0;
+  resultCard.classList.add('hidden');
+  quizCard.classList.remove('hidden');
+  renderQuestion();
+}
+
+next.addEventListener('click', () => {
+  index++;
+  if(index >= questions.length) showResult();
+  else renderQuestion();
+});
+$('restart').addEventListener('click', restart);
+
+document.addEventListener('keydown', e => {
+  if(e.key >= '1' && e.key <= '4' && !answered){
+    const opts = Array.from(answers.querySelectorAll('.opt'));
+    if(opts[e.key-1]) opts[e.key-1].click();
+  }
+  if(e.key === 'Enter' && answered && !next.classList.contains('hidden')) next.click();
+});
+
+renderQuestion();
+</script>
+</body>
+</html>

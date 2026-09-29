@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Гудина Мария Юрьевна · скорочтение, память и внимание для детей и взрослых</title>
+<style>
+  :root{
+    --bg:#f6f4f1; --card:#ffffff; --ink:#2b2b2b; --dim:#6d7480;
+    --line:#e2ddd6; --accent:#4d7c8f; --accent-ink:#ffffff;
+    --ok:#5b9c7c; --bad:#b57373; --radius:16px; --soft:#eef3f4;
+  }
+  html[data-theme="dark"]{
+    --bg:#15171c; --card:#1d2027; --ink:#e8e6e3; --dim:#9aa0ad;
+    --line:#2b2f38; --accent:#8fb8c9; --accent-ink:#11151a;
+    --ok:#7fb69a; --bad:#d99a9a; --soft:#1a1d24;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:"Segoe UI",Arial,sans-serif;
+    font-size:17px; line-height:1.6;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{max-width:1080px;margin:0 auto;padding:0 20px 60px}
+  h1{font-size:40px;line-height:1.15;margin:0 0 18px;font-weight:700;letter-spacing:-.015em}
+  h2{font-size:28px;line-height:1.25;margin:0 0 8px;font-weight:700;letter-spacing:-.01em}
+  h3{font-size:20px;line-height:1.3;margin:0 0 8px;font-weight:700}
+  .lead{font-size:20px;color:var(--dim);margin:0 0 28px;max-width:640px}
+  .hint{font-size:15px;color:var(--dim);margin:10px 0 0}
+  .numb{display:inline-block;font-weight:700;color:var(--accent)}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+  .btn{
+    display:inline-block;border:none;border-radius:12px;padding:15px 26px;
+    font-size:18px;font-weight:600;cursor:pointer;font-family:inherit;
+    min-height:52px;text-align:center;text-decoration:none;
+  }
+  .btn.primary{background:var(--accent);color:var(--accent-ink)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+  .btn:disabled{opacity:.4;cursor:default}
+  .btn.primary:hover{text-decoration:none;filter:brightness(1.06)}
+  .hidden{display:none !important}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+  .actions .btn{text-decoration:none}
+
+  .topbar{
+    position:sticky;top:0;z-index:40;background:var(--bg);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-in{
+    max-width:1080px;margin:0 auto;padding:12px 20px;
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  }
+  .brand{font-weight:700;font-size:16px;letter-spacing:.01em}
+  .nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+  .nav a{
+    color:var(--dim);font-size:15px;padding:7px 11px;border-radius:9px;
+  }
+  .nav a:hover{color:var(--ink);text-decoration:none;background:var(--soft)}
+  .theme{
+    background:transparent;border:1px solid var(--line);color:var(--dim);
+    border-radius:20px;padding:7px 14px;font-size:14px;cursor:pointer;
+    font-family:inherit;min-height:38px;
+  }
+  .theme:hover{color:var(--ink)}
+
+  .sec{padding:56px 0 8px}
+  .sec-label{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin:0 0 10px}
+  .sec p{color:var(--dim);max-width:680px}
+  .sec p strong{color:var(--ink)}
+
+  .hero{padding:72px 0 30px}
+  .hero h1{max-width:820px}
+  .hero .sub{font-size:22px;font-weight:600;color:var(--ink);margin:0 0 12px}
+  .hero .badges{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 0}
+  .badge{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:8px 16px;font-size:15px;color:var(--ink);
+  }
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 22px;
+  }
+  .card p{margin:0;font-size:16px}
+  .card ul{margin:12px 0 0;padding-left:18px;color:var(--dim);font-size:15px;line-height:1.7}
+  .card li::marker{color:var(--accent)}
+  .card .ico{font-size:30px;line-height:1;margin-bottom:12px}
+  .card .mini{font-size:14px;color:var(--dim);margin-top:10px}
+
+  .steps{margin-top:8px;display:grid;gap:14px}
+  .step{
+    display:flex;gap:16px;align-items:flex-start;
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .step .n{
+    flex:0 0 40px;height:40px;border-radius:50%;
+    background:var(--accent);color:var(--accent-ink);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:18px;
+  }
+  .step h3{margin:0 0 4px}
+  .step p{margin:0;color:var(--dim);font-size:16px;max-width:none}
+
+  .trainer-box{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:26px;margin-top:8px;
+  }
+  .meta{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    font-size:15px;color:var(--dim);margin-bottom:16px;
+    padding:10px 14px;background:var(--soft);border:1px solid var(--line);border-radius:12px;
+  }
+  .meta b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .story{
+    background:var(--soft);border:1px solid var(--line);border-radius:var(--radius);
+    padding:24px 22px;font-size:20px;line-height:1.75;
+  }
+  .story p{margin:0 0 1em;color:var(--ink);max-width:none}
+  .story p:last-child{margin-bottom:0}
+  .story p.hook{color:var(--accent);font-weight:600}
+
+  .q{border:1px solid var(--line);border-radius:var(--radius);background:var(--soft);padding:18px;margin-bottom:14px}
+  .q .qtext{margin:0 0 14px;font-size:18px;font-weight:600;color:var(--ink)}
+  .opt{
+    display:block;width:100%;text-align:left;background:var(--card);
+    border:1px solid var(--line);color:var(--ink);border-radius:10px;
+    padding:12px 14px;font-size:17px;font-family:inherit;cursor:pointer;margin-bottom:8px;min-height:48px;
+  }
+  .opt:last-child{margin-bottom:0}
+  .opt.ok{border-color:var(--ok);color:var(--ok)}
+  .opt.no{border-color:var(--bad);color:var(--bad)}
+  .opt:disabled{cursor:default}
+
+  .result{text-align:center;padding:10px 0}
+  .wpm{font-size:68px;line-height:1;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+  .wpm-unit{font-size:18px;color:var(--dim);margin-top:6px}
+  .level{font-size:20px;font-weight:600;margin:18px 0 6px}
+  .fact{font-size:16px;color:var(--dim);margin:0 0 6px}
+  .record{margin:16px 0 0;font-size:16px}
+  .newrec{color:var(--ok);font-weight:700}
+
+  .trainer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+  .tlink{
+    display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:18px;color:var(--ink);text-decoration:none;
+  }
+  .tlink:hover{text-decoration:none;border-color:var(--accent)}
+  .tlink .t{font-weight:600}
+  .tlink .d{font-size:14px;color:var(--dim);margin-top:4px}
+
+  .download{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+  .dlink{
+    display:flex;align-items:flex-start;gap:10px;background:var(--card);
+    border:1px solid var(--line);border-radius:12px;padding:16px 14px;
+    color:var(--ink);text-decoration:none;
+  }
+  .dlink:hover{text-decoration:none;border-color:var(--accent)}
+  .dlink .ico{font-size:22px;line-height:1.2}
+  .dlink .tt{font-weight:600;font-size:15px;line-height:1.35}
+  .dlink .dd{font-size:13px;color:var(--dim);margin-top:3px}
+
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+  .price{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;position:relative}
+  .price.hot{border-color:var(--accent)}
+  .price .tag{
+    position:absolute;top:-12px;left:22px;background:var(--accent);color:var(--accent-ink);
+    font-size:13px;font-weight:600;border-radius:12px;padding:3px 12px;
+  }
+  .price .sum{font-size:34px;font-weight:700;margin:8px 0 4px}
+  .price .sum small{font-size:16px;color:var(--dim);font-weight:400}
+  .price ul{margin:14px 0 0;padding-left:18px;color:var(--dim);font-size:15px;line-height:1.7}
+  .price li::marker{color:var(--accent)}
+  .price .note{font-size:13px;color:var(--dim);margin-top:14px;font-style:italic}
+
+  .contact-card{
+    background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:30px;margin-top:8px;max-width:760px;
+  }
+  .contact-line{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:18px}
+  .contact-line .btn{min-height:44px;padding:11px 18px;font-size:16px}
+
+  .overlay{
+    position:fixed;inset:0;background:rgba(0,0,0,.66);
+    display:flex;align-items:center;justify-content:center;padding:18px;z-index:50;
+  }
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px;max-width:540px;width:100%;max-height:88vh;overflow:auto}
+  .modal h3{margin:0 0 12px;font-size:22px;color:var(--ink)}
+  .modal p{color:var(--dim)}
+  .modal p strong{color:var(--ink)}
+  .modal textarea{
+    width:100%;min-height:120px;background:var(--bg);color:var(--ink);
+    border:1px solid var(--line);border-radius:10px;padding:12px;
+    font-family:inherit;font-size:16px;resize:vertical;
+  }
+  .modal .actions{margin-top:16px}
+
+  .foot{
+    margin-top:56px;padding-top:22px;border-top:1px solid var(--line);
+    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    color:var(--dim);font-size:14px;
+  }
+
+  @media (max-width:860px){
+    .grid3,.trainer-links,.download,.price-grid{grid-template-columns:1fr}
+    h1{font-size:32px}
+    h2{font-size:24px}
+    .nav{width:100%;order:3}
+    .hero{padding:48px 0 20px}
+    .sec{padding:44px 0 4px}
+    .step{flex-direction:column;gap:10px}
+  }
+  @media (max-width:520px){
+    body{font-size:16px}
+    h1{font-size:27px}
+    .lead{font-size:18px}
+    .story{font-size:18px;padding:20px 18px}
+    .wpm{font-size:52px}
+    .btn{width:100%}
+    .card,.trainer-box,.contact-card{padding:20px 16px}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{transition:none !important;animation:none !important}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <span class="brand">Гудина Мария Юрьевна</span>
+    <nav class="nav">
+      <a href="#obo-mne">Обо мне</a>
+      <a href="#napravleniya">Направления</a>
+      <a href="#treniruem">Что тренируем</a>
+      <a href="#zanyatiya">Как проходят занятия</a>
+      <a href="#trenazhyory">Тренажёры</a>
+      <a href="#ceny">Цены</a>
+      <a href="#podarok">Подарок</a>
+      <a href="#kontakty">Запись</a>
+    </nav>
+    <button class="theme" id="themeBtn" type="button">Тёмная тема</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <section class="hero">
+    <h1>Читать быстрее.<br>Понимать больше.<br>Запоминать надолго.</h1>
+    <p class="sub">Скорочтение, память и внимание для детей и взрослых</p>
+    <p class="lead">Помогаю развивать навыки работы с информацией: читать осознаннее, концентрироваться, лучше запоминать и уверенно работать с текстом.</p>
+    <p class="lead" style="font-weight:600;color:var(--ink);margin-bottom:0">Индивидуальные занятия онлайн</p>
+    <div class="actions">
+      <button class="btn primary" id="heroZapis" type="button">Записаться на занятие</button>
+      <button class="btn ghost" id="heroCta" type="button">Попробовать тренажёр</button>
+    </div>
+    <div class="badges">
+      <span class="badge">С 2018 года обучаю детей и взрослых</span>
+    </div>
+  </section>
+
+  <section class="sec" id="obo-mne">
+    <p class="sec-label">Обо мне</p>
+    <h2>Здравствуйте! Я — тренер по скорочтению, чтению, памяти и вниманию.</h2>
+    <p>С 2018 года я помогаю детям и взрослым развивать навыки, которые каждый день нужны в учёбе, работе и обычной жизни.</p>
+    <p>За годы работы я убедилась в одном: <strong>скорость чтения — это далеко не всё.</strong> Важно не просто пробежать глазами текст, а понять его содержание, выделить главное, запомнить информацию и суметь применить её.</p>
+    <p>Поэтому на занятиях мы комплексно работаем с <strong>чтением, вниманием, памятью, концентрацией и пониманием текста.</strong></p>
+    <p>Мне важно, чтобы обучение было не только полезным, но и интересным. Поэтому в работе использую упражнения, игровые задания, техники и практику.</p>
+    <p><strong>Моя цель — не заставить вас читать быстрее. Моя цель — научить эффективно работать с информацией.</strong></p>
+  </section>
+
+  <section class="sec" id="napravleniya">
+    <p class="sec-label">Направления</p>
+    <h2>Подберу формат под возраст и задачи</h2>
+    <div class="grid3">
+      <div class="card">
+        <div class="ico">🎒</div>
+        <h3>Подготовка к школе</h3>
+        <p class="mini">Для детей 5–6 лет</p>
+        <ul>
+          <li>развиваем внимание и концентрацию;</li>
+          <li>тренируем память;</li>
+          <li>знакомимся с буквами и звуками;</li>
+          <li>развиваем навыки чтения;</li>
+          <li>учимся слушать и понимать задания;</li>
+          <li>развиваем мышление и усидчивость.</li>
+        </ul>
+        <p class="mini"><strong>Занятия проходят в игровой форме, с учётом возраста ребёнка.</strong></p>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn ghost zapis-btn" type="button">Записаться</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico">📖</div>
+        <h3>Обучение чтению</h3>
+        <p class="mini">Для детей, которые только начинают осваивать чтение или хотят сделать навык увереннее</p>
+        <ul>
+          <li>правильность чтения;</li>
+          <li>понимание прочитанного;</li>
+          <li>слоговое и целостное чтение;</li>
+          <li>внимание;</li>
+          <li>интерес к книгам и текстам.</li>
+        </ul>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn ghost zapis-btn" type="button">Записаться</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico">🚀</div>
+        <h3>Скорочтение для детей</h3>
+        <p>Помогаем ребёнку научиться работать с текстом эффективнее.</p>
+        <p class="mini"><strong>Скорость чтения + понимание + память + внимание.</strong> Упражнения подбираются индивидуально в зависимости от возраста и уровня ребёнка.</p>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn ghost zapis-btn" type="button">Записаться</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico">🚀</div>
+        <h3>Скорочтение для взрослых</h3>
+        <p>Для тех, кто ежедневно сталкивается с большим количеством информации.</p>
+        <ul>
+          <li>скорость чтения;</li>
+          <li>концентрация;</li>
+          <li>понимание текста;</li>
+          <li>запоминание информации;</li>
+          <li>меньше лишних перечитываний;</li>
+          <li>работа с большими объёмами текста.</li>
+        </ul>
+        <p class="mini"><strong>Читать быстрее — не значит читать невнимательно. Наша задача — найти баланс между скоростью и пониманием.</strong></p>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn ghost zapis-btn" type="button">Записаться</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico">✏️</div>
+        <h3>Русский язык · 1–4 класс</h3>
+        <p>Помогаю младшим школьникам разобраться с учебным материалом и увереннее выполнять задания.</p>
+        <ul>
+          <li>чтение и понимание текста;</li>
+          <li>грамотность;</li>
+          <li>правила русского языка;</li>
+          <li>выполнение упражнений;</li>
+          <li>внимание и память.</li>
+        </ul>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn ghost zapis-btn" type="button">Записаться</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ico">🧠</div>
+        <h3>Формат занятий</h3>
+        <p>Индивидуально и онлайн. Возраст учеников — от 6 до 99 лет. Первое занятие — знакомство и диагностика.</p>
+        <ul>
+          <li>урок 40–60 минут;</li>
+          <li>домашние задания и тренажёры;</li>
+          <li>ежемесячный замер прогресса.</li>
+        </ul>
+        <div class="actions" style="margin-top:16px">
+          <button class="btn primary zapis-btn" type="button">Записаться на занятие</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="treniruem">
+    <p class="sec-label">Что мы тренируем</p>
+    <h2>Комплексное развитие — целиком</h2>
+    <div class="grid3">
+      <div class="card">
+        <div class="ico">👀</div>
+        <h3>Внимание</h3>
+        <p>Учимся концентрироваться на задаче и замечать важную информацию.</p>
+      </div>
+      <div class="card">
+        <div class="ico">📖</div>
+        <h3>Чтение</h3>
+        <p>Развиваем технику чтения и понимание текста.</p>
+      </div>
+      <div class="card">
+        <div class="ico">⚡</div>
+        <h3>Скорость</h3>
+        <p>Постепенно увеличиваем темп там, где это действительно необходимо.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🧩</div>
+        <h3>Память</h3>
+        <p>Тренируем способность запоминать и воспроизводить информацию.</p>
+      </div>
+      <div class="card">
+        <div class="ico">🎯</div>
+        <h3>Концентрация</h3>
+        <p>Учимся дольше удерживать внимание на одном задании.</p>
+      </div>
+      <div class="card">
+        <div class="ico">💡</div>
+        <h3>Понимание</h3>
+        <p>Учимся выделять главное и видеть смысл прочитанного.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="zanyatiya">
+    <p class="sec-label">Как проходят занятия</p>
+    <h2>Пять шагов к результату</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="n">1</div>
+        <div><h3>Знакомимся</h3><p>Определяем возраст, уровень подготовки и задачи ученика.</p></div>
+      </div>
+      <div class="step">
+        <div class="n">2</div>
+        <div><h3>Проводим диагностику</h3><p>Смотрим, какие навыки уже хорошо развиты, а над какими стоит поработать.</p></div>
+      </div>
+      <div class="step">
+        <div class="n">3</div>
+        <div><h3>Составляем программу</h3><p>Подбираю упражнения и задания с учётом индивидуальных особенностей ученика.</p></div>
+      </div>
+      <div class="step">
+        <div class="n">4</div>
+        <div><h3>Тренируемся</h3><p>Занятия проходят онлайн, в формате диалога, практики и упражнений.</p></div>
+      </div>
+      <div class="step">
+        <div class="n">5</div>
+        <div><h3>Отслеживаем прогресс</h3><p>Периодически возвращаемся к показателям и смотрим динамику.</p></div>
+      </div>
+    </div>
+    <div class="actions" style="margin-top:24px">
+      <button class="btn primary zapis-btn" type="button">Записаться на занятие</button>
+      <button class="btn ghost" id="ctaTrenazher" type="button">Попробовать тренажёр</button>
+    </div>
+  </section>
+
+  <section class="sec" id="trenazhyory">
+    <p class="sec-label">Тренажёры</p>
+    <h2>Попробуй за 2 минуты прямо сейчас</h2>
+    <p>Прочитай текст, ответь на вопросы, посмотри свой темп. Без регистрации, работает на телефоне.</p>
+
+    <div class="trainer-box">
+      <section id="scrStart">
+        <div class="meta">
+          <span>Таймер <b id="timer">0:00</b></span>
+          <span>·</span>
+          <span><b id="metaWords">0</b> слов</span>
+        </div>
+        <p class="hint" style="margin-top:0">Три текста на выбор — детектив, наука и фэнтези.</p>
+        <button class="btn primary" id="startBtn" type="button">Начать</button>
+      </section>
+
+      <section id="scrText" class="hidden">
+        <div class="meta">
+          <span>Таймер <b id="timer2">0:00</b></span>
+          <span>·</span>
+          <span><b id="metaWords2">0</b> слов</span>
+        </div>
+        <div class="story" id="story"></div>
+        <div class="actions">
+          <button class="btn primary" id="readBtn" type="button">Я прочитал — к вопросам</button>
+          <button class="btn ghost" id="swapBtn" type="button">Сменить текст</button>
+        </div>
+        <p class="hint">Таймер идёт, пока читаешь. Прочитал — жми кнопку.</p>
+      </section>
+
+      <section id="scrQuiz" class="hidden">
+        <h3 id="quizTitle" style="margin:0 0 8px">Три вопроса по тексту</h3>
+        <p class="hint" style="margin:0 0 16px">Отвечай по памяти. Так проверим, что текст остался в голове.</p>
+        <div id="quizBox"></div>
+        <div class="actions">
+          <button class="btn primary" id="resultBtn" type="button" disabled>Показать результат</button>
+          <button class="btn ghost" id="backBtn" type="button">Вернуться к тексту</button>
+        </div>
+      </section>
+
+      <section id="scrResult" class="hidden">
+        <div class="result">
+          <div class="wpm" id="outWpm">0</div>
+          <div class="wpm-unit">слов в минуту</div>
+          <div class="level" id="outLevel"></div>
+          <p class="fact" id="outPages"></p>
+          <p class="record" id="outRecord"></p>
+          <p class="fact" id="outQuiz"></p>
+        </div>
+        <div class="actions" style="justify-content:center">
+          <button class="btn primary" id="tryBtn" type="button">Ещё один текст</button>
+          <button class="btn ghost" id="repeatContactBtn" type="button">Записаться на занятие</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="trainer-links">
+      <a class="tlink" href="trenazher_7-10.html">
+        <div class="t">Таблица Шульте · 7–10 лет</div>
+        <div class="d">Разогревка для зрения и внимания</div>
+      </a>
+      <a class="tlink" href="trenazher_11-13.html">
+        <div class="t">Таблица Шульте · 11–13 лет</div>
+        <div class="d">Поле зрения и скорость взгляда</div>
+      </a>
+      <a class="tlink" href="trenazher_14-17.html">
+        <div class="t">Таблица Шульте · 14–17 лет</div>
+        <div class="d">Расширяем периферию взгляда</div>
+      </a>
+      <a class="tlink" href="trenazher_18.html">
+        <div class="t">Таблица Шульте · 18+</div>
+        <div class="d">Тренировка для взрослых</div>
+      </a>
+      <a class="tlink" href="chtenie_1_klass_trenazher.html">
+        <div class="t">Чтение · 1 класс</div>
+        <div class="d">Слоги, слова, первые тексты</div>
+      </a>
+      <a class="tlink" href="russkij_4_klass_orfografija_trenazher.html">
+        <div class="t">Русский язык · 4 класс</div>
+        <div class="d">Орфография с проверкой ответов</div>
+      </a>
+    </div>
+  </section>
+
+  <section class="sec" id="ceny">
+    <p class="sec-label">Цены</p>
+    <h2>Пробное — бесплатно</h2>
+    <div class="price-grid">
+      <div class="price hot">
+        <span class="tag">С чего начать</span>
+        <h3>Пробное занятие</h3>
+        <div class="sum">0 <small>₽</small></div>
+        <ul>
+          <li>Знакомство и диагностика</li>
+          <li>Уровень и задачи ученика</li>
+          <li>Рекомендации на первые недели</li>
+        </ul>
+        <p class="note">Значения цен — примеры, подставь свои.</p>
+      </div>
+      <div class="price">
+        <h3>Индивидуальные занятия</h3>
+        <div class="sum">от 800 <small>₽ / занятие</small></div>
+        <ul>
+          <li>Подготовка к школе</li>
+          <li>Обучение чтению · скорая чтения для детей</li>
+          <li>Скорочтение и память для взрослых</li>
+          <li>Русский язык · 1–4 класс</li>
+        </ul>
+        <p class="note">Значения цен — примеры, подставь свои.</p>
+      </div>
+      <div class="price">
+        <h3>Комплексная программа</h3>
+        <div class="sum">от 3000 <small>₽ / месяц</small></div>
+        <ul>
+          <li>Регулярные занятия 2 раза в неделю</li>
+          <li>Индивидуальная программа</li>
+          <li>Месячный замер прогресса</li>
+          <li>Домашние задания и тренажёры</li>
+        </ul>
+        <p class="note">Значения цен — примеры, подставь свои.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="podarok">
+    <p class="sec-label">Подарок</p>
+    <h2>Авторский читательский дневник — в подарок</h2>
+    <p>Каждому ученику на первом занятии — мой авторский читательский дневник. В нём: план чтения на год, место для каждой книги, таблица замеров скорости и страница достижений. Можно вести в телефоне или распечатать.</p>
+    <div class="contact-card" style="text-align:left">
+      <div class="actions" style="margin-top:0">
+        <a class="btn primary" href="chitatelskij_dnevnik.html">Открыть дневник</a>
+        <a class="btn ghost" href="chitatelskij_dnevnik.html" onclick="window.open(this.href);return false;">Посмотреть в новой вкладке</a>
+      </div>
+      <p class="hint" style="margin-top:14px">Внутри — кнопка печати: можно сохранить в PDF или распечатать на A4.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="kontakty">
+    <p class="sec-label">Запись</p>
+    <h2>Запишись на пробное занятие</h2>
+    <p>Знакомство и диагностика — бесплатно. Выберите удобный канал связи, и я отвечу лично.</p>
+    <div class="contact-card">
+      <div class="contact-line">
+        <button class="btn primary" id="contactBtn" type="button">Написать в Telegram</button>
+        <button class="btn ghost" id="whatsappBtn" type="button">Написать в WhatsApp</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="foot">
+    <span>Гудина Мария Юрьевна · скорочтение, память и внимание · русский язык · подготовка к школе</span>
+    <span id="footYear"></span>
+  </div>
+</div>
+
+<div class="overlay hidden" id="modalOv">
+  <div class="modal">
+    <h3 id="modalTitle"></h3>
+    <p id="modalP1"></p>
+    <div class="actions hidden" id="modalCopyWrap">
+      <button class="btn primary" id="modalCopy" type="button">Скопировать сообщение</button>
+      <button class="btn ghost" id="modalOpen" type="button">Открыть</button>
+    </div>
+    <p class="hint hidden" id="modalNote"></p>
+    <div class="actions">
+      <button class="btn ghost" id="modalClose" type="button">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+var CONTACT = {
+  telegram: "gudini_m",
+  whatsapp: "+77053215291"
+};
+
+var TEXTS = [
+  {
+    id: "detective",
+    label: "Детектив",
+    body: [
+      "В кабинете 4 «Б» нашли записку без подписи. Бумажную. Почерк — как у котёнка, но вполне разборчивый:",
+      "«Окно занято. Не подходи, оно ещё работает».",
+      "Иван Петрович, трудовик, посмеялся: окно — это окно, оно не может работать. Но он преподаёт историю и привык, что его регулярно не так понимают.",
+      "Записку сдал второклассник Тимур. По его словам, он в 14:20 сидел у окна, читал «Затерянный мир» и держал записку на подоконнике прямо перед собой. Когда вставал, задел коленом книгу — это он запомнил точно.",
+      "Мария Сергеевна, учительница русского языка, спокойно достала телефон.",
+      "— Тимур, во сколько ты закончил читать?",
+      "— В 14:20.",
+      "— У тебя в 14:20 урок труда. На втором этаже.",
+      "Тимур промолчал.",
+      "— Значит, записка лежала на подоконнике минимум четыре часа. Четыре часа её видел весь второй этаж. И никто не взял.",
+      "А вот и странность. У окна стоял стул. На стуле — россыпь канцелярских кнопок. А на стене над подоконником — свежий след от ладони. Слишком большой для второклассника.",
+      "Мария Сергеевна попросила всех выйти из класса. Через минуту вернулась с двумя взрослыми и чёрным маркером.",
+      "Дело закрыли за десять минут. Но у вас есть двадцать секунд. Вопрос простой: почему четверо детей ходили мимо этой записки четыре часа и ни один не взял её в руки?",
+      "В этом весь фокус. Не в следе от ладони и не в кнопках. В том, что человек прочитал пять слов и решил, что они ничего не значат."
+    ],
+    q: [
+      { t: "Во сколько Тимур сказал, что читал у окна?", o: ["14:20", "14:50", "16:20"], a: 0 },
+      { t: "Что Мария Сергеевна достала, чтобы проверить Тимура?", o: ["Записную книжку", "Телефон", "Портфель"], a: 1 },
+      { t: "Почему никто со второго этажа не взял записку за четыре часа?", o: ["Её не заметили", "Считали её не запиской, а мусором", "Испугались неизвестного"], a: 1 }
+    ]
+  },
+  {
+    id: "science",
+    label: "Наука",
+    body: [
+      "Ты помнишь вкус бабушкиного пирожка одиннадцать лет назад и не помнишь, что писал вчера. Это не значит, что у тебя плохая память. Это значит, что у памяти есть два разных отдела, и работают они по-разному.",
+      "Первый отдел — процедурная память. Это всё, что мы умеем: ходить, ездить на велосипеде, набирать пароль с первого раза. Живёт она отдельно, стирается медленно и не выбрасывает ничего лишнего.",
+      "Второй отдел — эпизодическая память. Это всё, что мы видели и слышали: вчерашний урок, случайного человека в лифте, слова песни, которую слышал десять лет назад. Живёт она иначе: мозг не хранит всё подряд, а каждую секунду решает, пригодится ли это когда-нибудь. Не пригодится — выбрасывает.",
+      "И вот почему бабушкин пирожок остался, а вчерашнее сочинение ты не помнишь. Пирожок ты ел, гулял, болтал — мозг записал: это важно. А сочинение ты сидел и зевал — мозг записал: сойдёт.",
+      "Есть и вторая причина. Экран перед глазами, пока мозг засыпает, тянет внимание на себя и обратно. Мозг засыпает не сразу, думает дольше обычного. А утром внимание просыпается хуже — и весь день читаешь чуть медленнее, чем мог бы.",
+      "Как чинить. Не перечитывать одно и то же десять раз, а повторять с интервалами. Первый раз в день, когда выучил. Потом через три дня. Потом через неделю. Потом через месяц. Четыре повтора — и материал остаётся.",
+      "И один способ, который выглядит глупо, а работает отлично. Перескажи прочитанное своими словами — хоть кошке, хоть стене. Мозг не умеет забывать то, что сам пересказал."
+    ],
+    q: [
+      { t: "Как называется память, которая хранит навыки, а не события?", o: ["Эпизодическая", "Процедурная", "Кратковременная"], a: 1 },
+      { t: "Что, по тексту, происходит, если читать в телефон в кровати?", o: ["Ты быстрее начинаешь читать", "Засыпаешь дольше, а внимание утром хуже", "Ничего не происходит"], a: 1 },
+      { t: "Какой приём текст предлагает, чтобы не забыть прочитанное?", o: ["Перечитывать по десять раз", "Повторять с интервалами", "Зубрить перед сном"], a: 1 }
+    ]
+  },
+  {
+    id: "fantasy",
+    label: "Фэнтези",
+    body: [
+      "Город Лом называли так не из-за реки. Реки там нет и никогда не было. Город назвали Лом из-за звука, который раздавался каждую ночь: сухой, деревянный, короткий — как будто кто-то ломает тонкую доску. Стук был ровно в три часа. Жители давно привыкли и не просыпались.",
+      "Но в марте стук прекратился. Тишина держалась четыре ночи, а на пятую жители услышали не стук, а голос: женский, спокойный, читающий длинное предложение. Сначала решили, что это радио у соседей. Потом вышли на Компотную и увидели, что у подъезда номер пять стоит стул, а на стуле — женщина с книгой. Она читала вслух. Медленно.",
+      "— Это, — сказала она, не поднимая глаз, — абзац из вашего учебника литературы. Страница сорок четыре. Я проверяю, читаете ли вы его дословно.",
+      "Только теперь жители заметили, что плакат над Компотной висел с февраля. Бумага выцвела, краска облезла, никто не читал. Всего пять строк:",
+      "«Слово, написанное неправильно, теряет вес. Слово, стёртое, падает».",
+      "Кто-то стёр последнее предложение абзаца на странице сорок четыре. Абзац стал легче и перестал держать строку. С тех пор в городе по ночам было слышно, как пустые страницы спорят с ветром. То есть ничего.",
+      "Наутро в класс литературы принесли ту самую страницу. Абзац был на месте целиком, только последнее предложение в нём не дочитать — там пусто, и чем дольше смотришь, тем отчётливее слышно, что строка провисла под своим весом.",
+      "А женщина с книгой ушла. Её имя знали все, но никто не помнил, что оно. В списках класса значилось: Классова Хаиза.",
+      "Её имя и было тем последним предложением, которое стёрли."
+    ],
+    q: [
+      { t: "Почему город называли Лом?", o: ["Из-за реки с таким названием", "Из-за ночного стука в три часа", "Из-за деревянной фабрики"], a: 1 },
+      { t: "Что случилось со страницей сорок четыре?", o: ["Её порвали", "С последнего предложения абзаца стёрли слово, и строка провисла", "Её сожгли"], a: 1 },
+      { t: "Как зовут женщину с книгой?", o: ["Мария", "Хаиза", "Нина"], a: 1 }
+    ]
+  }
+];
+
+var PAGE_WORDS = 250;
+var SESSION_MIN = 20;
+var STORE_KEY = "mariya_site_record_v1";
+var THEME_KEY = "mariya_site_theme";
+
+var el = {
+  scrStart: document.getElementById("scrStart"),
+  scrText: document.getElementById("scrText"),
+  scrQuiz: document.getElementById("scrQuiz"),
+  scrResult: document.getElementById("scrResult"),
+  startBtn: document.getElementById("startBtn"),
+  readBtn: document.getElementById("readBtn"),
+  swapBtn: document.getElementById("swapBtn"),
+  resultBtn: document.getElementById("resultBtn"),
+  backBtn: document.getElementById("backBtn"),
+  tryBtn: document.getElementById("tryBtn"),
+  repeatContactBtn: document.getElementById("repeatContactBtn"),
+  contactBtn: document.getElementById("contactBtn"),
+  whatsappBtn: document.getElementById("whatsappBtn"),
+  heroCta: document.getElementById("heroCta"),
+  heroZapis: document.getElementById("heroZapis"),
+  ctaTrenazher: document.getElementById("ctaTrenazher"),
+  themeBtn: document.getElementById("themeBtn"),
+  modalOv: document.getElementById("modalOv"),
+  modalTitle: document.getElementById("modalTitle"),
+  modalP1: document.getElementById("modalP1"),
+  modalCopyWrap: document.getElementById("modalCopyWrap"),
+  modalCopy: document.getElementById("modalCopy"),
+  modalOpen: document.getElementById("modalOpen"),
+  modalNote: document.getElementById("modalNote"),
+  modalClose: document.getElementById("modalClose"),
+  story: document.getElementById("story"),
+  timer: document.getElementById("timer"),
+  timer2: document.getElementById("timer2"),
+  metaWords: document.getElementById("metaWords"),
+  metaWords2: document.getElementById("metaWords2"),
+  quizBox: document.getElementById("quizBox"),
+  quizTitle: document.getElementById("quizTitle"),
+  outWpm: document.getElementById("outWpm"),
+  outLevel: document.getElementById("outLevel"),
+  outPages: document.getElementById("outPages"),
+  outRecord: document.getElementById("outRecord"),
+  outQuiz: document.getElementById("outQuiz")
+};
+
+var state = { idx: -1, words: 0, startedAt: 0, elapsed: 0, tickId: null, answered: 0, correct: 0 };
+
+function pad(n){ return (n < 10 ? "0" : "") + n; }
+function fmt(ms){
+  var s = Math.floor(ms / 1000);
+  return Math.floor(s / 60) + ":" + pad(s % 60);
+}
+function show(node){ node.classList.remove("hidden"); }
+function hide(node){ node.classList.add("hidden"); }
+function only(node){
+  [el.scrStart, el.scrText, el.scrQuiz, el.scrResult].forEach(function(s){ hide(s); });
+  show(node);
+}
+function store(key, val){
+  try { window.localStorage.setItem(key, String(val)); } catch (e) { return null; }
+  return val;
+}
+function load(key){
+  try { return window.localStorage.getItem(key); } catch (e) { return null; }
+}
+function countWords(s){
+  var parts = s.replace(/\s+/g, " ").trim().split(" ");
+  return parts.length ? parts.length : 0;
+}
+
+function renderStory(){
+  var t = TEXTS[state.idx];
+  var html = "";
+  for (var i = 0; i < t.body.length; i++) {
+    var cls = (i === t.body.length - 1) ? ' class="hook"' : "";
+    html += "<p" + cls + ">" + t.body[i] + "</p>";
+  }
+  el.story.innerHTML = html;
+  state.words = countWords(t.body.join(" "));
+  el.metaWords.textContent = state.words;
+  el.metaWords2.textContent = state.words;
+}
+function startTimer(){
+  state.startedAt = performance.now();
+  if (state.tickId) clearInterval(state.tickId);
+  state.tickId = setInterval(function(){
+    var v = fmt(performance.now() - state.startedAt);
+    el.timer.textContent = v;
+    el.timer2.textContent = v;
+  }, 250);
+}
+function stopTimer(){
+  if (state.tickId) { clearInterval(state.tickId); state.tickId = null; }
+  if (state.startedAt) {
+    state.elapsed += performance.now() - state.startedAt;
+    state.startedAt = 0;
+  }
+  return state.elapsed;
+}
+function buildQuiz(){
+  var t = TEXTS[state.idx];
+  var html = "";
+  for (var i = 0; i < t.q.length; i++) {
+    var q = t.q[i];
+    var opts = "";
+    for (var j = 0; j < q.o.length; j++) {
+      opts += '<button class="opt" type="button" data-q="' + i + '" data-v="' + j + '">' + q.o[j] + "</button>";
+    }
+    html += '<div class="q"><p class="qtext">' + (i + 1) + ". " + q.t + "</p>" + opts + "</div>";
+  }
+  el.quizBox.innerHTML = html;
+  el.quizTitle.textContent = "Три вопроса — «" + t.label + "»";
+}
+function onOption(ev){
+  var btn = ev.target.closest(".opt");
+  if (!btn || btn.disabled) return;
+  var q = TEXTS[state.idx].q[+btn.dataset.q];
+  var val = +btn.dataset.v;
+  var all = el.quizBox.querySelectorAll('.opt[data-q="' + btn.dataset.q + '"]');
+  for (var i = 0; i < all.length; i++) {
+    all[i].disabled = true;
+    var idx = +all[i].dataset.v;
+    if (idx === q.a) all[i].classList.add("ok");
+    else if (idx === val) all[i].classList.add("no");
+  }
+  state.answered++;
+  if (val === q.a) state.correct++;
+  if (state.answered === TEXTS[state.idx].q.length) el.resultBtn.disabled = false;
+}
+function levelFor(wpm){
+  if (wpm < 120) return "Ты читаешь вдумчиво. Это не медленно — это фундамент.";
+  if (wpm < 200) return "Твой обычный темп. С него и начинают расти.";
+  if (wpm < 280) return "Уверенный темп. Многие взрослые так не читают.";
+  if (wpm < 380) return "Быстро. Глаз уже берёт группы слов, а не буквы.";
+  return "Скорость профи. Так запоминают единицы.";
+}
+function plural(n, one, few, many){
+  var m = Math.abs(n) % 100;
+  var d = m % 10;
+  if (m > 10 && m < 20) return many;
+  if (d > 1 && d < 5) return few;
+  if (d === 1) return one;
+  return many;
+}
+function showResult(){
+  stopTimer();
+  var ms = state.elapsed;
+  var minutes = ms / 60000;
+  var wpm = minutes > 0 ? Math.round(state.words / minutes) : 0;
+  if (wpm > 1200) wpm = 1200;
+  el.outWpm.textContent = wpm;
+  el.outLevel.textContent = levelFor(wpm);
+  var pages = Math.round(wpm * SESSION_MIN / PAGE_WORDS);
+  el.outPages.textContent = "За " + SESSION_MIN + " минут чтения это примерно " + pages +
+    " " + plural(pages, "страница", "страницы", "страниц") + ".";
+  var rec = parseInt(load(STORE_KEY) || "0", 10);
+  if (wpm > rec) {
+    store(STORE_KEY, wpm);
+    el.outRecord.innerHTML = '<span class="newrec">Личный рекорд: ' + wpm + " слов/мин</span>";
+  } else if (rec > 0) {
+    el.outRecord.textContent = "Твой рекорд: " + rec + " слов/мин. Этот пробный заход — " + wpm + ".";
+  } else {
+    el.outRecord.textContent = "Это твой первый замер. Есть с чем сравнивать.";
+  }
+  el.outQuiz.textContent = "Отвечено верно: " + state.correct + " из " + TEXTS[state.idx].q.length + ".";
+  only(el.scrResult);
+  el.scrResult.scrollIntoView({ block: "nearest" });
+}
+function pickText(forceDifferent){
+  var n = TEXTS.length;
+  var i = state.idx;
+  if (n > 1) {
+    var guard = 0;
+    while ((i === state.idx || (forceDifferent && i === state.lastIdx)) && guard < 20) {
+      i = Math.floor(Math.random() * n);
+      guard++;
+    }
+  }
+  state.idx = i;
+  state.answered = 0;
+  state.correct = 0;
+  state.elapsed = 0;
+  el.timer.textContent = "0:00";
+  el.timer2.textContent = "0:00";
+  el.resultBtn.disabled = true;
+  renderStory();
+  buildQuiz();
+  only(el.scrText);
+  startTimer();
+}
+
+el.startBtn.addEventListener("click", function(){ state.lastIdx = -1; pickText(true); });
+el.swapBtn.addEventListener("click", function(){ state.lastIdx = state.idx; pickText(true); });
+el.readBtn.addEventListener("click", function(){
+  stopTimer();
+  only(el.scrQuiz);
+  var first = el.quizBox.querySelector(".opt");
+  if (first) first.focus();
+});
+el.backBtn.addEventListener("click", function(){
+  only(el.scrText);
+  startTimer();
+});
+el.quizBox.addEventListener("click", onOption);
+el.resultBtn.addEventListener("click", showResult);
+el.tryBtn.addEventListener("click", function(){ state.lastIdx = state.idx; pickText(true); });
+
+function openModal(cfg){
+  el.modalTitle.textContent = cfg.title;
+  el.modalP1.innerHTML = cfg.p1 || "";
+  var hasLinks = !!(cfg.copy || cfg.open);
+  el.modalCopyWrap.classList.toggle("hidden", !hasLinks);
+  el.modalNote.classList.add("hidden");
+  if (cfg.copy) {
+    show(el.modalCopy);
+    el.modalCopy.textContent = cfg.copyLabel || "Скопировать";
+    el.modalCopy.onclick = function(){
+      var ok = false;
+      try { ok = window.navigator.clipboard && window.navigator.clipboard.writeText(cfg.copy); } catch (e) { ok = false; }
+      if (ok) {
+        el.modalNote.textContent = "Скопировано.";
+      } else {
+        var ta = document.createElement("textarea");
+        ta.value = cfg.copy;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.select();
+        try { ok = document.execCommand("copy"); } catch (e) { ok = false; }
+        document.body.removeChild(ta);
+        el.modalNote.textContent = ok ? "Скопировано." : "Скопируй сообщение вручную.";
+      }
+      el.modalNote.classList.remove("hidden");
+    };
+  } else {
+    hide(el.modalCopy);
+  }
+  if (cfg.open) {
+    show(el.modalOpen);
+    el.modalOpen.textContent = cfg.openLabel || "Открыть";
+    el.modalOpen.onclick = function(){
+      try { window.open(cfg.open, "_blank"); } catch (e) {}
+    };
+  } else {
+    hide(el.modalOpen);
+  }
+  var closeOne = cfg.onClose || function(){};
+  el.modalClose.onclick = function(){ modeClose(); closeOne(); };
+  show(el.modalOv);
+}
+function modeClose(){ hide(el.modalOv); }
+
+function zapisModal(kind){
+  var msg = "Здравствуйте, Гудина Мария Юрьевна! Хочу записаться на занятие. Подскажите, пожалуйста, свободное время.";
+  if (kind === "tg") {
+    openModal({
+      title: "Запись в Telegram",
+      p1: "<strong>@" + CONTACT.telegram + "</strong> — напишите туда, и я отвечу лично.",
+      copy: msg,
+      copyLabel: "Скопировать сообщение",
+      open: "https://t.me/" + CONTACT.telegram,
+      openLabel: "Открыть Telegram"
+    });
+  } else {
+    openModal({
+      title: "Запись в WhatsApp",
+      p1: "<strong>" + CONTACT.whatsapp + "</strong> — напишите туда, и я отвечу лично.",
+      copy: msg,
+      copyLabel: "Скопировать сообщение",
+      open: "https://wa.me/" + CONTACT.whatsapp.replace(/\D/g, ""),
+      openLabel: "Открыть WhatsApp"
+    });
+  }
+}
+
+el.contactBtn.addEventListener("click", function(){ zapisModal("tg"); });
+el.whatsappBtn.addEventListener("click", function(){ zapisModal("wa"); });
+el.repeatContactBtn.addEventListener("click", function(){ zapisModal("tg"); });
+el.heroZapis.addEventListener("click", function(){ zapisModal("tg"); });
+
+var zapisBtns = document.querySelectorAll(".zapis-btn");
+for (var i = 0; i < zapisBtns.length; i++) {
+  zapisBtns[i].addEventListener("click", function(){ zapisModal("tg"); });
+}
+
+function toTrenazher(){
+  document.getElementById("trenazhyory").scrollIntoView({ behavior: "smooth" });
+}
+el.heroCta.addEventListener("click", toTrenazher);
+el.ctaTrenazher.addEventListener("click", toTrenazher);
+
+el.themeBtn.addEventListener("click", function(){
+  var cur = document.documentElement.getAttribute("data-theme");
+  var next = cur === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  el.themeBtn.textContent = next === "dark" ? "Светлая тема" : "Тёмная тема";
+  store(THEME_KEY, next);
+});
+el.modalOv.addEventListener("click", function(e){
+  if (e.target === el.modalOv) modeClose();
+});
+
+(function init(){
+  document.getElementById("footYear").textContent = "© " + new Date().getFullYear();
+  var saved = load(THEME_KEY);
+  if (saved === "light" || saved === "dark") {
+    document.documentElement.setAttribute("data-theme", saved);
+    el.themeBtn.textContent = saved === "dark" ? "Светлая тема" : "Тёмная тема";
+  }
+})();
+</script>
+</body>
+</html>
