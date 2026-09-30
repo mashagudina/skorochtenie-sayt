@@ -356,27 +356,6 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
 .dlink .tt{font-weight:700;font-size:15px;line-height:1.35}
 .dlink .dd{font-size:13px;color:var(--dim);margin-top:3px}
 
-/* ---------------- цены ---------------- */
-.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
-.price{
-  position:relative;background:var(--card);border:1px solid var(--line);
-  border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow);
-  transition:transform .2s ease, box-shadow .2s ease;
-}
-.price:hover{transform:translateY(-5px)}
-.price.hot{border-color:var(--gold);box-shadow:var(--glow),var(--shadow)}
-.price .tag{
-  position:absolute;top:-13px;left:22px;border-radius:12px;padding:4px 13px;
-  background:linear-gradient(135deg,var(--gold-lt),var(--gold));
-  color:var(--accent-ink);font-size:13px;font-weight:800;white-space:nowrap;
-}
-.price .sum{font-size:34px;font-weight:800;margin:8px 0 4px;color:var(--gold-lt)}
-html[data-theme="light"] .price .sum{color:var(--wine)}
-.price .sum small{font-size:16px;color:var(--dim);font-weight:400}
-.price ul{margin:14px 0 0;padding-left:18px;color:var(--dim);font-size:15px;line-height:1.7}
-.price li::marker{color:var(--gold)}
-.price .note{font-size:13px;color:var(--dim);margin-top:14px;font-style:italic}
-
 /* ---------------- контакты ---------------- */
 .contact-card{
   background:var(--card-2);border:1px solid var(--line);border-radius:var(--radius);
@@ -424,7 +403,7 @@ html[data-theme="light"] .price .sum{color:var(--wine)}
 
 /* ---------------- адаптив ---------------- */
 @media (max-width:860px){
-  .grid3,.trainer-links,.download,.price-grid{grid-template-columns:1fr}
+  .grid3,.trainer-links,.download{grid-template-columns:1fr}
   h1{font-size:32px}
   h2{font-size:24px}
   .nav{width:100%;order:3}
@@ -468,7 +447,6 @@ html[data-theme="light"] .price .sum{color:var(--wine)}
       <a href="#treniruem">Что тренируем</a>
       <a href="#zanyatiya">Как проходят занятия</a>
       <a href="#trenazhyory">Попробуйте</a>
-      <a href="#ceny">Цены</a>
       <a href="#podarok">Подарок</a>
       <a href="#kontakty">Запись</a>
     </nav>
@@ -710,46 +688,6 @@ html[data-theme="light"] .price .sum{color:var(--wine)}
     </div>
   </section>
 
-  <section class="sec" id="ceny">
-    <p class="sec-label">Цены</p>
-    <h2>Пробное — 200 ₽</h2>
-    <div class="price-grid">
-      <div class="price hot">
-        <span class="tag">С чего начать</span>
-        <h3>Пробное занятие</h3>
-        <div class="sum">200 <small>₽ / 20–30 мин</small></div>
-        <ul>
-          <li>Знакомство и диагностика</li>
-          <li>Замер скорости чтения и памяти</li>
-          <li>План занятий и рекомендации</li>
-        </ul>
-        <p class="note">Знакомимся, определяем уровень и задачи ученика.</p>
-      </div>
-      <div class="price">
-        <h3>Разовое занятие</h3>
-        <div class="sum">1 000 <small>₽ / 45 мин</small></div>
-        <ul>
-          <li>Индивидуально, онлайн</li>
-          <li>Обучение чтению · скорочтение для детей</li>
-          <li>Скорочтение, память и внимание для взрослых</li>
-        </ul>
-        <p class="note">Подходит, чтобы попробовать формат без обязательств.</p>
-      </div>
-      <div class="price">
-        <span class="tag">Выгоднее на 125 ₽ в занятии</span>
-        <h3>Пакет 8 занятий</h3>
-        <div class="sum">7 000 <small>₽ за 8 занятий</small></div>
-        <ul>
-          <li>875 ₽ за занятие вместо 1 000 ₽</li>
-          <li>Индивидуальная программа под ученика</li>
-          <li>Домашние задания и тренажёры</li>
-          <li>Замеры прогресса по ходу курса</li>
-        </ul>
-        <p class="note">Срок пакета — 2 месяца, график обсуждаем.</p>
-      </div>
-    </div>
-  </section>
-
   <section class="sec" id="podarok">
     <p class="sec-label">Подарок</p>
     <h2>Авторский читательский дневник — в подарок</h2>
@@ -766,7 +704,7 @@ html[data-theme="light"] .price .sum{color:var(--wine)}
   <section class="sec" id="kontakty">
     <p class="sec-label">Запись</p>
     <h2>Запишись на пробное занятие</h2>
-    <p>Знакомство и диагностика — 20–30 минут за 200 ₽. Выберите удобный канал связи, и я отвечу лично.</p>
+    <p>Знакомство и диагностика — 20–30 минут. Выберите удобный канал связи, и я отвечу лично и расскажу о формате занятий.</p>
     <div class="contact-card">
       <div class="contact-line">
         <button class="btn primary" id="contactBtn" type="button">Написать в Telegram</button>
@@ -836,7 +774,7 @@ html[data-theme="light"] .price .sum{color:var(--wine)}
 
   /* ---- 3. Появление блоков при прокрутке ---- */
   var targets = document.querySelectorAll(
-    '.sec, .card, .step, .price, .tlink, .dlink, .trainer-box, .contact-card'
+    '.sec, .card, .step, .tlink, .dlink, .trainer-box, .contact-card'
   );
   if(calm || !('IntersectionObserver' in window)){
     Array.prototype.forEach.call(targets, function(el){ el.classList.add('in'); });
@@ -871,7 +809,7 @@ html[data-theme="light"] .price .sum{color:var(--wine)}
     }
   }
   document.addEventListener('click', function(e){
-    var t = e.target.closest && e.target.closest('.btn,.tlink,.dlink,.card,.price');
+    var t = e.target.closest && e.target.closest('.btn,.tlink,.dlink,.card');
     if(!t) return;
     var r = t.getBoundingClientRect();
     burst(r.left + r.width / 2, r.top + Math.min(r.height / 2, 40));
