@@ -709,6 +709,7 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
       <div class="contact-line">
         <button class="btn primary" id="contactBtn" type="button">Написать в Telegram</button>
         <button class="btn ghost" id="whatsappBtn" type="button">Написать в WhatsApp</button>
+        <button class=""btn ghost"" id=""vkBtn"" type=""button"">Написать в ВК</button>
       </div>
     </div>
   </section>
@@ -835,7 +836,8 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
 
 var CONTACT = {
   telegram: "gudini_m",
-  whatsapp: "+79123968948"
+  whatsapp: "+79123968948",
+  vk: "https://vk.ru/id274662022"
 };
 
 var TEXTS = [
@@ -923,6 +925,7 @@ var el = {
   repeatContactBtn: document.getElementById("repeatContactBtn"),
   contactBtn: document.getElementById("contactBtn"),
   whatsappBtn: document.getElementById("whatsappBtn"),
+  vkBtn: document.getElementById("vkBtn"),
   heroCta: document.getElementById("heroCta"),
   heroZapis: document.getElementById("heroZapis"),
   ctaTrenazher: document.getElementById("ctaTrenazher"),
@@ -1181,6 +1184,7 @@ function zapisModal(kind){
 
 el.contactBtn.addEventListener("click", function(){ zapisModal("tg"); });
 el.whatsappBtn.addEventListener("click", function(){ zapisModal("wa"); });
+  if (el.vkBtn) el.vkBtn.addEventListener("click", function(){ window.open(CONTACT.vk, "_blank"); });
 el.repeatContactBtn.addEventListener("click", function(){ zapisModal("tg"); });
 el.heroZapis.addEventListener("click", function(){ zapisModal("tg"); });
 
