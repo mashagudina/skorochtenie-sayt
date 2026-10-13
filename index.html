@@ -175,6 +175,14 @@ html[data-theme="light"] .topbar{
 .nav{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
 .nav a{color:var(--dim);font-size:15px;padding:7px 11px;border-radius:10px;transition:background .15s,color .15s}
 .nav a:hover{color:var(--gold-lt);text-decoration:none;background:var(--soft)}
+.top-contacts{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.top-contacts a{
+  font-size:14px;font-weight:600;color:var(--dim);
+  border:1px solid var(--line);border-radius:10px;padding:7px 11px;
+  transition:background .15s,color .15s,border-color .15s;white-space:nowrap;
+}
+.top-contacts a:hover{color:var(--gold-lt);border-color:var(--gold-lt);text-decoration:none;background:var(--soft)}
+html[data-theme="light"] .top-contacts a:hover{color:var(--wine)}
 .theme{
   background:transparent;border:1px solid var(--line);color:var(--gold-lt);
   border-radius:20px;padding:7px 14px;font-size:14px;cursor:pointer;
@@ -407,6 +415,7 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
   h1{font-size:32px}
   h2{font-size:24px}
   .nav{width:100%;order:3}
+  .top-contacts{width:100%;order:4}
   .hero{padding:40px 0 20px}
   .hero-grid{grid-template-columns:1fr 128px;gap:22px}
   .ava-frame{width:118px;height:118px}
@@ -450,6 +459,12 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
       <a href="#podarok">Подарок</a>
       <a href="#kontakty">Запись</a>
     </nav>
+    <div class="top-contacts">
+      <a href="https://t.me/gudini_m" target="_blank" rel="noopener noreferrer">Telegram</a>
+      <a href="https://wa.me/79123968948" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+      <a href="https://wa.me/77053215291" target="_blank" rel="noopener noreferrer">WhatsApp +7 705</a>
+      <a href="https://vk.ru/id274662022" target="_blank" rel="noopener noreferrer">ВК</a>
+    </div>
     <button class="theme" id="themeBtn" type="button">Светлая тема</button>
   </div>
 </div>
@@ -707,10 +722,12 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
     <p>Знакомство и диагностика — 20–30 минут. Выберите удобный канал связи, и я отвечу лично и расскажу о формате занятий.</p>
     <div class="contact-card">
       <div class="contact-line">
-        <a class=""btn primary"" href=""https://t.me/gudini_m"" target=""_blank"" rel=""noopener noreferrer"">Написать в Telegram</a>
-        <a class=""btn ghost"" href=""https://wa.me/79123968948"" target=""_blank"" rel=""noopener noreferrer"">Написать в WhatsApp</a>
-        <a class=""btn ghost"" href=""https://vk.com/id274662022"" target=""_blank"" rel=""noopener noreferrer"">Написать в ВК</a>
+        <a class="btn primary" href="https://t.me/gudini_m" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
+        <a class="btn ghost" href="https://wa.me/79123968948" target="_blank" rel="noopener noreferrer">Написать в WhatsApp</a>
+        <a class="btn ghost" href="https://wa.me/77053215291" target="_blank" rel="noopener noreferrer">WhatsApp (2-й номер)</a>
+        <a class="btn ghost" href="https://vk.ru/id274662022" target="_blank" rel="noopener noreferrer">Написать в ВК</a>
       </div>
+      <p class="hint" style="margin-top:14px">Telegram: @gudini_m · WhatsApp: +7 912 396-89-48, +7 705 321-52-91 · ВК: vk.ru/id274662022</p>
     </div>
   </section>
 
@@ -922,8 +939,6 @@ var el = {
   backBtn: document.getElementById("backBtn"),
   tryBtn: document.getElementById("tryBtn"),
   repeatContactBtn: document.getElementById("repeatContactBtn"),
-        <a class=""btn primary"" href=""https://t.me/gudini_m"" target=""_blank"" rel=""noopener noreferrer"">Написать в Telegram</a>
-        <a class=""btn ghost"" href=""https://wa.me/79123968948"" target=""_blank"" rel=""noopener noreferrer"">Написать в WhatsApp</a>
   heroCta: document.getElementById("heroCta"),
   heroZapis: document.getElementById("heroZapis"),
   ctaTrenazher: document.getElementById("ctaTrenazher"),
@@ -1180,8 +1195,6 @@ function zapisModal(kind){
   }
 }
 
-        <a class=""btn primary"" href=""https://t.me/gudini_m"" target=""_blank"" rel=""noopener noreferrer"">Написать в Telegram</a>
-        <a class=""btn ghost"" href=""https://wa.me/79123968948"" target=""_blank"" rel=""noopener noreferrer"">Написать в WhatsApp</a>
 el.repeatContactBtn.addEventListener("click", function(){ zapisModal("tg"); });
 el.heroZapis.addEventListener("click", function(){ zapisModal("tg"); });
 
