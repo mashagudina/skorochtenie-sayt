@@ -340,7 +340,7 @@ html[data-theme="light"] .wpm{text-shadow:none;color:var(--wine)}
 .newrec{color:var(--ok);font-weight:700}
 
 /* ---------------- ссылки на тренажёры ---------------- */
-.trainer-links{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+.trainer-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:16px}
 .tlink{
   display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;
   padding:18px;color:var(--ink);text-decoration:none;box-shadow:var(--shadow);
@@ -456,6 +456,7 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
       <a href="#treniruem">Что тренируем</a>
       <a href="#zanyatiya">Как проходят занятия</a>
       <a href="#trenazhyory">Попробуйте</a>
+      <a href="advent_kalendar_31.html">Адвент</a>
       <a href="#podarok">Подарок</a>
       <a href="#kontakty">Запись</a>
     </nav>
@@ -696,6 +697,10 @@ html[data-theme="light"] .tlink .t{color:var(--wine)}
     </div>
 
     <div class="trainer-links">
+      <a class="tlink" href="advent_kalendar_31.html">
+        <div class="t">31 ночь в библиотеке</div>
+        <div class="d">Адвент-календарь читателя на декабрь: 31 окно, книга дня и сертификат</div>
+      </a>
       <a class="tlink" href="chitatelskij_dnevnik.html">
         <div class="t">Читательский дневник</div>
         <div class="d">План чтения на год, замеры скорости, страница достижений</div>

@@ -1,0 +1,2661 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>31 ночь в библиотеке — адвент-календарь читателя</title>
+<meta name="description" content="Бесплатный адвент-календарь для любителей чтения: 31 окно, короткие истории, упражнения по скорочтению и книга дня. Два трека: 12–15 лет и 16+.">
+<style>
+:root{
+  --bg:#0b1026;--card:#1b2350;--ink:#f4e9d0;--dim:#b8c0e0;--line:#3a4680;
+  --gold:#f0b429;--gold2:#ffd166;--wine:#a83246;--ok:#48c98e;--bad:#e8604f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{margin:0;padding:0}
+body{min-height:100vh;color:var(--ink);background:var(--bg);-webkit-text-size-adjust:100%;overflow-wrap:anywhere;
+  font:17px/1.6 "Segoe UI",-apple-system,"Helvetica Neue",Arial,sans-serif}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(1000px 600px at 82% -10%,rgba(240,180,41,.14),transparent 60%),
+    radial-gradient(800px 520px at -10% 108%,rgba(122,92,255,.18),transparent 62%),
+    linear-gradient(160deg,#0b1026,#121834 55%,#0d1330)}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.4;
+  background-image:
+    radial-gradient(1px 1px at 22px 34px,#fff,transparent),
+    radial-gradient(1.6px 1.6px at 148px 92px,#ffd166,transparent),
+    radial-gradient(1px 1px at 240px 170px,#fff,transparent),
+    radial-gradient(1.4px 1.4px at 330px 48px,#fff,transparent),
+    radial-gradient(1px 1px at 96px 210px,#ffd166,transparent);
+  background-size:380px 260px;animation:twinkle 9s ease-in-out infinite alternate}
+@keyframes twinkle{from{opacity:.2}to{opacity:.5}}
+h1,h2,h3,p{margin:0}
+a{color:var(--gold2);text-decoration:none}
+a:hover{text-decoration:underline}
+button{font-family:inherit}
+.topbar{position:sticky;top:0;z-index:30;background:rgba(11,16,38,.86);border-bottom:1px solid var(--line);backdrop-filter:blur(8px)}
+.topbar-in{max-width:1080px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;color:var(--gold2)}
+.brand svg{width:22px;height:22px;flex:0 0 auto}
+.nav-min{margin-left:auto;display:flex;align-items:center;gap:4px;flex-wrap:wrap}
+.nav-min a{color:var(--dim);font-size:14px;padding:7px 10px;border-radius:9px}
+.nav-min a:hover{color:var(--gold2);background:rgba(255,255,255,.06);text-decoration:none}
+.sound{border:1px solid var(--line);background:transparent;color:var(--dim);border-radius:9px;padding:6px 10px;font-size:13px;cursor:pointer}
+.sound:hover{color:var(--gold2);border-color:var(--gold)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 48px}
+.hero{display:grid;gap:16px;padding:36px 0 8px}
+@media(min-width:860px){.hero{grid-template-columns:1fr 240px;align-items:center}}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:700}
+h1{font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,6vw,62px);line-height:1.02;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#ffe9b3,#f0b429 58%,#c9861a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .lead{max-width:62ch;color:var(--dim);font-size:17px;margin-top:12px}
+.hero-art{width:100%;max-width:240px;justify-self:center;display:none}
+@media(min-width:860px){.hero-art{display:block}}
+.hero-art svg{width:100%;height:auto;display:block}
+.panel{margin-top:10px;padding:16px;border:1px solid var(--line);border-radius:20px;
+  background:linear-gradient(150deg,rgba(27,35,80,.9),rgba(20,27,58,.72));box-shadow:0 18px 44px rgba(0,0,0,.32);
+  display:grid;gap:16px}
+@media(min-width:780px){.panel{grid-template-columns:1.2fr 1fr 1.15fr;align-items:center}}
+.seg{display:flex;gap:4px;padding:4px;border-radius:14px;background:rgba(0,0,0,.26);border:1px solid var(--line)}
+.seg button{flex:1;border:0;cursor:pointer;border-radius:10px;padding:9px 8px;background:transparent;color:var(--dim);
+  font-size:13px;font-weight:700;line-height:1.25;transition:background .18s,color .18s}
+.seg button small{display:block;font-size:11px;font-weight:500;opacity:.8}
+.seg button[aria-pressed="true"]{background:linear-gradient(135deg,var(--gold),#e09a1a);color:#241a04;box-shadow:0 6px 16px rgba(240,180,41,.28)}
+.seg button[aria-pressed="true"] small{opacity:.75}
+.switch{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--dim);position:relative}
+.switch input{position:absolute;opacity:0;width:0;height:0}
+.switch .track{width:46px;height:26px;flex:0 0 auto;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid var(--line);
+  position:relative;transition:background .2s,border-color .2s}
+.switch .track::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;
+  background:var(--dim);transition:transform .2s,background .2s}
+.switch input:checked + .track{background:rgba(240,180,41,.25);border-color:var(--gold)}
+.switch input:checked + .track::after{transform:translateX(20px);background:var(--gold2)}
+.switch input:focus-visible + .track{outline:3px solid var(--gold2);outline-offset:3px}
+.prog{display:grid;gap:7px}
+.prog .row{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--dim)}
+.prog .row b{color:var(--gold2);font-size:14px}
+.bar{height:8px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2));transition:width .35s ease}
+.reset{background:none;border:0;color:var(--dim);font-size:12px;text-decoration:underline;cursor:pointer;padding:0}
+.reset:hover{color:var(--gold2)}
+.today-line{font-size:12.5px;color:var(--dim)}
+.note{display:none;margin-top:12px;padding:10px 14px;border:1px solid rgba(240,180,41,.32);border-radius:12px;
+  background:rgba(240,180,41,.08);color:var(--gold2);font-size:14px}
+.note.show{display:block}
+.sec{margin-top:36px}
+.sec-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.sec-head h2{font-family:Georgia,serif;font-size:clamp(22px,3vw,30px);font-weight:700}
+.sec-head p{font-size:14px;color:var(--dim)}
+.calendar{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:12px}
+@media(min-width:700px){.calendar{grid-template-columns:repeat(auto-fill,minmax(122px,1fr));gap:14px}}
+.door{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;aspect-ratio:3/4;
+  padding:10px 6px 9px;border:2px solid var(--line);border-radius:56px 56px 14px 14px;
+  background:linear-gradient(180deg,#1d2554,#141b3a);color:var(--ink);cursor:pointer;
+  transition:transform .2s,box-shadow .2s,border-color .2s;overflow:hidden}
+.door::before{content:"";position:absolute;inset:6px;border-radius:50px 50px 10px 10px;border:1px solid rgba(255,255,255,.06);pointer-events:none}
+.door:hover{transform:translateY(-4px);border-color:var(--gold);box-shadow:0 14px 30px rgba(0,0,0,.4),0 0 0 1px rgba(255,209,102,.2)}
+.door-num{font:800 30px/1 Georgia,serif;color:var(--gold2)}
+.door-ico{width:20px;height:20px;color:var(--dim);opacity:.85}
+.door-ico svg{width:100%;height:100%;display:block}
+.door-cap{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--dim)}
+.door.done{border-color:rgba(240,180,41,.65);background:radial-gradient(circle at 50% 32%,rgba(240,180,41,.34),#2a2340 72%);
+  box-shadow:0 0 0 1px rgba(255,209,102,.25),0 10px 28px rgba(240,180,41,.18)}
+.door.done .door-ico{color:var(--gold2);opacity:1}
+.door.today{border-color:var(--gold2);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 1px rgba(255,209,102,.2)}50%{box-shadow:0 0 0 4px rgba(255,209,102,.16),0 0 26px rgba(240,180,41,.35)}}
+.door.locked{background:linear-gradient(180deg,#151b3b,#10152c)}
+.door.locked .door-num{color:rgba(184,192,224,.55)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:14px;font-size:13px;color:var(--dim)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--gold2)}
+.dot.empty{background:transparent;border:2px solid var(--dim)}
+.dot.lock{background:transparent;border:2px solid var(--line)}
+.dot.today{background:transparent;border:2px solid var(--gold2);box-shadow:0 0 0 2px rgba(255,209,102,.2)}
+.cards{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.card{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:18px;padding:16px 18px}
+.card .n{font:800 12px/1 Georgia,serif;color:var(--gold);letter-spacing:.14em;text-transform:uppercase}
+.card h3{margin:7px 0 6px;font-size:17px;color:var(--gold2)}
+.card p{font-size:14px;color:var(--dim)}
+.cert-box{margin-top:16px;padding:22px 18px;text-align:center;border:1px dashed rgba(240,180,41,.5);border-radius:18px;
+  background:radial-gradient(circle at 50% 0%,rgba(240,180,41,.13),transparent 62%);display:grid;gap:9px;justify-items:center}
+.cert-box h3{font-family:Georgia,serif;font-size:23px;color:var(--gold2)}
+.cert-box p{font-size:14px;color:var(--dim);max-width:56ch}
+.cert-box .code{font-weight:800;letter-spacing:.16em;color:var(--gold2)}
+.cert-box .btn{margin-top:4px}
+.btn{min-height:48px;padding:0 20px;border-radius:12px;cursor:pointer;border:2px solid var(--gold);
+  background:linear-gradient(135deg,var(--gold),#e0a020);color:#241a04;font-weight:800;font-size:16px;
+  transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(240,180,41,.25)}
+.btn.ghost{background:transparent;color:var(--gold2)}
+.btn.small{min-height:40px;padding:0 14px;font-size:14px}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.foot{margin-top:42px;padding-top:18px;border-top:1px solid var(--line);color:var(--dim);font-size:13px;
+  display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between}
+.backdrop{position:fixed;inset:0;z-index:60;padding:16px;background:rgba(6,9,22,.8);backdrop-filter:blur(6px);
+  display:grid;place-items:center;overflow:auto}
+.backdrop[hidden]{display:none}
+.modal{position:relative;width:min(720px,100%);max-height:calc(100vh - 32px);overflow:auto;padding:22px;border-radius:22px;
+  background:linear-gradient(160deg,#20294f,#151b3a 72%);border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal::before{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,209,102,.12)}
+.m-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:rgba(255,255,255,.05);color:var(--dim);font-size:22px;line-height:1;cursor:pointer}
+.m-close:hover{color:var(--gold2);border-color:var(--gold)}
+.m-top{display:flex;justify-content:space-between;align-items:center;gap:10px;padding-right:44px;font-size:11.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:700}
+.m-title{font-family:Georgia,serif;font-size:clamp(22px,4vw,30px);margin:8px 0 12px;color:var(--gold2)}
+.letter{margin:0 0 16px;padding:12px 16px;border-left:3px solid rgba(240,180,41,.5);border-radius:0 12px 12px 0;
+  background:rgba(255,255,255,.03);font-size:16px}
+.letter p{margin:0 0 8px}
+.letter p:last-child{margin-bottom:0}
+.letter p:first-child{font-family:Georgia,serif;font-size:17px;color:var(--gold2)}
+.task-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.035)}
+.task-prompt{font-size:18px;font-weight:600;line-height:1.45;margin:0 0 12px}
+.task-text{margin:0 0 14px;padding:12px 14px;border-radius:12px;background:rgba(240,180,41,.07);
+  border:1px solid rgba(240,180,41,.2);font-size:16px}
+.noisy{margin:4px 0 16px;text-align:center;word-break:break-word;font:700 clamp(22px,5vw,32px)/1.3 "Segoe UI",Arial,sans-serif;
+  letter-spacing:4px;color:var(--gold2)}
+.opts{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:10px;min-height:54px;padding:10px 14px;text-align:left;font-size:16px;
+  color:var(--ink);background:rgba(255,255,255,.05);border:2px solid var(--line);border-radius:12px;cursor:pointer;
+  transition:border-color .15s,background .15s,transform .15s}
+.opt .key{min-width:24px;height:24px;display:grid;place-items:center;border:1px solid var(--line);border-radius:7px;
+  font-size:12px;color:var(--dim)}
+.opt:hover{border-color:var(--gold);transform:translateY(-1px)}
+.opt[aria-pressed="true"]{border-color:var(--gold2);background:rgba(240,180,41,.12)}
+.opt[data-state="ok"]{border-color:var(--ok);background:rgba(72,201,142,.12)}
+.opt[data-state="bad"]{border-color:var(--bad);background:rgba(232,96,79,.12);animation:shake .4s}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{min-height:44px;padding:8px 14px;border-radius:10px;cursor:pointer;border:2px solid var(--line);
+  background:rgba(255,255,255,.05);color:var(--ink);font-size:15px}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed="true"]{border-color:var(--gold2);background:rgba(240,180,41,.16);color:var(--gold2);font-weight:700}
+.chip[data-state="ok"]{border-color:var(--ok)}
+.chip[data-state="bad"]{border-color:var(--bad)}
+.gap-row{display:grid;gap:6px;margin-top:10px}
+.gap-label{font-size:13px;color:var(--dim)}
+.blank{display:inline-block;min-width:4.2em;padding:0 4px;text-align:center;border-bottom:2px solid var(--gold);
+  color:var(--gold2);font-weight:600}
+.tf{display:grid;gap:12px}
+.tf-item{border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:grid;gap:8px}
+.tf-item p{font-size:15px}
+.tf-btns{display:flex;gap:8px}
+.tf-btns .chip{flex:1}
+.mem-timer{font-size:14px;font-weight:700;color:var(--gold2);margin-bottom:8px}
+.mem-words{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.mem-word{padding:10px;text-align:center;font-size:16px;color:var(--gold2);border:1px solid rgba(240,180,41,.4);
+  border-radius:10px;background:rgba(240,180,41,.08)}
+.order-pool{display:grid;gap:8px}
+.piece{display:flex;align-items:center;gap:10px;text-align:left;padding:10px 12px;border:2px solid var(--line);
+  border-radius:12px;background:rgba(255,255,255,.05);color:var(--ink);font-size:15px;cursor:pointer}
+.piece:hover{border-color:var(--gold)}
+.piece .idx{min-width:26px;height:26px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--line);
+  font-size:12px;color:var(--dim);flex:0 0 auto}
+.piece[aria-pressed="true"]{border-color:var(--gold2);background:rgba(240,180,41,.1)}
+.piece[aria-pressed="true"] .idx{background:var(--gold);border-color:var(--gold);color:#241a04;font-weight:800}
+.piece[data-state="ok"]{border-color:var(--ok)}
+.piece[data-state="bad"]{border-color:var(--bad)}
+.schulte{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-width:420px;margin:0 auto}
+.schulte button{aspect-ratio:1;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.05);
+  color:var(--ink);font:700 18px/1 "Segoe UI",Arial,sans-serif;cursor:pointer}
+.schulte button:hover{border-color:var(--gold)}
+.schulte button.hit{background:rgba(72,201,142,.18);border-color:var(--ok);color:var(--ok)}
+.schulte button.miss{animation:shake .35s;border-color:var(--bad)}
+.schulte-meta{display:flex;justify-content:center;gap:18px;margin:10px 0;font-size:14px;color:var(--dim)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}
+  60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.feedback{min-height:52px;margin-top:12px;font-size:15px;line-height:1.4}
+.feedback.ok{color:var(--ok);font-weight:700}
+.feedback.bad{color:var(--bad);font-weight:700}
+.task-foot{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.task-foot .btn{flex:1;min-width:150px}
+.done-note{font-size:15px;color:var(--ok)}
+.book{margin-top:16px;padding:14px 16px;border-radius:14px;border:1px solid rgba(240,180,41,.35);
+  background:radial-gradient(circle at 0% 0%,rgba(240,180,41,.14),transparent 60%),rgba(255,255,255,.03);display:grid;gap:3px}
+.book .k{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.book h3{font-family:Georgia,serif;font-size:18px;color:var(--gold2)}
+.book .a{font-size:13px;color:var(--dim)}
+.book .n{font-size:14px;margin-top:3px}
+.book.locked{min-height:76px;display:grid;place-items:center;border-style:dashed;background:rgba(255,255,255,.02)}
+.book.locked .k,.book.locked h3,.book.locked .a,.book.locked .n{display:none}
+.lock-note{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--dim)}
+.lock-note svg{width:18px;height:18px;flex:0 0 auto}
+.m-foot{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.m-foot .btn{flex:1;min-width:140px}
+.toast{position:fixed;left:50%;bottom:24px;z-index:80;max-width:calc(100vw - 32px);padding:12px 18px;text-align:center;
+  background:#20294f;border:1px solid var(--gold);color:var(--ink);border-radius:12px;font-size:14px;
+  box-shadow:0 16px 40px rgba(0,0,0,.5);opacity:0;transform:translate(-50%,16px);pointer-events:none;
+  transition:opacity .2s,transform .2s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.sparks{position:fixed;inset:0;z-index:70;pointer-events:none;overflow:hidden}
+.sparks i{position:absolute;top:-16px;width:8px;height:12px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(106vh) rotate(var(--r,360deg))}}
+.print-only{display:none}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition:none !important;animation:none !important}html{scroll-behavior:auto}}
+@media (max-width:480px){
+  body{font-size:16px}.wrap{padding:0 12px 40px}.topbar-in{padding:9px 12px}.nav-min a{font-size:13px;padding:6px 8px}
+  .calendar{gap:9px;grid-template-columns:repeat(auto-fill,minmax(88px,1fr))}.door-num{font-size:26px}
+  .modal{padding:16px}.m-title{font-size:22px}.task-prompt{font-size:17px}.noisy{letter-spacing:2px}
+}
+@media print{
+  :root{--bg:#fff;--card:#fff;--ink:#111;--dim:#333;--line:#000;--gold:#000;--gold2:#000;--ok:#000;--bad:#000}
+  @page{size:A4 portrait;margin:12mm 10mm 12mm 20mm}
+  body{background:#fff !important;color:#111;font-size:12pt}
+  body::before,body::after{display:none !important}
+  .topbar,.screen-only,.backdrop,.toast,.sparks,.wrap{display:none !important}
+  .print-only{display:block}
+  .sheet{width:100%;color:#111}
+  .sheet + .sheet{break-before:page;page-break-before:always}
+  .p-title{font-family:Georgia,serif;font-size:24pt;line-height:1.1;text-align:center;margin:0 0 1mm}
+  .p-sub{text-align:center;font-size:11pt;margin:0 0 5mm}
+  .p-lines{display:flex;gap:8mm;flex-wrap:wrap;font-size:12pt;border-bottom:1pt solid #000;padding-bottom:3mm;margin-bottom:5mm}
+  .map-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:3mm}
+  .map-cell{height:27mm;padding:2mm;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+    border:0.8pt solid #000;border-radius:2mm 2mm 0 0;font-size:11pt;break-inside:avoid;page-break-inside:avoid}
+  .map-cell b{font-family:Georgia,serif;font-size:14pt;line-height:1}
+  .map-cell span{font-size:14pt;line-height:1}
+  .map-cell.on span{font-weight:700}
+  .p-note{font-size:10pt;line-height:1.5;margin-top:5mm}
+  .cert-frame{border:3pt double #000;padding:12mm 10mm;min-height:238mm;display:flex;flex-direction:column;
+    align-items:center;justify-content:space-between;text-align:center;gap:4mm}
+  .cert-frame .top{font-size:10pt;letter-spacing:.2em;text-transform:uppercase}
+  .cert-frame h2{font-family:Georgia,serif;font-size:26pt;line-height:1.1;margin:2mm 0;letter-spacing:.02em}
+  .cert-frame .big{font-family:Georgia,serif;font-size:18pt;line-height:1.3}
+  .cert-frame .line{width:74%;border-bottom:1pt solid #000;height:8mm}
+  .cert-frame .dash{font-size:10pt;letter-spacing:.06em}
+  .cert-frame .code{font-size:15pt;font-weight:700;letter-spacing:.14em;border:1pt solid #000;padding:2mm 6mm}
+  .cert-frame .small{font-size:9.5pt;line-height:1.5;max-width:150mm}
+  .cert-frame .sign{width:100%;display:flex;justify-content:space-between;font-size:10pt;padding:0 6mm}
+  h1,h2,h3,.hero h1{background:none !important;color:#111 !important;-webkit-text-fill-color:#111 !important}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <span class="brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M20 15.5A8.5 8.5 0 1 1 8.5 4a7 7 0 0 0 11.5 11.5z"/>
+      </svg>
+      31 ночь в библиотеке
+    </span>
+    <nav class="nav-min" aria-label="Навигация">
+      <a href="index.html">На главную</a>
+      <a href="#howto">Как играть</a>
+      <a href="#sertifikat">Сертификат</a>
+      <button class="sound" id="soundBtn" type="button" aria-pressed="true">Звук: вкл</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Адвент-календарь читателя · 1–31 декабря</p>
+      <h1>31 ночь<br>в библиотеке</h1>
+      <p class="lead">Каждую ночь из Книги Зимней Библиотеки пропадает страница. Открывай окно, читай письмо смотрителя, проходи короткое испытание — и возвращай страницу. Три-пять минут в день, и к Новому году у тебя будет 31 звезда, книга дня на каждый вечер и сертификат хранителя.</p>
+
+      <div class="panel">
+        <div>
+          <div class="seg" role="group" aria-label="Выбери трек">
+            <button type="button" data-track="kids" aria-pressed="true">12–15 лет<small>Следопыты</small></button>
+            <button type="button" data-track="adults" aria-pressed="false">16+<small>Хранители</small></button>
+          </div>
+        </div>
+        <div>
+          <label class="switch" for="honest">
+            <input type="checkbox" id="honest">
+            <span class="track" aria-hidden="true"></span>
+            <span>Честный адвент<br><span style="font-size:12px;opacity:.75">по одному окну в день</span></span>
+          </label>
+        </div>
+        <div class="prog">
+          <div class="row"><span>Возвращено страниц</span><b><span id="openedCount">0</span> из 31</b></div>
+          <div class="bar" aria-hidden="true"><i id="barFill"></i></div>
+          <p class="today-line" id="todayLine"></p>
+          <button class="reset" id="resetBtn" type="button">сбросить прогресс этого трека</button>
+        </div>
+      </div>
+      <p class="note" id="honestNote" role="status"></p>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 220 220">
+        <circle cx="110" cy="110" r="86" fill="none" stroke="rgba(240,180,41,.25)" stroke-width="2" stroke-dasharray="3 10"/>
+        <path d="M42 66c20-9 38-9 68 5 30-14 48-14 68-5v94c-20-9-38-9-68 5-30-14-48-14-68-5z" fill="none" stroke="var(--gold)" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M110 71v94" stroke="var(--gold)" stroke-width="4"/>
+        <path d="M64 94h28M64 112h28M128 94h28M128 112h28" stroke="rgba(244,233,208,.55)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M110 26l2.8 8.4 8.2 2.6-8.2 2.6-2.8 8.4-2.8-8.4-8.2-2.6 8.2-2.6z" fill="var(--gold2)"/>
+        <circle cx="48" cy="42" r="2" fill="#fff" opacity=".7"/>
+        <circle cx="176" cy="160" r="2.4" fill="var(--gold2)" opacity=".8"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="sec" id="calendar">
+    <div class="sec-head">
+      <h2>Выбери окно</h2>
+      <p id="trackLabel">Трек 12–15 лет · Следопыты</p>
+    </div>
+    <div class="calendar" id="grid"></div>
+    <div class="legend">
+      <span><i class="dot"></i>звезда получена</span>
+      <span><i class="dot empty"></i>можно открыть</span>
+      <span><i class="dot today"></i>сегодня</span>
+      <span><i class="dot lock"></i>закрыто</span>
+    </div>
+  </section>
+
+  <section class="sec" id="howto">
+    <div class="sec-head">
+      <h2>Как это работает</h2>
+      <p>3–5 минут в день, без спешки</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <p class="n">Шаг 1</p>
+        <h3>Открой окно</h3>
+        <p>Короткое письмо смотрителя задаёт историю дня. Читай медленно, как письмо от друга.</p>
+      </div>
+      <div class="card">
+        <p class="n">Шаг 2</p>
+        <h3>Пройди испытание</h3>
+        <p>По неделям: внимание и поле зрения, скорость и ритм, понимание, память и воображение.</p>
+      </div>
+      <div class="card">
+        <p class="n">Шаг 3</p>
+        <h3>Получи звезду и книгу</h3>
+        <p>За испытанием открывается книга дня. Тридцать одна звезда — сертификат хранителя.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="sertifikat">
+    <div class="sec-head">
+      <h2>Сертификат хранителя</h2>
+      <p>31 звезда — скидка на обучение</p>
+    </div>
+    <div class="cert-box">
+      <p class="eyebrow" style="margin:0">Награда за 31 ночь</p>
+      <h3>Скидка 20% на первый месяц занятий</h3>
+      <p>Собери все 31 звезду на карте, распечатай сертификат и впиши имя. Покажи его преподавателю — скидка действует 30 дней после 31 декабря.</p>
+      <p class="code">ПРОМОКОД: БИБЛИОТЕКА31</p>
+      <button class="btn" id="printBtn" type="button">Распечатать карту и сертификат</button>
+      <p style="font-size:12.5px">Печать: две страницы A4 — карта звёзд и сертификат.</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Мария Гудина · скорочтение · чтение с удовольствием</span>
+    <span><a href="index.html">На главную сайта</a></span>
+  </footer>
+</main>
+
+<div class="backdrop" id="backdrop" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="m-close" id="mClose" type="button" aria-label="Закрыть окно">×</button>
+    <div class="m-top"><span id="mDay">Ночь 1</span><span id="mDate">1 декабря</span></div>
+    <h2 class="m-title" id="mTitle">Письмо смотрителя</h2>
+    <div class="letter" id="mLetter"></div>
+    <div class="task-card" id="taskCard">
+      <div id="taskArea"></div>
+      <p class="feedback" id="feedback" aria-live="polite"></p>
+      <div class="task-foot">
+        <button class="btn" id="checkBtn" type="button">Проверить</button>
+        <button class="btn ghost" id="nextBtn" type="button" hidden>Следующий день →</button>
+      </div>
+    </div>
+    <div class="book locked" id="bookBox"></div>
+    <div class="m-foot">
+      <button class="btn ghost" id="closeBtn" type="button">Закрыть</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<section class="print-only" id="printArea">
+  <div class="sheet">
+    <h2 class="p-title">31 ночь в библиотеке</h2>
+    <p class="p-sub">Карта читателя · <span id="pTrack">трек 12–15 лет</span></p>
+    <div class="p-lines">
+      <span>Имя ______________________________</span>
+      <span>Класс ____________</span>
+      <span>Дата ____________</span>
+    </div>
+    <div class="map-grid" id="mapGrid"></div>
+    <p class="p-note">Закрашивай звезду после каждой возвращённой страницы. Когда все 31 звезда будут на месте, переверни лист: там ждёт сертификат хранителя и скидка 20% на первый месяц занятий скорочтением.</p>
+    <p class="p-note">Как выполнять: одно окно в день, 3–5 минут. Читай письмо вслух или про себя, выполняй испытание, отмечай звезду. Что тренируем: внимание, поле зрения, скорость, понимание и память.</p>
+  </div>
+  <div class="sheet">
+    <div class="cert-frame">
+      <p class="top">Зимняя библиотека · сезон 31 ночи</p>
+      <div>
+        <h2>СЕРТИФИКАТ<br>ХРАНИТЕЛЯ</h2>
+        <p class="dash">награда за 31 возвращённую страницу</p>
+      </div>
+      <p class="big">выдан(а)</p>
+      <div class="line"></div>
+      <p class="dash">трек: <span id="certTrack">12–15 лет</span></p>
+      <p class="big" style="max-width:160mm">вернул(а) все страницы Книги Зимней Библиотеки<br>и прошёл (прошла) 31 ночное испытание</p>
+      <p class="big"><b>Скидка 20% на первый месяц занятий скорочтением</b></p>
+      <p class="code">БИБЛИОТЕКА31</p>
+      <p class="small">Сертификат именной: имя вписывается от руки. Действует 30 дней после 31 декабря. Предъяви этот лист преподавателю — скидка распространяется на первое обучение по любому направлению: скорочтение, подготовка к школе, русский язык.</p>
+      <div class="sign">
+        <span>Дата: ______________</span>
+        <span>Смотритель библиотеки: ______________</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const DAYS = [
+  {
+    n: 1,
+    title: "Ключ от первого окна",
+    kids: {
+      letter: [
+        "Ночь первая.",
+        "Меня зовут Архип Семёнович, я смотритель Зимней библиотеки. Сегодня из Книги выпала первая страница — та, где написано, зачем люди читают. Без неё остальные страницы молчат.",
+        "Верни её: найди все числа в таблице по порядку. За это получишь звезду и первую историю."
+      ],
+      task: {
+        type: "schulte",
+        reverse: false,
+        prompt: "Найди числа от 1 до 25 по порядку. Старайся охватывать таблицу взглядом целиком, а не искать по одной цифре."
+      },
+      book: {
+        title: "Мальчик со шпагой",
+        author: "Владислав Крапивин",
+        note: "О дружбе, чести и о том, что настоящий друг не предаст, даже если весь двор против."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь первая.",
+        "Архип Семёнович, смотритель Зимней библиотеки, пишет тебе при свече. Сегодня из Книги выпала первая страница — та, где сказано, зачем взрослому человеку читать медленно, если весь мир требует быстро. Без неё Книга молчит.",
+        "Верни страницу: отыщи числа от 25 до 1. Здесь важно не время, а цепкость взгляда."
+      ],
+      task: {
+        type: "schulte",
+        reverse: true,
+        prompt: "Найди числа от 25 до 1 по порядку. Смотри на таблицу целиком: глаз должен научиться видеть соседние числа, не прыгая по каждой клетке."
+      },
+      book: {
+        title: "451° по Фаренгейту",
+        author: "Рэй Брэдбери",
+        note: "О мире, где книги жгут, а память остаётся единственной библиотекой."
+      }
+    }
+  },
+  {
+    n: 2,
+    title: "Чернила расплылись",
+    kids: {
+      letter: [
+        "Ночь вторая.",
+        "Письмо смотрителя промокло: чернила расплылись, и половина букв пропала. Архип Семёнович просит прочитать то, что осталось, — иначе он не найдёт вторую страницу.",
+        "Прочитай слово сквозь помехи."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Какое слово спряталось в этих буквах?",
+        display: "К§Н#И%Г@А",
+        options: [
+          { id: "a", text: "КНИГА" },
+          { id: "b", text: "КАРТИНА" },
+          { id: "c", text: "КАМИН" },
+          { id: "d", text: "КОНВЕРТ" }
+        ],
+        correct: "a",
+        hint: "Пропусти знаки и прочитай только русские буквы подряд."
+      },
+      book: {
+        title: "Время всегда хорошее",
+        author: "Андрей Жвалевский, Евгения Пастернак",
+        note: "Школьники из будущего меняются местами с ребятами из 1980-го. Кто из них счастливее — ещё вопрос."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь вторая.",
+        "Чернила расплылись, и смотритель не может разобрать название. Он просит прочитать сквозь помехи — так же, как мы читаем сквозь усталость, шум метро и чужие разговоры. Вся разница в том, умеешь ли ты выделять главное.",
+        "Название спрятано в буквах."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Прочитай слово, в котором чернила испортили часть букв.",
+        display: "Б#И%Б*Л&И@О!Т?Е$К^А",
+        options: [
+          { id: "a", text: "БИБЛИОТЕКА" },
+          { id: "b", text: "БИОГРАФИЯ" },
+          { id: "c", text: "БЕЛЛЕТРИСТИКА" },
+          { id: "d", text: "БИБЛИОГРАФИЯ" }
+        ],
+        correct: "a",
+        hint: "Держи в голове начало слова и проверяй, совпадает ли оно с вариантом."
+      },
+      book: {
+        title: "Мастер и Маргарита",
+        author: "Михаил Булгаков",
+        note: "Книга, которую перечитывают, чтобы находить новые слои."
+      }
+    }
+  },
+  {
+    n: 3,
+    title: "Лишняя карточка",
+    kids: {
+      letter: [
+        "Ночь третья.",
+        "На полке смотрителя перепутались карточки. Три из них — про книги и чтение, а одна забрела сюда случайно. Найди лишнюю: она укажет, где спрятана третья страница."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Одна карточка забрела на полку случайно. Найди лишнее слово.",
+        options: [
+          { id: "a", text: "Роман" },
+          { id: "b", text: "Повесть" },
+          { id: "c", text: "Рассказ" },
+          { id: "d", text: "Оглавление" }
+        ],
+        correct: "d",
+        hint: "Роман, повесть и рассказ — это жанры. А что из списка — часть книги?"
+      },
+      book: {
+        title: "Хоббит, или Туда и обратно",
+        author: "Джон Р. Р. Толкин",
+        note: "Большое приключение начинается с тихой фразы: «В норе под землёй жил-был хоббит»."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь третья.",
+        "Смотритель раскладывал карточки по жанрам и на секунду отвлёкся. Теперь среди них есть одна чужеродная — и именно она подскажет, где искать третью страницу.",
+        "Внимание к смыслу важнее скорости: быстро прочитанное «не то слово» уводит не туда."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Найди слово, которое выпадает из ряда.",
+        options: [
+          { id: "a", text: "Новелла" },
+          { id: "b", text: "Очерк" },
+          { id: "c", text: "Эссе" },
+          { id: "d", text: "Аннотация" }
+        ],
+        correct: "d",
+        hint: "Новелла, очерк и эссе — жанры. Аннотация — краткое описание книги."
+      },
+      book: {
+        title: "Алые паруса",
+        author: "Александр Грин",
+        note: "Феерия о том, что чудо делают своими руками."
+      }
+    }
+  },
+  {
+    n: 4,
+    title: "Слова на ветру",
+    kids: {
+      letter: [
+        "Ночь четвёртая.",
+        "Ветер распахнул окно, и из текста на столе выдуло три слова. Восстанови их — иначе смотритель не поймёт, о чём читал."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Верни пропавшие слова на место.",
+        text: "В библиотеке было тихо. Только старые {1} тикали на стене, {2} горела на столе, а {3} шелестели от сквозняка.",
+        gaps: [
+          { options: ["часы", "двери", "птицы"], correct: "часы" },
+          { options: ["свеча", "лампа", "звезда"], correct: "свеча" },
+          { options: ["страницы", "занавески", "обои"], correct: "страницы" }
+        ],
+        hint: "Прочитай фразу целиком: тикать могут часы, гореть — свеча, шелестеть — страницы."
+      },
+      book: {
+        title: "Белый Бим Чёрное ухо",
+        author: "Гавриил Троепольский",
+        note: "История собаки, которая умела любить вернее многих людей."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь четвёртая.",
+        "Ветер выдул из абзаца три слова, и теперь фраза рассыпается. Восстанови смысл. Взрослому читателю это знакомо: иногда достаточно потерять одно слово, чтобы весь абзац стал чужим."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Восстанови три слова в абзаце о чтении.",
+        text: "Читать быстро — не значит читать {1}. Настоящая скорость растёт из {2}: глаз привыкает схватывать {3}, а не отдельные буквы.",
+        gaps: [
+          { options: ["поверхностно", "вслух", "по слогам"], correct: "поверхностно" },
+          { options: ["внимания", "терпения", "усталости"], correct: "внимания" },
+          { options: ["целые слова", "строки целиком", "одну букву"], correct: "целые слова" }
+        ],
+        hint: "Смысл подсказывает логика: быстро ≠ поверхностно; скорость растёт из внимания; схватывают целые слова."
+      },
+      book: {
+        title: "1984",
+        author: "Джордж Оруэлл",
+        note: "О том, как язык становится клеткой, а чтение — сопротивлением."
+      }
+    }
+  },
+  {
+    n: 5,
+    title: "Проверка фактов",
+    kids: {
+      letter: [
+        "Ночь пятая.",
+        "Смотритель оставил на столе короткую заметку о библиотеках. Проверь, не перепутал ли он факты: отметь, что правда, а что выдумка."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и реши, где правда.",
+        text: "Самая большая библиотека мира находится в Вашингтоне — это Библиотека Конгресса. В ней хранится больше 170 миллионов единиц: книги, карты, ноты и фотографии. Книги из этой библиотеки не выдают домой: с ними работают только в читальных залах.",
+        statements: [
+          { text: "Самая большая библиотека мира находится в Вашингтоне.", correct: true },
+          { text: "В Библиотеке Конгресса хранятся только книги.", correct: false },
+          { text: "Книги из Библиотеки Конгресса можно забрать домой.", correct: false }
+        ],
+        hint: "В заметке сказано: хранятся книги, карты, ноты и фотографии, а работать с ними можно только в зале."
+      },
+      book: {
+        title: "Два капитана",
+        author: "Вениамин Каверин",
+        note: "О верности мечте и о том, как важно дойти до конца, даже если идти долго."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь пятая.",
+        "На столе — заметка о том, как мы читаем. Смотритель просит проверить её: половина утверждений — мифы, в которые верят даже взрослые.",
+        "Отметь, где правда, а где привычная выдумка."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и проверь утверждения.",
+        text: "Скорость чтения зависит не столько от зрения, сколько от привычек: возвращаться назад, проговаривать слова, читать по слогам. Указка или палец помогают глазу не прыгать по строке — поэтому с ними читают ровнее. Но если гнать быстрее, чем успеваешь думать, понимание падает: смысл собирается в голове, а не в глазах.",
+        statements: [
+          { text: "Скорость чтения зависит только от зрения.", correct: false },
+          { text: "Указка помогает глазу не возвращаться назад.", correct: true },
+          { text: "Если читать быстрее, чем успеваешь думать, понимание падает.", correct: true }
+        ],
+        hint: "В заметке речь о привычках, а не только о зрении. И про указку сказано: она помогает не прыгать по строке."
+      },
+      book: {
+        title: "Три товарища",
+        author: "Эрих Мария Ремарк",
+        note: "О дружбе, которая держит на плаву в самое трудное время."
+      }
+    }
+  },
+  {
+    n: 6,
+    title: "Пятнадцать секунд",
+    kids: {
+      letter: [
+        "Ночь шестая.",
+        "Архип Семёнович проверяет не скорость, а память: он прочитал список книг и хочет знать, что запомнилось. Посмотри на слова внимательно — они исчезнут через пятнадцать секунд."
+      ],
+      task: {
+        type: "memory",
+        prompt: "Запомни 8 слов.",
+        words: ["фонарь", "ключ", "переплёт", "сова", "перо", "закладка", "свеча", "карта"],
+        options: ["фонарь", "компас", "ключ", "переплёт", "сова", "зеркало", "перо", "закладка", "свеча", "сапоги", "карта", "чашка"],
+        seconds: 15,
+        hint: "Слова в списке связаны с библиотекой: фонарь, ключ, переплёт, сова, перо, закладка, свеча, карта."
+      },
+      book: {
+        title: "Чучело",
+        author: "Владимир Железников",
+        note: "О смелости быть не таким, как все, и о цене этой смелости."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь шестая.",
+        "Смотритель проверяет не память на слова, а внимание к деталям: пятнадцать секунд на список, потом выбор. Взрослым это труднее, чем кажется: мы привыкли пробегать и не задерживаться."
+      ],
+      task: {
+        type: "memory",
+        prompt: "Запомни 10 слов.",
+        words: ["переплёт", "фонарь", "перо", "сова", "закладка", "ключ", "свеча", "карта", "чернильница", "полка"],
+        options: ["переплёт", "компас", "фонарь", "перо", "зеркало", "сова", "закладка", "ключ", "зонт", "свеча", "чашка", "карта", "чернильница", "полка"],
+        seconds: 15,
+        hint: "В списке были: переплёт, фонарь, перо, сова, закладка, ключ, свеча, карта, чернильница, полка."
+      },
+      book: {
+        title: "Как читать книги",
+        author: "Мортимер Адлер",
+        note: "Классика о чтении: как перестать скользить по страницам."
+      }
+    }
+  },
+  {
+    n: 7,
+    title: "Перепутанные строки",
+    kids: {
+      letter: [
+        "Ночь седьмая.",
+        "Первая неделя позади. Смотритель нашёл обрывки письма о том, как рождается книга, но строки перепутались. Расставь их по порядку — и страница вернётся.",
+        "Ещё шесть ночей — и Книга начнёт говорить."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай строки в правильном порядке: что происходит сначала, что потом.",
+        pieces: [
+          { id: "a", text: "Автор пишет черновик." },
+          { id: "b", text: "Редактор предлагает правки." },
+          { id: "c", text: "В типографии печатают тираж." },
+          { id: "d", text: "Книга встаёт на полку." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала текст, потом работа с ним, потом печать и только затем полка."
+      },
+      book: {
+        title: "Дети капитана Гранта",
+        author: "Жюль Верн",
+        note: "Кругосветное путешествие, в котором география читается как приключение."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь седьмая.",
+        "Первая неделя закрыта. Архип Семёнович оставил абзац о чтении, но строки перепутались. Расставь их так, чтобы получился связный текст.",
+        "Логика текста важнее красивых фраз: сначала утверждение, потом объяснение, потом вывод."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок строк в абзаце.",
+        pieces: [
+          { id: "a", text: "Мы редко замечаем, как именно читаем." },
+          { id: "b", text: "Глаз прыгает по строке, а не скользит вдоль неё." },
+          { id: "c", text: "На каждом прыжке мозг достраивает пропущенное." },
+          { id: "d", text: "Поэтому понимание зависит от привычек, а не только от зрения." },
+          { id: "e", text: "Меняя привычки, можно читать быстрее без потери смысла." }
+        ],
+        correct: ["a", "b", "c", "d", "e"],
+        hint: "Начни с общего утверждения, потом объясни механизм, затем сделай вывод."
+      },
+      book: {
+        title: "Пиши, сокращай",
+        author: "Максим Ильяхов, Людмила Сарычева",
+        note: "Не о чтении, а о письме: после неё начинаешь видеть лишние слова."
+      }
+    }
+  },
+  {
+    n: 8,
+    title: "Ритм строки",
+    kids: {
+      letter: [
+        "Ночь восьмая.",
+        "Вторая неделя — про скорость и ритм. Смотритель говорит: быстрый глаз — это не тот, что спешит, а тот, что двигается ровно, как маятник.",
+        "Он нашёл обрывки зимнего стихотворения. Расставь строки по порядку — почувствуй ритм."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай строки в том порядке, в каком они идут в стихотворении.",
+        pieces: [
+          { id: "a", text: "Мороз и солнце; день чудесный!" },
+          { id: "b", text: "Ещё ты дремлешь, друг прелестный —" },
+          { id: "c", text: "Пора, красавица, проснись:" },
+          { id: "d", text: "Открой сомкнуты негой взоры" },
+          { id: "e", text: "Навстречу северной Авроры" }
+        ],
+        correct: ["a", "b", "c", "d", "e"],
+        hint: "Сначала утро и солнце, потом обращение к спящей, потом просьба проснуться и открыть взгляд."
+      },
+      book: {
+        title: "Кортик",
+        author: "Анатолий Рыбаков",
+        note: "Приключение, в котором тайна старого кортика тянет за собой целую эпоху."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь восьмая.",
+        "Вторая неделя — о скорости и ритме. Смотритель любит повторять: скорость чтения — это не бег, а ровный шаг. Сбился ритм — сбился смысл.",
+        "Восстанови порядок строк Тютчева: они научат глаз двигаться плавно."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок строк стихотворения.",
+        pieces: [
+          { id: "a", text: "Чародейкою Зимою" },
+          { id: "b", text: "Околдован, лес стоит —" },
+          { id: "c", text: "И под снежной бахромою," },
+          { id: "d", text: "Неподвижною, немою," },
+          { id: "e", text: "Чудной жизнью он блестит." }
+        ],
+        correct: ["a", "b", "c", "d", "e"],
+        hint: "Сначала волшебница-зима, потом заколдованный лес, затем — что скрыто под снежной бахромой."
+      },
+      book: {
+        title: "Портрет Дориана Грея",
+        author: "Оскар Уайльд",
+        note: "О красоте, цене желаний и книге, которая меняет человека."
+      }
+    }
+  },
+  {
+    n: 9,
+    title: "Маятник взгляда",
+    kids: {
+      letter: [
+        "Ночь девятая.",
+        "Смотритель завёл старый маятник. Он качается ровно, и глаз должен так же: охватить таблицу, найти число, не рыская по клеткам.",
+        "Найди числа от 1 до 25. Дыши ровно, не спеши — ровность и есть скорость."
+      ],
+      task: {
+        type: "schulte",
+        reverse: false,
+        prompt: "Найди числа от 1 до 25 по порядку, не водя пальцем по клеткам."
+      },
+      book: {
+        title: "Приключения Тома Сойера",
+        author: "Марк Твен",
+        note: "О детстве, свободе и о том, как из шалости рождается дружба."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь девятая.",
+        "Маятник в библиотеке качается медленно, но точно. Так и взгляд: не бежит, а держит ритм. Периферийное зрение — главный резерв скорости.",
+        "Найди числа от 25 до 1, не задерживаясь на каждой клетке."
+      ],
+      task: {
+        type: "schulte",
+        reverse: true,
+        prompt: "Найди числа от 25 до 1 по порядку. Смотри на таблицу целиком: глаз должен видеть соседние числа, не прыгая по каждому."
+      },
+      book: {
+        title: "Преступление и наказание",
+        author: "Фёдор Достоевский",
+        note: "Роман, где чтение — почти поступок: каждую мысль приходится примерять на себя."
+      }
+    }
+  },
+  {
+    n: 10,
+    title: "Мифы о скорости",
+    kids: {
+      letter: [
+        "Ночь десятая.",
+        "Смотритель собрал то, что ребята рассказывают о быстром чтении. Половина — мифы. Проверь, где правда."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и реши, где правда.",
+        text: "Быстро читать — значит пропускать слова. На самом деле глаз и так не видит каждую букву: он схватывает слово целиком и достраивает его по смыслу. Поэтому скорость растёт, когда ты перестаёшь проговаривать текст про себя и учишься узнавать слово сразу. Но торопиться вредно: если мысль отстаёт от глаз, чтение превращается в скольжение по строчкам.",
+        statements: [
+          { text: "Быстрое чтение — это чтение с пропуском половины слов.", correct: false },
+          { text: "Глаз схватывает слово целиком, а не каждую букву.", correct: true },
+          { text: "Если мысль отстаёт от глаз, понимание страдает.", correct: true }
+        ],
+        hint: "В заметке сказано: глаз схватывает слово целиком, а торопиться вредно, если мысль отстаёт."
+      },
+      book: {
+        title: "Дубровский",
+        author: "Александр Пушкин",
+        note: "Короткий роман о чести, любви и выборе, который нельзя отменить."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь десятая.",
+        "Взрослые верят в мифы о скорости не меньше школьников. Смотритель просит отделить правду от красивых обещаний."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и проверь утверждения.",
+        text: "Обещание «читай в три раза быстрее за неделю» обычно лукавит. Скорость растёт медленно и только вместе с пониманием. Главные тормоза — проговаривание слов про себя, возвраты назад и узкое поле зрения. Убирая их по одному, ты набираешь темп, не теряя смысла. Но гнать быстрее, чем думаешь, бессмысленно: непонятая скорость — просто мелькание.",
+        statements: [
+          { text: "Скорость чтения можно увеличить втрое за неделю без потери понимания.", correct: false },
+          { text: "Проговаривание слов про себя тормозит чтение.", correct: true },
+          { text: "Понимание должно успевать за скоростью.", correct: true }
+        ],
+        hint: "В заметке сказано: скорость растёт медленно, а непонятая скорость — просто мелькание."
+      },
+      book: {
+        title: "Отцы и дети",
+        author: "Иван Тургенев",
+        note: "О поколениях, споре и о том, как трудно услышать другого."
+      }
+    }
+  },
+  {
+    n: 11,
+    title: "Дыхание текста",
+    kids: {
+      letter: [
+        "Ночь одиннадцатая.",
+        "Смотритель говорит: у текста есть дыхание. Строка — вдох, точка — выдох. Вставь пропавшие слова, чтобы дыхание восстановилось."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Верни пропавшие слова на место.",
+        text: "Читай не по {1}, а по {2}. Глаз делает короткие {3} и прыгает дальше. Если {4} слова губами, скорость падает.",
+        gaps: [
+          { options: ["буквам", "картинкам", "слогам"], correct: "буквам" },
+          { options: ["словам", "строчкам", "цифрам"], correct: "словам" },
+          { options: ["остановки", "ошибки", "пробежки"], correct: "остановки" },
+          { options: ["проговариваешь", "записываешь", "считаешь"], correct: "проговариваешь" }
+        ],
+        hint: "Речь о чтении словами, а не по буквам: глаз останавливается и прыгает, а губы мешают."
+      },
+      book: {
+        title: "Ночь перед Рождеством",
+        author: "Николай Гоголь",
+        note: "Сказочная ночь, где ведьма летает на метле, а кузнец ищет черевички для любимой."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь одиннадцатая.",
+        "Абзац потерял четыре слова, и его ритм сломался. Верни их — так же, как возвращаешь дыхание после быстрого шага."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Восстанови четыре слова в абзаце о чтении.",
+        text: "Чтение — это не {1} глаз по строке, а работа {2}. Глаз делает {3}, а мозг в это время собирает смысл. Чем шире {4}, тем меньше остановок нужно.",
+        gaps: [
+          { options: ["бег", "прыжок", "полёт"], correct: "бег" },
+          { options: ["мысли", "памяти", "воли"], correct: "мысли" },
+          { options: ["остановки", "ошибки", "пометки"], correct: "остановки" },
+          { options: ["поле зрения", "расстояние", "воображение"], correct: "поле зрения" }
+        ],
+        hint: "Смысл подсказывает: чтение — работа мысли, глаз останавливается, а широкое поле зрения уменьшает число остановок."
+      },
+      book: {
+        title: "Герой нашего времени",
+        author: "Михаил Лермонтов",
+        note: "Портрет эпохи через одного человека — и чтение, которое обнажает."
+      }
+    }
+  },
+  {
+    n: 12,
+    title: "Слово мелькнуло",
+    kids: {
+      letter: [
+        "Ночь двенадцатая.",
+        "Смотритель проверяет, как быстро глаз узнаёт слово. Не читай по буквам — смотри на форму."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Какое слово спряталось? Прочитай его одним взглядом.",
+        display: "С#Н$Е%Ж&О*В@И$К",
+        options: [
+          { id: "a", text: "СНЕГОВИК" },
+          { id: "b", text: "СНЕГОПАД" },
+          { id: "c", text: "СНЕГИРЬ" },
+          { id: "d", text: "СУГРОБ" }
+        ],
+        correct: "a",
+        hint: "Смотри на очертания: слово начинается со «снег» и длинное."
+      },
+      book: {
+        title: "Снежная королева",
+        author: "Ганс Христиан Андерсен",
+        note: "Сказка о том, что верность и смелость сильнее холода."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двенадцатая.",
+        "Быстрое узнавание слова — навык, а не талант. Смотритель стёр часть букв, чтобы ты смотрел на форму, а не на мелкие детали."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Прочитай слово, в котором стёрли часть букв.",
+        display: "П#О%Н&И*М@А$Н%И^Е",
+        options: [
+          { id: "a", text: "ПОНИМАНИЕ" },
+          { id: "b", text: "ПРИЗВАНИЕ" },
+          { id: "c", text: "ПОМЕШАТЕЛЬСТВО" },
+          { id: "d", text: "ПОНИЖЕНИЕ" }
+        ],
+        correct: "a",
+        hint: "Держи в голове корень «поним» и длину слова."
+      },
+      book: {
+        title: "Евгений Онегин",
+        author: "Александр Пушкин",
+        note: "Роман в стихах, который читается на ритме — идеальная проверка чувства строки."
+      }
+    }
+  },
+  {
+    n: 13,
+    title: "Три шага",
+    kids: {
+      letter: [
+        "Ночь тринадцатая.",
+        "Смотритель записал, как читать быстро и не терять смысл, но шаги перепутались. Расставь их по порядку."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай шаги в правильном порядке.",
+        pieces: [
+          { id: "a", text: "Сначала посмотри на заголовок и реши, о чём текст." },
+          { id: "b", text: "Потом читай, ведя глаз ровно, без возвратов." },
+          { id: "c", text: "В конце перескажи главное в одном предложении." }
+        ],
+        correct: ["a", "b", "c"],
+        hint: "Сначала подготовка, потом чтение, потом проверка."
+      },
+      book: {
+        title: "Маленький принц",
+        author: "Антуан де Сент-Экзюпери",
+        note: "Книга, которую читают в детстве и понимают всю жизнь."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь тринадцатая.",
+        "Порядок шагов важнее скорости: сбитая последовательность превращает чтение в суету. Восстанови алгоритм."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок шагов внимательного чтения.",
+        pieces: [
+          { id: "a", text: "Определи задачу: читаешь для дела или для удовольствия." },
+          { id: "b", text: "Просмотри структуру: заголовки, начало и конец абзацев." },
+          { id: "c", text: "Читай основной текст, отмечая главную мысль." },
+          { id: "d", text: "Проверь себя: сможешь ли пересказать абзац одной фразой." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала цель, затем структура, потом чтение и проверка."
+      },
+      book: {
+        title: "Мёртвые души",
+        author: "Николай Гоголь",
+        note: "Сатира, в которой каждое имя — характер, а каждое слово работает."
+      }
+    }
+  },
+  {
+    n: 14,
+    title: "Половина пути",
+    kids: {
+      letter: [
+        "Ночь четырнадцатая.",
+        "Две недели позади. Смотритель оставил короткую записку о ритме — вставь пропавшие слова."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Верни слова в записку смотрителя.",
+        text: "Ровный {1} важнее рывков. Читай {2}, а не по слогам. После минуты чтения сделай {3} и перескажи про себя одну фразу.",
+        gaps: [
+          { options: ["ритм", "бег", "прыжок"], correct: "ритм" },
+          { options: ["словами", "буквами", "цифрами"], correct: "словами" },
+          { options: ["паузу", "ошибку", "пометку"], correct: "паузу" }
+        ],
+        hint: "Речь о ровном темпе, чтении словами и коротком отдыхе для проверки."
+      },
+      book: {
+        title: "Поллианна",
+        author: "Элинор Портер",
+        note: "История о девочке, которая умеет находить радость даже в трудном."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь четырнадцатая.",
+        "Половина пути. Смотритель подводит итог второй недели — восстанови его."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Восстанови итог второй недели.",
+        text: "Скорость — это следствие, а не цель. Когда уходят {1} назад и проговаривание, темп растёт сам. Главное — сохранять {2} и не терять {3}.",
+        gaps: [
+          { options: ["возвраты", "прыжки", "ошибки"], correct: "возвраты" },
+          { options: ["ритм", "голос", "темп"], correct: "ритм" },
+          { options: ["смысл", "голос", "объём"], correct: "смысл" }
+        ],
+        hint: "Главные тормоза — возвраты, а сохранять нужно ритм и смысл."
+      },
+      book: {
+        title: "Маленькие женщины",
+        author: "Луиза Мэй Олкотт",
+        note: "О взрослении четырёх сестёр и книгах, которые их меняют."
+      }
+    }
+  },
+  {
+    n: 15,
+    title: "Главная мысль",
+    kids: {
+      letter: [
+        "Ночь пятнадцатая.",
+        "Третья неделя — о понимании. Смотритель говорит: прочитать и понять — не одно и то же.",
+        "Прочитай заметку и выбери главную мысль — ту, что держит весь текст."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "В зимнем лесу тихо. Снег лежит на ветках, как одеяло, и под ним тепло. Поэтому деревья не мёрзнут в сильные морозы: снег защищает их корни и стволы. Что здесь главное?",
+        options: [
+          { id: "a", text: "Снег в лесу защищает деревья от мороза." },
+          { id: "b", text: "Зимой в лесу всегда тихо." },
+          { id: "c", text: "Деревья любят снег." },
+          { id: "d", text: "Снег лежит на ветках." }
+        ],
+        correct: "a",
+        hint: "Главная мысль объясняет, зачем нужен снег, а не просто описывает его."
+      },
+      book: {
+        title: "Уроки французского",
+        author: "Валентин Распутин",
+        note: "О доброте, которая приходит в самый трудный момент."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь пятнадцатая.",
+        "Третья неделя — о понимании. Смотритель просит не пересказывать, а выделять главное: одна мысль, остальное — подробности."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "«Мы привыкли считать чтение пассивным занятием: сиди и получай. Но текст оживает только тогда, когда читатель задаёт вопросы — соглашается, спорит, достраивает. Без этого даже хорошая книга остаётся набором букв». Выбери главную мысль.",
+        options: [
+          { id: "a", text: "Чтение — активный разговор читателя с текстом." },
+          { id: "b", text: "Хорошие книги всегда интересны." },
+          { id: "c", text: "Читать нужно только с карандашом." },
+          { id: "d", text: "Чтение — пассивное занятие." }
+        ],
+        correct: "a",
+        hint: "Автор спорит с привычной мыслью о пассивности чтения."
+      },
+      book: {
+        title: "Мы",
+        author: "Евгений Замятин",
+        note: "Антиутопия о мире, где даже мысли приведены к расписанию."
+      }
+    }
+  },
+  {
+    n: 16,
+    title: "Сквозь строки",
+    kids: {
+      letter: [
+        "Ночь шестнадцатая.",
+        "Смотритель принёс заметку о том, как белка готовит запасы. Прочитай и проверь утверждения строго по тексту."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Отметь, что правда, а что нет.",
+        text: "Осенью белка собирает орехи, жёлуди и грибы. Грибы она насаживает на сухие веточки — так они сохнут и не портятся. Запасы белка прячет в дуплах и под корнями деревьев. Зимой она находит их по запаху, даже под снегом.",
+        statements: [
+          { text: "Белка сушит грибы на веточках.", correct: true },
+          { text: "Белка прячет запасы только в одном месте.", correct: false },
+          { text: "Зимой белка находит запасы по запаху.", correct: true }
+        ],
+        hint: "В тексте сказано: запасы в дуплах и под корнями — значит, не в одном месте."
+      },
+      book: {
+        title: "Кладовая солнца",
+        author: "Михаил Пришвин",
+        note: "О природе, которая учит быть внимательным и честным."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь шестнадцатая.",
+        "Понимание проверяется не пересказом, а способностью увидеть, что в тексте сказано, а что ты домыслил. Проверь утверждения строго по тексту."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и проверь утверждения.",
+        text: "Сон — не выключение мозга, а его особая работа. В это время мозг сортирует впечатления дня и переносит важное в долгую память. Поэтому недосып бьёт по вниманию сильнее, чем по силе мышц. При этом «доспать» за неделю впрок почти невозможно: ритм важнее количества часов.",
+        statements: [
+          { text: "Во сне мозг отдыхает и ничего не делает.", correct: false },
+          { text: "Во время сна важное переносится в долгую память.", correct: true },
+          { text: "Недосып прежде всего ухудшает внимание.", correct: true }
+        ],
+        hint: "В тексте сказано, что сон — особая работа мозга, а не отключение."
+      },
+      book: {
+        title: "Собачье сердце",
+        author: "Михаил Булгаков",
+        note: "О эксперименте, который показал, как трудно сделать человека человеком."
+      }
+    }
+  },
+  {
+    n: 17,
+    title: "Смысл в пропуске",
+    kids: {
+      letter: [
+        "Ночь семнадцатая.",
+        "Смотритель вынул из абзаца слова — но смысл можно вернуть по логике. Вставь пропавшие слова."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Верни слова на место.",
+        text: "Лёд на реке {1} не сразу. Сначала у берега появляется тонкая {2}, потом она растёт к середине. Поэтому выходить на лёд опасно, пока река не {3} полностью.",
+        gaps: [
+          { options: ["встаёт", "бежит", "тает"], correct: "встаёт" },
+          { options: ["корочка", "лодка", "рыба"], correct: "корочка" },
+          { options: ["замёрзнет", "проснётся", "высохнет"], correct: "замёрзнет" }
+        ],
+        hint: "Лёд «встаёт» — так говорят о реке. У берега появляется корочка, а река должна замёрзнуть целиком."
+      },
+      book: {
+        title: "Муму",
+        author: "Иван Тургенев",
+        note: "Рассказ о любви, которую отнимают, и о том, кто остаётся верен."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь семнадцатая.",
+        "Пропущенные слова восстанавливаются по смыслу — если ты держишь в голове логику абзаца."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Восстанови три слова в абзаце о чтении.",
+        text: "Мы читаем быстрее, когда {1} смысл заранее. Мозг строит {2} о том, что будет дальше, и проверяет её по тексту. Если {3} не совпадает, приходится возвращаться и читать заново.",
+        gaps: [
+          { options: ["предугадываем", "забываем", "записываем"], correct: "предугадываем" },
+          { options: ["догадку", "ошибку", "таблицу"], correct: "догадку" },
+          { options: ["догадка", "скорость", "страница"], correct: "догадка" }
+        ],
+        hint: "Мозг заранее предполагает смысл (догадка) и проверяет его — если не совпало, возвращаемся."
+      },
+      book: {
+        title: "Цветы для Элджернона",
+        author: "Дэниел Киз",
+        note: "Об уме, памяти и цене, которую платят за оба."
+      }
+    }
+  },
+  {
+    n: 18,
+    title: "Порядок мысли",
+    kids: {
+      letter: [
+        "Ночь восемнадцатая.",
+        "Смотритель записал рассуждение о том, зачем читать каждый день, но строки перепутались. Собери их по порядку."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай строки в правильном порядке.",
+        pieces: [
+          { id: "a", text: "Каждый день мы узнаём что-то новое." },
+          { id: "b", text: "Новое соединяется с тем, что уже знаем." },
+          { id: "c", text: "Так круг понимания становится шире." },
+          { id: "d", text: "Поэтому даже десять минут чтения в день меняют человека." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала новое, потом связь со старым, затем результат и вывод."
+      },
+      book: {
+        title: "Каштанка",
+        author: "Антон Чехов",
+        note: "История собаки, которая потерялась и нашла дорогу домой."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь восемнадцатая.",
+        "Логика абзаца держится на порядке: утверждение, причина, следствие. Восстанови его."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок строк в рассуждении.",
+        pieces: [
+          { id: "a", text: "Внимание — ограниченный ресурс." },
+          { id: "b", text: "Каждый возврат назад отнимает его часть." },
+          { id: "c", text: "Чем меньше возвратов, тем больше остаётся на смысл." },
+          { id: "d", text: "Поэтому привычка вести глаз ровно экономит не время, а силы." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Начни с общего утверждения о внимании, затем механизм и вывод."
+      },
+      book: {
+        title: "О дивный новый мир",
+        author: "Олдос Хаксли",
+        note: "Антиутопия о счастье, которое покупают ценой свободы."
+      }
+    }
+  },
+  {
+    n: 19,
+    title: "Между строк",
+    kids: {
+      letter: [
+        "Ночь девятнадцатая.",
+        "Иногда ответа в тексте нет — его надо понять. Смотритель называет это «читать между строк»."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "«Мальчик взял книгу, сел у окна и раскрыл её. Но вместо страниц смотрел на улицу, где падал снег. Через час он закрыл книгу на той же странице». Что можно понять о мальчике?",
+        options: [
+          { id: "a", text: "Он был расстроен или думал о другом." },
+          { id: "b", text: "Он не умел читать." },
+          { id: "c", text: "В книге не было картинок." },
+          { id: "d", text: "Он прочитал всю книгу." }
+        ],
+        correct: "a",
+        hint: "Книга осталась на той же странице — значит, он в неё не погрузился."
+      },
+      book: {
+        title: "Старик Хоттабыч",
+        author: "Лазарь Лагин",
+        note: "Весёлая сказка о джинне, который вдруг оказался в советской школе."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь девятнадцатая.",
+        "Понимание — это ещё и умение услышать то, что автор не сказал прямо. Прочитай отрывок и сделай вывод."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "«Она перечитала письмо трижды, но так и не ответила. Положила конверт в ящик стола, поверх других, и больше к нему не возвращалась». Что это говорит о её решении?",
+        options: [
+          { id: "a", text: "Она отложила ответ, но не забыла о письме." },
+          { id: "b", text: "Она потеряла адрес отправителя." },
+          { id: "c", text: "Она сразу написала ответ." },
+          { id: "d", text: "Она не получила письмо." }
+        ],
+        correct: "a",
+        hint: "Конверт поверх других — письмо не выброшено, а отложено."
+      },
+      book: {
+        title: "Над пропастью во ржи",
+        author: "Джером Д. Сэлинджер",
+        note: "О взрослении и о том, как трудно говорить то, что чувствуешь."
+      }
+    }
+  },
+  {
+    n: 20,
+    title: "Детали не врут",
+    kids: {
+      letter: [
+        "Ночь двадцатая.",
+        "Смотритель проверил, как ты держишь в голове детали. Прочитай и ответь строго по тексту."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и реши, где правда.",
+        text: "Пингвины не летают, зато отлично плавают. Их крылья стали ластами, а перья — плотным водонепроницаемым покровом. Под кожей у них толстый слой жира, который спасает от холода. На суше пингвины ходят медленно и часто скользят на животе по льду.",
+        statements: [
+          { text: "Пингвины умеют летать.", correct: false },
+          { text: "Перья пингвинов не пропускают воду.", correct: true },
+          { text: "Пингвины скользят по льду на животе.", correct: true }
+        ],
+        hint: "В заметке прямо сказано: пингвины не летают, но плавают; скользят на животе."
+      },
+      book: {
+        title: "Приключения Электроника",
+        author: "Евгений Велтистов",
+        note: "О роботе-школьнике и о том, что делает человека человеком."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцатая.",
+        "Проверь, что осталось в голове после чтения. Отвечай только по тексту, без догадок."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и проверь утверждения.",
+        text: "Городские библиотеки появились задолго до печатных книг: в них хранили рукописи, и доступ к ним был ограничен. Массовыми библиотеки стали, когда книги подешевели. Сегодня библиотека всё чаще — не склад книг, а пространство: здесь учатся, работают и встречаются. При этом главная её функция осталась прежней — дать доступ к знанию тем, кто не может купить его сам.",
+        statements: [
+          { text: "Городские библиотеки появились раньше печатных книг.", correct: true },
+          { text: "Библиотеки стали массовыми, когда книги подешевели.", correct: true },
+          { text: "Сегодня библиотека — только склад книг.", correct: false }
+        ],
+        hint: "В тексте сказано: сегодня библиотека — пространство, а не только склад."
+      },
+      book: {
+        title: "Повелитель мух",
+        author: "Уильям Голдинг",
+        note: "О том, что случается с людьми без правил и без книг."
+      }
+    }
+  },
+  {
+    n: 21,
+    title: "Собери абзац",
+    kids: {
+      letter: [
+        "Ночь двадцать первая.",
+        "Конец третьей недели. Смотритель даёт последнее испытание на понимание: собери абзац целиком."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай строки в правильном порядке.",
+        pieces: [
+          { id: "a", text: "Зимой темнеет рано." },
+          { id: "b", text: "Поэтому так уютно читать при лампе." },
+          { id: "c", text: "Света хватает только на страницу-две." },
+          { id: "d", text: "Зато каждая страница запоминается лучше." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала причина — ранние сумерки, потом уют, ограничение и вывод."
+      },
+      book: {
+        title: "Тимур и его команда",
+        author: "Аркадий Гайдар",
+        note: "О ребятах, которые тайно помогают другим — и не просят награды."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать первая.",
+        "Третья неделя закрыта. Восстанови связный абзац — так проверяется, умеешь ли ты держать логику текста."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок строк в абзаце.",
+        pieces: [
+          { id: "a", text: "Хороший текст не требует усилия, чтобы его понять." },
+          { id: "b", text: "Но за этой лёгкостью стоит работа автора." },
+          { id: "c", text: "Он убирает лишнее, расставляет акценты и ведёт читателя." },
+          { id: "d", text: "Читателю остаётся только идти следом — и замечать, куда его ведут." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала лёгкость, потом объяснение, затем работа автора и роль читателя."
+      },
+      book: {
+        title: "Сто лет одиночества",
+        author: "Габриэль Гарсиа Маркес",
+        note: "Сага о семье, где время идёт по кругу."
+      }
+    }
+  },
+  {
+    n: 22,
+    title: "Список смотрителя",
+    kids: {
+      letter: [
+        "Ночь двадцать вторая.",
+        "Четвёртая неделя — о памяти и воображении. Смотритель проверяет, что остаётся в голове после беглого взгляда.",
+        "Смотри на слова внимательно: через пятнадцать секунд они исчезнут."
+      ],
+      task: {
+        type: "memory",
+        prompt: "Запомни 9 слов.",
+        words: ["фонарь", "снег", "перо", "сова", "ключ", "свеча", "карта", "полка", "чернила"],
+        options: ["фонарь", "снег", "перо", "сова", "ключ", "свеча", "карта", "полка", "чернила", "компас", "зеркало", "сапоги", "чашка", "зонт"],
+        seconds: 15,
+        hint: "Держи в голове образы: фонарь, снег, перо, сова, ключ, свеча, карта, полка, чернила."
+      },
+      book: {
+        title: "Денискины рассказы",
+        author: "Виктор Драгунский",
+        note: "Короткие истории, в которых узнаёшь себя."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать вторая.",
+        "Четвёртая неделя — о памяти и воображении. Чем больше образов удерживает память, тем свободнее читается текст.",
+        "Пятнадцать секунд на список — потом выбор."
+      ],
+      task: {
+        type: "memory",
+        prompt: "Запомни 12 слов.",
+        words: ["фонарь", "снег", "перо", "сова", "ключ", "свеча", "карта", "полка", "чернила", "переплёт", "закладка", "окно"],
+        options: ["фонарь", "снег", "перо", "сова", "ключ", "свеча", "карта", "полка", "чернила", "переплёт", "закладка", "окно", "компас", "зеркало", "зонт", "чашка", "сапоги", "лампа"],
+        seconds: 15,
+        hint: "Слова связаны с библиотекой: фонарь, снег, перо, сова, ключ, свеча, карта, полка, чернила, переплёт, закладка, окно."
+      },
+      book: {
+        title: "Пикник на обочине",
+        author: "Аркадий и Борис Стругацкие",
+        note: "О зоне, где желания исполняются — но не так, как ждёшь."
+      }
+    }
+  },
+  {
+    n: 23,
+    title: "Картинка из слов",
+    kids: {
+      letter: [
+        "Ночь двадцать третья.",
+        "Смотритель читает описание и просит представить его. Проверь, насколько точно ты видишь картинку."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "«На столе стояла чашка, из которой шёл пар. Рядом лежала раскрытая книга, а на её странице — засохший кленовый лист». Что лежало на странице книги?",
+        options: [
+          { id: "a", text: "Засохший кленовый лист" },
+          { id: "b", text: "Закладка" },
+          { id: "c", text: "Перо" },
+          { id: "d", text: "Фотография" }
+        ],
+        correct: "a",
+        hint: "В описании прямо сказано: на странице — засохший кленовый лист."
+      },
+      book: {
+        title: "Конёк-Горбунок",
+        author: "Пётр Ершов",
+        note: "Сказка в стихах, где каждый образ можно увидеть."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать третья.",
+        "Воображение держится на деталях. Смотритель читает описание — проверь, что ты удержал."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "«В комнате пахло воском и старой бумагой. На подоконнике лежал конверт без марки, а на нём — след от чашки. За окном шёл дождь, и капли стучали по жести». Что в описании указывает: конверт долго лежал без движения?",
+        options: [
+          { id: "a", text: "След от чашки на конверте" },
+          { id: "b", text: "Запах воска" },
+          { id: "c", text: "Дождь за окном" },
+          { id: "d", text: "Отсутствие марки" }
+        ],
+        correct: "a",
+        hint: "След от чашки появляется, только если конверт лежал на месте и его не убирали."
+      },
+      book: {
+        title: "Солярис",
+        author: "Станислав Лем",
+        note: "О планете, которая читает память человека."
+      }
+    }
+  },
+  {
+    n: 24,
+    title: "Вспомни текст",
+    kids: {
+      letter: [
+        "Ночь двадцать четвёртая.",
+        "Смотритель прочёл описание зимнего утра. Запомни его: «Мороз сковал лужи. Над крышами поднимался дым. Воробьи сидели на проводах, нахохлившись, как шарики».",
+        "Теперь восстанови описание по памяти."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Верни пропавшие слова.",
+        text: "Мороз сковал {1}. Над крышами поднимался {2}. Воробьи сидели на проводах, нахохлившись, как {3}.",
+        gaps: [
+          { options: ["лужи", "реки", "стёкла"], correct: "лужи" },
+          { options: ["дым", "снег", "шум"], correct: "дым" },
+          { options: ["шарики", "мячики", "птицы"], correct: "шарики" }
+        ],
+        hint: "Вспомни описание: мороз, лужи, дым над крышами и воробьи-шарики."
+      },
+      book: {
+        title: "Руслан и Людмила",
+        author: "Александр Пушкин",
+        note: "Поэма-сказка, где у Лукоморья стоит дуб зелёный."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать четвёртая.",
+        "Смотритель прочёл абзац о памяти. Запомни его: «Память не склад, а мастерская. Мы не храним впечатления в целости — мы собираем их заново каждый раз, когда вспоминаем. Поэтому воспоминание меняется с каждым обращением к нему».",
+        "Восстанови абзац по памяти."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Восстанови три слова.",
+        text: "Память не {1}, а мастерская. Мы не храним впечатления в целости — мы собираем их {2} каждый раз, когда вспоминаем. Поэтому воспоминание {3} с каждым обращением к нему.",
+        gaps: [
+          { options: ["склад", "музей", "архив"], correct: "склад" },
+          { options: ["заново", "быстро", "точно"], correct: "заново" },
+          { options: ["меняется", "исчезает", "повторяется"], correct: "меняется" }
+        ],
+        hint: "Ключ в противопоставлении: не склад, а мастерская; собираем заново, поэтому воспоминание меняется."
+      },
+      book: {
+        title: "Коллекционер",
+        author: "Джон Фаулз",
+        note: "О двух взглядах на мир, которые не могут совпасть."
+      }
+    }
+  },
+  {
+    n: 25,
+    title: "Цепочка событий",
+    kids: {
+      letter: [
+        "Ночь двадцать пятая.",
+        "Память любит порядок. Восстанови цепочку событий маленькой зимней истории."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай строки по порядку: что было сначала, что потом.",
+        pieces: [
+          { id: "a", text: "Девочка нашла во дворе замёрзшего воробья." },
+          { id: "b", text: "Она принесла его домой и отогрела." },
+          { id: "c", text: "Весной воробей улетел." },
+          { id: "d", text: "Но каждую зиму возвращался к её окну." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала находка, потом помощь, потом весна и возвращение."
+      },
+      book: {
+        title: "Сказка о потерянном времени",
+        author: "Евгений Шварц",
+        note: "О том, как легко потерять время и как трудно вернуть."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать пятая.",
+        "Память о тексте держится на причинно-следственных связях. Восстанови их порядок."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок событий.",
+        pieces: [
+          { id: "a", text: "Читатель встречает незнакомое слово." },
+          { id: "b", text: "Он останавливается, чтобы понять его по контексту." },
+          { id: "c", text: "Смысл абзаца на секунду рассыпается." },
+          { id: "d", text: "Вернувшись, он читает быстрее: слово уже знакомо." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Незнакомое слово → остановка → потеря смысла → возврат и ускорение."
+      },
+      book: {
+        title: "Чтец",
+        author: "Бернхард Шлинк",
+        note: "О вине, памяти и книгах, которые читают вслух."
+      }
+    }
+  },
+  {
+    n: 26,
+    title: "Что запомнилось",
+    kids: {
+      letter: [
+        "Ночь двадцать шестая.",
+        "Смотритель проверил, что осталось от вчерашнего чтения. Прочитай заметку и ответь строго по тексту."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Отметь, что правда, а что нет.",
+        text: "Зимой заяц меняет серую шубку на белую. Так его труднее заметить на снегу. Питается он корой молодых деревьев и сухими ветками. Днём заяц прячется, а кормиться выходит ночью.",
+        statements: [
+          { text: "Зимой заяц становится белым.", correct: true },
+          { text: "Белая шубка помогает зайцу прятаться.", correct: true },
+          { text: "Заяц кормится днём.", correct: false }
+        ],
+        hint: "В тексте сказано: днём заяц прячется, а кормиться выходит ночью."
+      },
+      book: {
+        title: "Волшебник Изумрудного города",
+        author: "Александр Волков",
+        note: "О друзьях, которые ищут самое важное — и находят его в себе."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать шестая.",
+        "Проверка памяти: что из вчерашнего абзаца осталось, а что достроило воображение."
+      ],
+      task: {
+        type: "tf",
+        prompt: "Прочитай заметку и проверь утверждения.",
+        text: "Воспоминание — не фотография. Каждый раз, вспоминая событие, мы пересобираем его из деталей и ожиданий. Поэтому два человека, видевшие одно и то же, рассказывают по-разному. И чем чаще мы вспоминаем, тем сильнее воспоминание меняется — иногда до неузнаваемости.",
+        statements: [
+          { text: "Воспоминание сохраняется неизменным, как фотография.", correct: false },
+          { text: "Два свидетеля одного события могут рассказать по-разному.", correct: true },
+          { text: "Частое обращение к воспоминанию может его изменить.", correct: true }
+        ],
+        hint: "В тексте прямо сказано: воспоминание — не фотография, и оно меняется."
+      },
+      book: {
+        title: "Книжный вор",
+        author: "Маркус Зусак",
+        note: "История, рассказанная самой Смертью, — о словах и книгах."
+      }
+    }
+  },
+  {
+    n: 27,
+    title: "Второй список",
+    kids: {
+      letter: [
+        "Ночь двадцать седьмая.",
+        "Смотритель усложняет: теперь слова не все связаны с библиотекой. Держи в голове образы, а не буквы."
+      ],
+      task: {
+        type: "memory",
+        prompt: "Запомни 10 слов.",
+        words: ["снегирь", "варежка", "сосулька", "фонарь", "пирог", "санки", "ёлка", "свеча", "шарф", "звезда"],
+        options: ["снегирь", "варежка", "сосулька", "фонарь", "пирог", "санки", "ёлка", "свеча", "шарф", "звезда", "самолёт", "лампа", "ключ", "компас", "зеркало"],
+        seconds: 15,
+        hint: "Все слова зимние: снегирь, варежка, сосулька, фонарь, пирог, санки, ёлка, свеча, шарф, звезда."
+      },
+      book: {
+        title: "Незнайка на Луне",
+        author: "Николай Носов",
+        note: "О большом приключении маленьких человечков."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать седьмая.",
+        "Ещё один список, длиннее прежнего. Держи образы: так память работает быстрее, чем со словами."
+      ],
+      task: {
+        type: "memory",
+        prompt: "Запомни 12 слов.",
+        words: ["снегирь", "варежка", "сосулька", "фонарь", "пирог", "санки", "ёлка", "свеча", "шарф", "звезда", "конверт", "полено"],
+        options: ["снегирь", "варежка", "сосулька", "фонарь", "пирог", "санки", "ёлка", "свеча", "шарф", "звезда", "конверт", "полено", "самолёт", "лампа", "ключ", "компас", "зеркало"],
+        seconds: 15,
+        hint: "Все слова зимние и бытовые: снегирь, варежка, сосулька, фонарь, пирог, санки, ёлка, свеча, шарф, звезда, конверт, полено."
+      },
+      book: {
+        title: "Тень ветра",
+        author: "Карлос Руис Сафон",
+        note: "О книге, которая выбирает читателя."
+      }
+    }
+  },
+  {
+    n: 28,
+    title: "Увидеть словами",
+    kids: {
+      letter: [
+        "Ночь двадцать восьмая.",
+        "Смотритель говорит: воображение — это умение увидеть то, чего нет на картинке. Выбери описание, в котором картинка получается ярче."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Какое описание рисует самую живую картинку?",
+        options: [
+          { id: "a", text: "Снег падал крупными хлопьями и ложился на плечи прохожих." },
+          { id: "b", text: "Был снег." },
+          { id: "c", text: "На улице шёл снег, было холодно." },
+          { id: "d", text: "Снег — это осадки." }
+        ],
+        correct: "a",
+        hint: "Живая картинка — та, где видно движение и детали, а не только факт."
+      },
+      book: {
+        title: "Путешествие Алисы",
+        author: "Кир Булычёв",
+        note: "О девочке, которая летает к другим планетам за приключениями."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать восьмая.",
+        "Воображение держится на точной детали. Выбери описание, которое работает сильнее."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Какое описание создаёт самый ясный образ?",
+        options: [
+          { id: "a", text: "Свет лампы дрожал на странице, и буквы будто шевелились." },
+          { id: "b", text: "В комнате было светло." },
+          { id: "c", text: "Он читал книгу при лампе." },
+          { id: "d", text: "Лампа — источник света." }
+        ],
+        correct: "a",
+        hint: "Образ создаёт деталь: дрожащий свет и «шевелящиеся» буквы."
+      },
+      book: {
+        title: "Имя розы",
+        author: "Умберто Эко",
+        note: "Детектив в средневековом монастыре, где библиотека — лабиринт."
+      }
+    }
+  },
+  {
+    n: 29,
+    title: "Последние страницы",
+    kids: {
+      letter: [
+        "Ночь двадцать девятая.",
+        "До конца три ночи. Смотритель нашёл почти собранную страницу — не хватает слов."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Верни последние слова.",
+        text: "Книга Зимней Библиотеки почти цела. Осталось вернуть последние {1}. Каждая ночь добавляла по {2}, и теперь их {3}.",
+        gaps: [
+          { options: ["страницы", "обложки", "полки"], correct: "страницы" },
+          { options: ["звезде", "слову", "дню"], correct: "звезде" },
+          { options: ["тридцать одна", "двадцать", "сто"], correct: "тридцать одна" }
+        ],
+        hint: "Речь о страницах Книги и звёздах на карте: их тридцать одна."
+      },
+      book: {
+        title: "Гарри Поттер и философский камень",
+        author: "Дж. К. Роулинг",
+        note: "О школе, где книги и дружба важнее волшебства."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь двадцать девятая.",
+        "Три ночи до конца. Смотритель собирает итоговую страницу — верни слова."
+      ],
+      task: {
+        type: "gaps",
+        prompt: "Восстанови итог месяца.",
+        text: "Чтение — это не гонка, а {1}. За месяц ты научился {2} взгляд, держать {3} и не терять смысл.",
+        gaps: [
+          { options: ["путь", "рывок", "приз"], correct: "путь" },
+          { options: ["вести", "бросать", "прятать"], correct: "вести" },
+          { options: ["ритм", "голос", "счёт"], correct: "ритм" }
+        ],
+        hint: "Чтение — путь; взгляд нужно вести; главное — держать ритм."
+      },
+      book: {
+        title: "Процесс",
+        author: "Франц Кафка",
+        note: "О человеке, который не понимает правил — и всё равно ищет смысл."
+      }
+    }
+  },
+  {
+    n: 30,
+    title: "Собери историю",
+    kids: {
+      letter: [
+        "Ночь тридцатая.",
+        "Смотритель просит собрать историю месяца по порядку: от первого окна до сегодняшней ночи."
+      ],
+      task: {
+        type: "order",
+        prompt: "Нажимай строки по порядку.",
+        pieces: [
+          { id: "a", text: "Ты открыл первое окно." },
+          { id: "b", text: "Каждую ночь возвращал по странице." },
+          { id: "c", text: "На карте загорались звёзды." },
+          { id: "d", text: "Теперь Книга почти собрана." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "Сначала начало, потом ночная работа, потом звёзды и итог."
+      },
+      book: {
+        title: "Хроники Нарнии",
+        author: "Клайв С. Льюис",
+        note: "О шкафе, за которым начинается целый мир."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь тридцатая.",
+        "Собери итог месяца: как менялось твоё чтение от ночи к ночи."
+      ],
+      task: {
+        type: "order",
+        prompt: "Восстанови порядок изменений.",
+        pieces: [
+          { id: "a", text: "Сначала ты замечал, как читаешь." },
+          { id: "b", text: "Потом научился вести глаз ровнее." },
+          { id: "c", text: "Затем стал держать смысл на скорости." },
+          { id: "d", text: "Теперь ты читаешь иначе — и видишь это сам." }
+        ],
+        correct: ["a", "b", "c", "d"],
+        hint: "От наблюдения к движению глаз, затем к смыслу и итогу."
+      },
+      book: {
+        title: "Парфюмер",
+        author: "Патрик Зюскинд",
+        note: "О человеке, который жил запахами, — и о силе воображения."
+      }
+    }
+  },
+  {
+    n: 31,
+    title: "Сертификат хранителя",
+    kids: {
+      letter: [
+        "Ночь тридцать первая.",
+        "Последняя ночь. Книга Зимней Библиотеки собрана, и смотритель Архип Семёнович благодарит тебя.",
+        "Остался последний вопрос — не про скорость, а про смысл."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Что оказалось главным за эти 31 ночь?",
+        options: [
+          { id: "a", text: "Читать каждый день понемногу — и замечать, как растёшь." },
+          { id: "b", text: "Прочитать как можно больше книг за месяц." },
+          { id: "c", text: "Запомнить все слова из заданий." },
+          { id: "d", text: "Научиться читать, не понимая." }
+        ],
+        correct: "a",
+        hint: "Смотритель весь месяц повторял: три-пять минут в день и внимание к тому, что делаешь."
+      },
+      book: {
+        title: "Рождественская песнь",
+        author: "Чарльз Диккенс",
+        note: "История о том, что человек может измениться — если вовремя оглянется."
+      }
+    },
+    adults: {
+      letter: [
+        "Ночь тридцать первая.",
+        "Последняя ночь. Книга собрана, и смотритель задаёт последний вопрос — не про скорость, а про смысл.",
+        "Забери сертификат хранителя: тридцать одна звезда на карте — твоя."
+      ],
+      task: {
+        type: "quiz",
+        prompt: "Что осталось главным после 31 ночи?",
+        options: [
+          { id: "a", text: "Читать осознанно: вести глаз ровно, понимать и выбирать книги, которые меняют." },
+          { id: "b", text: "Побить рекорд по числу страниц в минуту." },
+          { id: "c", text: "Перестать возвращаться к тексту." },
+          { id: "d", text: "Читать только короткие тексты." }
+        ],
+        correct: "a",
+        hint: "Смысл важнее рекорда: ровный взгляд, понимание и выбор книг."
+      },
+      book: {
+        title: "Дары волхвов",
+        author: "О. Генри",
+        note: "Маленький рассказ о самом большом даре."
+      }
+    }
+  }
+];
+(function(){
+  "use strict";
+
+  var ICON = {
+    star: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg>',
+    lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></svg>',
+    avail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5 6.1 20.6l1.2-6.5L2.5 9.5l6.6-.9z"/></svg>',
+    book: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5.5c3-1.2 5.7-1.2 8 .8 2.3-2 5-2 8-.8v13c-3-1.2-5.7-1.2-8 .8-2.3-2-5-2-8-.8z"/><path d="M12 6.3v13.3"/></svg>'
+  };
+
+  var state = { track: "kids", honest: false, done: { kids: new Set(), adults: new Set() }, current: null, sound: true };
+  var currentTask = null, lastFocus = null, toastTimer = 0;
+
+  function $(id){ return document.getElementById(id); }
+  function el(tag, cls, text){
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function forEach(list, fn){ Array.prototype.forEach.call(list, fn); }
+  function plural(n, one, few, many){
+    var a = Math.abs(n) % 100, b = a % 10;
+    if (a > 10 && a < 20) return many;
+    if (b > 1 && b < 5) return few;
+    if (b === 1) return one;
+    return many;
+  }
+  function todayDay(){
+    var d = new Date(), m = d.getMonth();
+    if (m === 11) return d.getDate();
+    if (m === 0) return 31;
+    return 0;
+  }
+  function daysToStart(){
+    var d = new Date(), m = d.getMonth();
+    if (m === 11 || m === 0) return 0;
+    var start = new Date(d.getFullYear(), 11, 1);
+    return Math.max(0, Math.ceil((start - d) / 86400000));
+  }
+  function isLocked(n){ return state.honest && n > todayDay(); }
+  function fmt(sec){
+    sec = Math.max(0, Math.floor(sec));
+    var m = Math.floor(sec / 60), s = sec % 60;
+    return m + ":" + (s < 10 ? "0" : "") + s;
+  }
+  function shuffle(arr){
+    for (var i = arr.length - 1; i > 0; i--){
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  var actx = null;
+  function beep(ok){
+    if (!state.sound) return;
+    try{
+      var AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      actx = actx || new AC();
+      var o = actx.createOscillator(), g = actx.createGain();
+      o.type = "sine";
+      o.frequency.value = ok ? 880 : 240;
+      g.gain.value = 0.05;
+      o.connect(g); g.connect(actx.destination);
+      var t = actx.currentTime;
+      o.frequency.exponentialRampToValueAtTime(ok ? 1320 : 180, t + 0.18);
+      g.gain.exponentialRampToValueAtTime(0.0008, t + 0.3);
+      o.start(t); o.stop(t + 0.32);
+    } catch (e){}
+  }
+  function sparks(){
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var box = document.createElement("div");
+    box.className = "sparks";
+    var colors = ["#f0b429", "#ffd166", "#a83246", "#4fae86", "#8f7bff", "#f4e9d0"];
+    for (var i = 0; i < 46; i++){
+      var s = document.createElement("i");
+      s.style.left = (Math.random() * 100) + "%";
+      s.style.background = colors[Math.floor(Math.random() * colors.length)];
+      s.style.animationDelay = (Math.random() * 0.55) + "s";
+      s.style.animationDuration = (1.6 + Math.random() * 1.4) + "s";
+      s.style.setProperty("--r", (Math.random() * 720 - 360) + "deg");
+      box.appendChild(s);
+    }
+    document.body.appendChild(box);
+    setTimeout(function(){ box.remove(); }, 3600);
+  }
+  function toast(msg){
+    var t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove("show"); }, 4400);
+  }
+  function setFb(msg, cls){
+    var f = $("feedback");
+    f.className = "feedback" + (cls ? " " + cls : "");
+    f.textContent = msg || "";
+  }
+
+  function renderGrid(){
+    var grid = $("grid");
+    grid.innerHTML = "";
+    var done = state.done[state.track], today = todayDay();
+    for (var n = 1; n <= 31; n++){
+      (function(n){
+        var b = document.createElement("button");
+        b.type = "button";
+        b.className = "door";
+        b.dataset.day = n;
+        var isDone = done.has(n), locked = isLocked(n), soon = n > DAYS.length, isToday = n === today;
+        if (isDone) b.classList.add("done");
+        if (locked) b.classList.add("locked");
+        if (isToday) b.classList.add("today");
+        var icon = isDone ? ICON.star : locked ? ICON.lock : soon ? ICON.book : ICON.avail;
+        var cap = isDone ? "звезда" : locked ? "закрыто" : soon ? "скоро" : isToday ? "сегодня" : "декабря";
+        b.innerHTML = '<span class="door-num">' + n + '</span><span class="door-ico">' + icon + '</span><span class="door-cap">' + cap + '</span>';
+        b.setAttribute("aria-label", "Окно " + n + " декабря" + (isDone ? ", звезда получена" : "") + (locked ? ", закрыто" : ""));
+        b.addEventListener("click", function(){ openDay(n); });
+        grid.appendChild(b);
+      })(n);
+    }
+  }
+
+  function todayText(){
+    var d = new Date(), m = d.getMonth();
+    if (m === 11) {
+      if (state.honest) return "Сегодня " + d.getDate() + " декабря — в честном режиме открыто " + d.getDate() + " из 31 окна.";
+      return "Сегодня " + d.getDate() + " декабря — окно " + d.getDate() + " ждёт тебя.";
+    }
+    if (m === 0) return "Адвент завершён — все 31 окно открыты.";
+    var days = daysToStart();
+    if (state.honest) return "До первого окна — " + days + " " + plural(days, "день", "дня", "дней") + ". В честном режиме окна откроются по одному с 1 декабря.";
+    return "До первого окна — " + days + " " + plural(days, "день", "дня", "дней") + ". Пока можно открыть любое.";
+  }
+
+  function updateHUD(){
+    var count = state.done[state.track].size;
+    $("openedCount").textContent = count;
+    $("barFill").style.width = Math.round(count / 31 * 100) + "%";
+    $("todayLine").textContent = todayText();
+    $("trackLabel").textContent = state.track === "kids" ? "Трек 12–15 лет · Следопыты" : "Трек 16+ · Хранители";
+  }
+
+  function updateHonestNote(){
+    var note = $("honestNote");
+    if (!state.honest){ note.classList.remove("show"); note.textContent = ""; return; }
+    var t = todayDay();
+    if (t === 0) note.textContent = "Честный адвент стартует 1 декабря. Пока окна закрыты — выключи тумблер, если хочешь потренироваться сейчас.";
+    else if (t >= 31) note.textContent = "Все окна открыты: адвент завершён.";
+    else note.textContent = "Открыто " + t + " из 31 окна. Следующее откроется завтра.";
+    note.classList.add("show");
+  }
+
+  function setTrack(t){
+    state.track = t;
+    forEach(document.querySelectorAll("[data-track]"), function(b){
+      b.setAttribute("aria-pressed", String(b.dataset.track === t));
+    });
+    closeModal();
+    renderGrid(); updateHUD(); updateHonestNote(); renderPrint();
+  }
+
+  function renderPrint(){
+    $("pTrack").textContent = state.track === "kids" ? "трек 12–15 лет · Следопыты" : "трек 16+ · Хранители";
+    $("certTrack").textContent = state.track === "kids" ? "12–15 лет" : "16+";
+    var grid = $("mapGrid");
+    grid.innerHTML = "";
+    for (var n = 1; n <= 31; n++){
+      var c = el("div", "map-cell");
+      if (state.done[state.track].has(n)) c.classList.add("on");
+      c.appendChild(el("b", "", String(n)));
+      c.appendChild(el("span", "", state.done[state.track].has(n) ? "★" : "☆"));
+      grid.appendChild(c);
+    }
+  }
+
+  function lockBook(){
+    var b = $("bookBox");
+    b.className = "book locked";
+    b.innerHTML = '<span class="lock-note">' + ICON.lock + 'Книга дня откроется после испытания</span>';
+  }
+  function unlockBook(book){
+    var b = $("bookBox");
+    b.className = "book";
+    b.innerHTML = "";
+    b.appendChild(el("div", "k", "Книга дня"));
+    b.appendChild(el("h3", "", book.title));
+    b.appendChild(el("div", "a", book.author));
+    b.appendChild(el("p", "n", book.note));
+  }
+
+  function cleanupTask(){
+    if (currentTask && currentTask.cleanup){
+      try { currentTask.cleanup(); } catch (e){}
+    }
+    currentTask = null;
+  }
+
+  function findDay(n){
+    for (var i = 0; i < DAYS.length; i++){ if (DAYS[i].n === n) return DAYS[i]; }
+    return null;
+  }
+
+  function openDay(n){
+    if (isLocked(n)){ toast(lockMessage(n)); return; }
+    var day = findDay(n);
+    state.current = n;
+    lastFocus = document.activeElement;
+    $("backdrop").hidden = false;
+    document.body.style.overflow = "hidden";
+    var modalBox = document.querySelector(".modal");
+    if (modalBox) modalBox.scrollTop = 0;
+    $("mDay").textContent = "Ночь " + n;
+    $("mDate").textContent = n + " декабря";
+    $("mLetter").innerHTML = "";
+    $("taskArea").innerHTML = "";
+    setFb("", "");
+    $("taskCard").hidden = false;
+    $("bookBox").hidden = false;
+    $("checkBtn").hidden = false;
+    $("checkBtn").disabled = true;
+    $("nextBtn").hidden = true;
+    cleanupTask();
+
+    if (!day){
+      $("mTitle").textContent = "Страница в реставрации";
+      $("mLetter").appendChild(el("p", "", "Эта страница ещё в переплёте: смотритель обещал вернуться к ней позже."));
+      $("mLetter").appendChild(el("p", "", "Открой любое другое окно — в календаре их тридцать одно."));
+      $("taskCard").hidden = true;
+      $("bookBox").hidden = true;
+      $("mClose").focus();
+      return;
+    }
+
+    var tr = state.track, content = day[tr];
+    $("mTitle").textContent = day.title;
+    content.letter.forEach(function(p){ $("mLetter").appendChild(el("p", "", p)); });
+
+    if (state.done[tr].has(n)){
+      $("taskArea").appendChild(el("p", "task-prompt", "Испытание уже пройдено."));
+      $("taskArea").appendChild(el("p", "done-note", "Звезда за этот день уже на карте. Можно перечитать письмо и открыть книгу дня."));
+      $("checkBtn").hidden = true;
+      unlockBook(content.book);
+      $("nextBtn").textContent = n === 31 ? "К сертификату →" : "Следующий день →";
+      $("nextBtn").hidden = false;
+    } else {
+      lockBook();
+      renderTask(day, tr);
+    }
+    $("mClose").focus();
+  }
+
+  function closeModal(){
+    if ($("backdrop").hidden) return;
+    cleanupTask();
+    $("backdrop").hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+    lastFocus = null;
+    state.current = null;
+  }
+
+  function lockMessage(n){
+    if (todayDay() === 0) return "Честный адвент начнётся 1 декабря. Выключи тумблер «Честный адвент», чтобы открыть окно сейчас.";
+    return "Это окно откроется " + n + " декабря.";
+  }
+
+  function fail(msg){
+    setFb(msg || "Пока не то. Прочитай ещё раз и попробуй снова.", "bad");
+    beep(false);
+  }
+
+  function solve(msg){
+    if (!currentTask || currentTask.finished) return;
+    currentTask.finished = true;
+    currentTask.check = null;
+    state.done[state.track].add(state.current);
+    $("checkBtn").hidden = true;
+    $("nextBtn").textContent = state.current === 31 ? "К сертификату →" : "Следующий день →";
+    $("nextBtn").hidden = false;
+    setFb(msg || "Страница возвращена! Звезда твоя. ★", "ok");
+    var day = findDay(state.current);
+    if (day) unlockBook(day[state.track].book);
+    updateHUD(); renderGrid(); renderPrint();
+    beep(true); sparks();
+    if (state.done[state.track].size === DAYS.length){
+      setTimeout(function(){
+        toast("Все 31 ночь пройдены! Книга Зимней Библиотеки собрана. Сертификат хранителя ждёт тебя — его можно распечатать.");
+      }, 900);
+    }
+  }
+
+  function renderTask(day, tr){
+    cleanupTask();
+    setFb("", "");
+    var data = day[tr].task;
+    currentTask = { data: data, check: null, cleanup: null, finished: false };
+    var area = $("taskArea");
+    area.innerHTML = "";
+    $("checkBtn").hidden = false;
+    $("checkBtn").disabled = true;
+    $("checkBtn").textContent = "Проверить";
+    $("nextBtn").hidden = true;
+    if (data.prompt) area.appendChild(el("p", "task-prompt", data.prompt));
+    if (data.type === "schulte") renderSchulte(data, area);
+    else if (data.type === "quiz") renderQuiz(data, area);
+    else if (data.type === "gaps") renderGaps(data, area);
+    else if (data.type === "tf") renderTF(data, area);
+    else if (data.type === "memory") renderMemory(data, area);
+    else if (data.type === "order") renderOrder(data, area);
+  }
+
+  function renderQuiz(d, area){
+    if (d.display) area.appendChild(el("div", "noisy", d.display));
+    var opts = el("div", "opts"), selected = null;
+    d.options.forEach(function(o, i){
+      var b = el("button", "opt");
+      b.type = "button";
+      b.dataset.id = o.id;
+      b.setAttribute("aria-pressed", "false");
+      b.appendChild(el("span", "key", String(i + 1)));
+      b.appendChild(el("span", "", o.text));
+      b.addEventListener("click", function(){
+        if (!currentTask || currentTask.finished) return;
+        selected = o.id;
+        forEach(opts.children, function(x){ x.setAttribute("aria-pressed", String(x === b)); });
+        $("checkBtn").disabled = false;
+      });
+      opts.appendChild(b);
+    });
+    area.appendChild(opts);
+    currentTask.check = function(){
+      if (selected === d.correct){
+        var b = opts.querySelector('[data-id="' + selected + '"]');
+        if (b) b.dataset.state = "ok";
+        solve();
+      } else {
+        var w = opts.querySelector('[data-id="' + selected + '"]');
+        if (w){
+          w.dataset.state = "bad";
+          setTimeout(function(){ if (w) delete w.dataset.state; }, 900);
+        }
+        fail(d.hint);
+      }
+    };
+  }
+
+  function renderGaps(d, area){
+    var text = el("div", "task-text"), blanks = {};
+    d.text.split(/(\{\d+\})/).forEach(function(p){
+      var m = p.match(/^\{(\d+)\}$/);
+      if (m){
+        var s = el("span", "blank", "…");
+        blanks[m[1]] = s;
+        text.appendChild(s);
+      } else if (p){
+        text.appendChild(document.createTextNode(p));
+      }
+    });
+    area.appendChild(text);
+    var answers = {};
+    d.gaps.forEach(function(g, idx){
+      var row = el("div", "gap-row");
+      row.appendChild(el("span", "gap-label", "Пропуск " + (idx + 1)));
+      var chips = el("div", "chips");
+      g.options.forEach(function(opt){
+        var c = el("button", "chip", opt);
+        c.type = "button";
+        c.setAttribute("aria-pressed", "false");
+        c.addEventListener("click", function(){
+          if (!currentTask || currentTask.finished) return;
+          answers[idx] = opt;
+          if (blanks[String(idx + 1)]) blanks[String(idx + 1)].textContent = opt;
+          forEach(chips.children, function(x){ x.setAttribute("aria-pressed", String(x === c)); });
+          $("checkBtn").disabled = Object.keys(answers).length < d.gaps.length;
+        });
+        chips.appendChild(c);
+      });
+      row.appendChild(chips);
+      area.appendChild(row);
+    });
+    currentTask.check = function(){
+      var ok = true;
+      d.gaps.forEach(function(g, i){ if (answers[i] !== g.correct) ok = false; });
+      if (ok) solve(); else fail(d.hint);
+    };
+  }
+
+  function renderTF(d, area){
+    if (d.text) area.appendChild(el("div", "task-text", d.text));
+    var wrap = el("div", "tf"), ans = {};
+    d.statements.forEach(function(s, i){
+      var item = el("div", "tf-item");
+      item.appendChild(el("p", "", s.text));
+      var bs = el("div", "tf-btns");
+      [["Правда", true], ["Ложь", false]].forEach(function(pair){
+        var c = el("button", "chip", pair[0]);
+        c.type = "button";
+        c.setAttribute("aria-pressed", "false");
+        c.addEventListener("click", function(){
+          if (!currentTask || currentTask.finished) return;
+          ans[i] = pair[1];
+          forEach(bs.children, function(x){ x.setAttribute("aria-pressed", String(x === c)); });
+          $("checkBtn").disabled = Object.keys(ans).length < d.statements.length;
+        });
+        bs.appendChild(c);
+      });
+      item.appendChild(bs);
+      wrap.appendChild(item);
+    });
+    area.appendChild(wrap);
+    currentTask.check = function(){
+      var ok = true;
+      d.statements.forEach(function(s, i){ if (ans[i] !== s.correct) ok = false; });
+      if (ok){ solve(); return; }
+      d.statements.forEach(function(s, i){
+        if (ans[i] !== s.correct){
+          var item = wrap.children[i];
+          item.style.borderColor = "var(--bad)";
+          setTimeout(function(){ item.style.borderColor = ""; }, 1200);
+        }
+      });
+      fail(d.hint);
+    };
+  }
+
+  function renderMemory(d, area){
+    var timer = el("div", "mem-timer", "Запоминай: " + d.seconds + " с");
+    var words = el("div", "mem-words");
+    d.words.forEach(function(w){ words.appendChild(el("div", "mem-word", w)); });
+    var skip = el("button", "btn ghost", "Запомнил(а), дальше");
+    skip.type = "button";
+    var show = el("div");
+    show.appendChild(timer);
+    show.appendChild(words);
+    show.appendChild(skip);
+    area.appendChild(show);
+    $("checkBtn").hidden = true;
+
+    var left = d.seconds, made = false;
+    var iv = setInterval(function(){
+      left--;
+      if (left <= 0){ clearInterval(iv); phase2(); }
+      else timer.textContent = "Запоминай: " + left + " с";
+    }, 1000);
+    if (currentTask) currentTask.cleanup = function(){ clearInterval(iv); };
+    skip.addEventListener("click", function(){ clearInterval(iv); phase2(); });
+
+    function phase2(){
+      if (made) return;
+      made = true;
+      if (currentTask) currentTask.cleanup = null;
+      show.remove();
+      var oldPrompt = area.querySelector(".task-prompt");
+      if (oldPrompt) oldPrompt.remove();
+      var p = el("p", "task-prompt", "Отметь слова, которые были в списке.");
+      var chips = el("div", "chips"), sel = {};
+      $("checkBtn").hidden = false;
+      $("checkBtn").disabled = true;
+      d.options.forEach(function(w){
+        var c = el("button", "chip", w);
+        c.type = "button";
+        c.setAttribute("aria-pressed", "false");
+        c.addEventListener("click", function(){
+          if (!currentTask || currentTask.finished) return;
+          if (sel[w]){ delete sel[w]; c.setAttribute("aria-pressed", "false"); }
+          else { sel[w] = true; c.setAttribute("aria-pressed", "true"); }
+          $("checkBtn").disabled = Object.keys(sel).length === 0;
+        });
+        chips.appendChild(c);
+      });
+      area.appendChild(p);
+      area.appendChild(chips);
+      if (currentTask){
+        currentTask.check = function(){
+          var chosen = Object.keys(sel);
+          var ok = chosen.length === d.words.length && d.words.every(function(w){ return sel[w]; });
+          if (ok){ solve(); return; }
+          forEach(chips.children, function(c){
+            var w = c.textContent;
+            if (d.words.indexOf(w) >= 0 && !sel[w]) c.dataset.state = "ok";
+            else if (sel[w]) c.dataset.state = "bad";
+          });
+          fail(d.hint);
+        };
+      }
+    }
+  }
+
+  function renderOrder(d, area){
+    var pool = el("div", "order-pool"), sel = [];
+    shuffle(d.pieces.slice()).forEach(function(p){
+      var b = el("button", "piece");
+      b.type = "button";
+      b.dataset.id = p.id;
+      b.setAttribute("aria-pressed", "false");
+      b.appendChild(el("span", "idx", ""));
+      b.appendChild(el("span", "", p.text));
+      b.addEventListener("click", function(){
+        if (!currentTask || currentTask.finished) return;
+        var pos = sel.indexOf(p.id);
+        if (pos >= 0){ sel.splice(pos, 1); b.setAttribute("aria-pressed", "false"); }
+        else { sel.push(p.id); b.setAttribute("aria-pressed", "true"); }
+        forEach(pool.children, function(x){
+          var i = sel.indexOf(x.dataset.id), badge = x.querySelector(".idx");
+          if (badge) badge.textContent = i >= 0 ? String(i + 1) : "";
+        });
+        $("checkBtn").disabled = sel.length !== d.pieces.length;
+      });
+      pool.appendChild(b);
+    });
+    area.appendChild(pool);
+
+    var reset = el("button", "chip", "Сбросить порядок");
+    reset.type = "button";
+    reset.style.marginTop = "10px";
+    reset.addEventListener("click", function(){
+      sel.length = 0;
+      $("checkBtn").disabled = true;
+      forEach(pool.children, function(x){
+        x.setAttribute("aria-pressed", "false");
+        var badge = x.querySelector(".idx");
+        if (badge) badge.textContent = "";
+      });
+    });
+    area.appendChild(reset);
+
+    currentTask.check = function(){
+      if (sel.join(",") === d.correct.join(",")) solve();
+      else fail(d.hint || "Порядок пока другой. Подумай, что должно случиться первым.");
+    };
+  }
+
+  function renderSchulte(d, area){
+    var nums = [], order = [], i;
+    for (i = 1; i <= 25; i++) nums.push(i);
+    shuffle(nums);
+    if (d.reverse){ for (i = 25; i >= 1; i--) order.push(i); }
+    else { for (i = 1; i <= 25; i++) order.push(i); }
+
+    var meta = el("div", "schulte-meta");
+    var find = el("span", "", "Ищи: " + order[0]);
+    var time = el("span", "", "0:00");
+    meta.appendChild(find);
+    meta.appendChild(time);
+    var grid = el("div", "schulte");
+    area.appendChild(meta);
+    area.appendChild(grid);
+
+    var idx = 0, started = 0;
+    var iv = setInterval(function(){
+      if (started) time.textContent = fmt((Date.now() - started) / 1000);
+    }, 250);
+    if (currentTask) currentTask.cleanup = function(){ clearInterval(iv); };
+    $("checkBtn").hidden = true;
+
+    nums.forEach(function(n){
+      var b = el("button", "", String(n));
+      b.type = "button";
+      b.addEventListener("click", function(){
+        if (!currentTask || currentTask.finished) return;
+        if (!started) started = Date.now();
+        if (n === order[idx]){
+          b.classList.add("hit");
+          b.disabled = true;
+          idx++;
+          if (idx >= order.length){
+            clearInterval(iv);
+            var secs = Math.max(1, Math.round((Date.now() - started) / 1000));
+            solve("Все 25 чисел за " + secs + " с. Страница возвращена!");
+            return;
+          }
+          find.textContent = "Ищи: " + order[idx];
+        } else {
+          b.classList.add("miss");
+          setTimeout(function(){ b.classList.remove("miss"); }, 400);
+          setFb("Не то число. Ищи " + order[idx] + ".", "bad");
+        }
+      });
+      grid.appendChild(b);
+    });
+  }
+
+  function goNext(){
+    var n = (state.current || 0) + 1;
+    if (n > 31){
+      closeModal();
+      var sec = document.getElementById("sertifikat");
+      if (sec) sec.scrollIntoView({behavior:"smooth", block:"start"});
+      toast("Все 31 ночь пройдены! Забери сертификат хранителя — его можно распечатать.");
+      return;
+    }
+    var exists = !!findDay(n);
+    if (!exists){
+      closeModal();
+      toast("Дальше страниц пока нет. Вернись к любому окну — всё открыто.");
+      return;
+    }
+    if (isLocked(n)){ closeModal(); toast(lockMessage(n)); return; }
+    openDay(n);
+  }
+
+  function trapTab(e){
+    var modal = document.querySelector(".modal");
+    if (!modal) return;
+    var list = Array.prototype.filter.call(
+      modal.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"),
+      function(x){ return !x.disabled && x.offsetParent !== null; }
+    );
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+  }
+
+  function onKeys(e){
+    if ($("backdrop").hidden) return;
+    if (e.key === "Tab"){ trapTab(e); return; }
+    if (e.key === "Escape"){ e.preventDefault(); closeModal(); return; }
+    if (e.key === "Enter" && !$("nextBtn").hidden){ e.preventDefault(); goNext(); return; }
+    if (e.key === " "){
+      var active = document.activeElement;
+      if (active && (active.tagName === "BUTTON" || active.tagName === "INPUT")) return;
+      if (!$("checkBtn").hidden && !$("checkBtn").disabled && currentTask && currentTask.check){
+        e.preventDefault();
+        currentTask.check();
+      }
+      return;
+    }
+    if (/^[1-9]$/.test(e.key) && currentTask && currentTask.data.type === "quiz"){
+      var opts = document.querySelectorAll("#taskArea .opt");
+      var b = opts[parseInt(e.key, 10) - 1];
+      if (b) b.click();
+    }
+  }
+
+  function onGridKeys(e){
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight" && e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+    var doors = Array.prototype.slice.call($("grid").querySelectorAll(".door"));
+    var i = doors.indexOf(document.activeElement);
+    if (i < 0) return;
+    e.preventDefault();
+    var rows = {}, firstRow = null;
+    doors.forEach(function(d, k){
+      if (!rows[d.offsetTop]) rows[d.offsetTop] = [];
+      rows[d.offsetTop].push(k);
+    });
+    firstRow = rows[doors[0].offsetTop] || [];
+    var cols = Math.max(1, firstRow.length), j = i;
+    if (e.key === "ArrowRight") j = Math.min(doors.length - 1, i + 1);
+    if (e.key === "ArrowLeft") j = Math.max(0, i - 1);
+    if (e.key === "ArrowDown") j = Math.min(doors.length - 1, i + cols);
+    if (e.key === "ArrowUp") j = Math.max(0, i - cols);
+    doors[j].focus();
+  }
+
+  function init(){
+    forEach(document.querySelectorAll("[data-track]"), function(b){
+      b.addEventListener("click", function(){ setTrack(b.dataset.track); });
+    });
+    $("honest").addEventListener("change", function(){
+      state.honest = this.checked;
+      renderGrid();
+      updateHUD();
+      updateHonestNote();
+      if (state.current && isLocked(state.current)) closeModal();
+    });
+    $("resetBtn").addEventListener("click", function(){
+      state.done[state.track].clear();
+      renderGrid(); updateHUD(); renderPrint();
+      toast("Прогресс этого трека сброшен. Можно начать заново.");
+    });
+    $("soundBtn").addEventListener("click", function(){
+      state.sound = !state.sound;
+      this.textContent = state.sound ? "Звук: вкл" : "Звук: выкл";
+      this.setAttribute("aria-pressed", String(state.sound));
+      if (state.sound) beep(true);
+    });
+    $("printBtn").addEventListener("click", function(){ window.print(); });
+    $("mClose").addEventListener("click", closeModal);
+    $("closeBtn").addEventListener("click", closeModal);
+    $("backdrop").addEventListener("click", function(e){ if (e.target === this) closeModal(); });
+    $("checkBtn").addEventListener("click", function(){
+      if (currentTask && currentTask.check) currentTask.check();
+    });
+    $("nextBtn").addEventListener("click", goNext);
+    $("grid").addEventListener("keydown", onGridKeys);
+    document.addEventListener("keydown", onKeys);
+
+    renderGrid();
+    updateHUD();
+    updateHonestNote();
+    renderPrint();
+  }
+
+  init();
+})();
+</script>
+</body>
+</html>
